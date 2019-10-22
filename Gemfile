@@ -55,6 +55,8 @@ group :test do
   gem 'chromedriver-helper'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.7'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
