@@ -8,3 +8,29 @@ body {
   width:243px;
   display: block;
 }
+
+#centered_checkup_buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: #00b1e8;
+  border: none;
+  color: white;
+  padding: 12px ;
+  font-size: 22px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: lightsteelblue;
+}
+
+.divider {
+  width: 10px;
+  height: auto;
+  display: inline-block;
+}
