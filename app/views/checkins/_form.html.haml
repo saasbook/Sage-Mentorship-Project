@@ -1,0 +1,25 @@
+= form_for @checkin do |f|
+  - if @checkin.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@checkin.errors.count, "error")} prohibited this checkin from being saved:"
+      %ul
+        - @checkin.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :checkin_time
+    = f.datetime_select :checkin_time
+  .field
+    = f.label :latitude
+    = f.text_field :latitude
+  .field
+    = f.label :longitude
+    = f.text_field :longitude
+  .field
+    = f.label :mentor
+    = f.text_field :mentor
+  .field
+    = f.label :school
+    = f.text_field :school
+  .actions
+    = f.submit 'Save'

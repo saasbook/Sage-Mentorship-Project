@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Checkout time:
+  = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S")
+%p
+  %b Latitude:
+  = @checkout.latitude
+%p
+  %b Longitude:
+  = @checkout.longitude
+%p
+  %b Mentor:
+  = @checkout.mentor.name
+%p
+  %b School:
+  = @checkout.school.name
+
+= link_to 'Edit', edit_checkout_path(@checkout)
+\|
+= link_to 'Back', checkouts_path
