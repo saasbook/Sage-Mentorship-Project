@@ -6,17 +6,27 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>""""""""""""""""""""
+
   </head>
 
   <body>
-  #main
-  - if flash[:notice]
-  %div.alert.alert-danger
-  #notice.message= flash[:notice]
-  - elsif flash[:warning]
-  %div.alert.alert-danger
-  #warning.message= flash[:warning]
-    <%= yield %>
+    <ul>
+        <li><a href=<%= admins_path %>>Admins</a></li>
+        <li><a href=<%= schools_path %>>Schools</a></li>
+        <li><a href=<%= mentors_path %>>Mentors</a></li>
+        <li><a href=<%= checkins_path %>>Checkins</a></li>
+        <li><a href=<%= checkouts_path %>>Checkouts</a></li>
+
+        <li style="float:right"><a href=<%= admin_checkin_path %>>Admin Check In</a></li>
+        <li style="float:right"><a href=<%= mentor_checkout_path %>>Mentor Check Out</a></li>
+        <li style="float:right"><a href=<%= mentor_checkin_path %>>Mentor Check In</a></li>
+
+    </ul>
+
+    <div style="padding:20px;margin-top:30px;height:1500px;">
+        <%= yield %>
+    </div>
   </body>
 </html>
+
