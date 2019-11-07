@@ -15,5 +15,4 @@ class Admin < ApplicationRecord
   def totalhours_list(start_of_week)
     self.school.totalhours_list(start_of_week)
   end
-
 end

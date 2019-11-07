@@ -10,57 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_212412) do
 
+ActiveRecord::Schema.define(version: 2019_10_31_070914) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "checkins", force: :cascade do |t|
-    t.datetime "checkin_time"
-    t.decimal "latitude"
-    t.decimal "longitude"
-    t.integer "mentor_id"
     t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mentor_id"], name: "index_checkins_on_mentor_id"
-    t.index ["school_id"], name: "index_checkins_on_school_id"
-  end
-
-  create_table "checkouts", force: :cascade do |t|
-    t.datetime "checkout_time"
-    t.decimal "latitude"
-    t.decimal "longitude"
-    t.integer "mentor_id"
-    t.integer "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["mentor_id"], name: "index_checkouts_on_mentor_id"
-    t.index ["school_id"], name: "index_checkouts_on_school_id"
+    t.index ["school_id"], name: "index_admins_on_school_id"
   end
 
   create_table "mentors", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.integer "school_id"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_mentors_on_school_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string "school_id"
+    t.string "checkin_time"
+    t.string "chekcout_time"
+    t.float "checkin_lat"
+    t.float "checkin_lon"
+    t.float "checkout_lat"
+    t.float "checkout_lon"
+    t.boolean "is_checkout"
+    t.integer "mentor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentor_id"], name: "index_reports_on_mentor_id"
+  end
+
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.decimal "latitude"
-    t.decimal "longitude"
-    t.integer "admin_id"
+    t.float "lat"
+    t.float "lon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_schools_on_admin_id"
   end
 
 end

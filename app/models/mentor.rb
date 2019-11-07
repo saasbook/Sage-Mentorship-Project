@@ -1,6 +1,6 @@
 class Mentor < ApplicationRecord
   belongs_to :school
-  has_many :checkins
+  has_many :reports, dependent: :destroy
 
   before_save {self.email = email.downcase}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -45,5 +45,4 @@ class Mentor < ApplicationRecord
     end
     {num_hours: (duration / 1.hour), forgot_checkout: forgot_checkout}
   end
-
 end
