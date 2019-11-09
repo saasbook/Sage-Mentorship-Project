@@ -1,0 +1,69 @@
+-#
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Sage Mentorship Check-in Application</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>""""""""""""""""""""
+
+  </head>
+
+  <body>
+    <ul>
+        <li><a href=<%= admins_path %>>Admins</a></li>
+        <li><a href=<%= schools_path %>>Schools</a></li>
+        <li><a href=<%= mentors_path %>>Mentors</a></li>
+        <li><a href=<%= checkins_path %>>Checkins</a></li>
+        <li><a href=<%= checkouts_path %>>Checkouts</a></li>
+
+        <li style="float:right"><a href=<%= admin_checkin_path %>>Admin Check In</a></li>
+        <li style="float:right"><a href=<%= mentor_checkout_path %>>Mentor Check Out</a></li>
+        <li style="float:right"><a href=<%= mentor_checkin_path %>>Mentor Check In</a></li>
+
+    </ul>
+
+    <div style="padding:20px;margin-top:30px;height:1500px;">
+        <%= yield %>
+    </div>
+  </body>
+  </html>
+!!! 5
+%html
+  %head
+    %link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous")
+    %title Sage Mentorship Check-in Application
+    %meta{:name => "google-signin-client_id", :content  => "874482834971-lqadmntua28ak3td8hkktbgphjheitnu.apps.googleusercontent.com"}
+    = stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    %body
+      %ul
+        %li
+          = link_to image_tag('/sage_logo_2.jpg'), '/index'
+        %li.dropdown_left
+          %a.dropbtn Tables
+          .dropdown-content
+            %a{:href => "#"} Schools
+            %a{:href => "#"} Mentors
+            %a{:href => "#"} Admins
+        %li.dropdown_right
+          %a.dropbtn User
+          .dropdown-content
+            = google_sign_in_button 'Sign in with Google', proceed_to: 'http://localhost:3000/login/create', prompt: 'select_account'
+            %a{:href => "#"} Sign Out
+
+        #main
+          - if flash[:notice]
+            %div.alert.alert-danger
+              #notice.message= flash[:notice]
+          - elsif flash[:warning]
+            %div.alert.alert-danger
+              #warning.message= flash[:warning]
+
+
+
+

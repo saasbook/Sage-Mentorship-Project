@@ -1,12 +1,12 @@
 class School < ApplicationRecord
-  belongs_to :admin
+  #belongs_to :admin
   has_many :mentors
   has_many :checkins
 
   validates :name, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 100}
   validates :address, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 300}
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  validates :lat, presence: true
+  validates :lon, presence: true
 
   # return the list of totalhours = {num_hours, forgot_checkout}
   # for all mentors in the specific week for the school
