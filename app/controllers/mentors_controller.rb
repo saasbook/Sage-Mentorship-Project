@@ -13,6 +13,7 @@ class MentorsController < ApplicationController
   # GET /mentors.json
   def index
     @mentors = Mentor.all
+    Rails.logger.debug params.keys
   end
 
   # GET /mentors/1

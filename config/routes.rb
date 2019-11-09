@@ -5,11 +5,17 @@ Rails.application.routes.draw do
   resources :checkins
   resources :admins
   resources :schools
-  resources :mentors
+
+  # for signed-in-user main page
+  get 'mentors/:id' => 'mentors#index', :as => 'mentor'
+  get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
+  resources :mentors, except: [:index, :show]
 
   # for google_sign_in checks
   get 'login', to: 'logins#new'
   get 'login/create', to: 'logins#create', as: :create_login
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

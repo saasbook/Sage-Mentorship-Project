@@ -1,25 +1,32 @@
-%h1 Listing mentors
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th School
-      %th
-      %th
-      %th
+%button.block Check In
+%button.block Check Out
 
-  %tbody
-    - @mentors.each do |mentor|
+
+
+-# commenting out temporarily. This is what Choi had for admin views originally. May still need for that.
+  %h1 Listing mentors
+
+  %table
+    %thead
       %tr
-        %td= mentor.name
-        %td= mentor.email
-        %td= mentor.school.name
-        %td= link_to 'Show', mentor
-        %td= link_to 'Edit', edit_mentor_path(mentor)
+        %th Name
+        %th Email
+        %th School
+        %th
+        %th
+        %th
+
+    %tbody
+    - @mentors.each do |mentor|
+        %tr
+          %td= mentor.name
+          %td= mentor.email
+          %td= mentor.school.name
+          %td= link_to 'Show', mentor
+          %td= link_to 'Edit', edit_mentor_path(mentor)
         %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
+  %br
 
-= link_to 'New Mentor', new_mentor_path
+  = link_to 'New Mentor', new_mentor_path
