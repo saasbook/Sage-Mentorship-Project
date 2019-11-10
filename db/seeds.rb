@@ -9,7 +9,8 @@
 admins = [
 {name:'Darain Noveir', email:'bam@sagementorship.org', school: 'Berkeley Arts Magnet School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'}
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'},
+{name:'Nick Test Admin', email:'nwruhman@gmail.com', school: 'Berkeley Arts Magnet School'}
 ]
 
 schools = [
