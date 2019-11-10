@@ -106,6 +106,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
     ffi (1.11.1-x64-mingw32)
+    geocoder (1.5.2)
     gherkin (5.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -281,6 +282,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   duktape
+  geocoder
   google_sign_in
   haml
   haml-rails

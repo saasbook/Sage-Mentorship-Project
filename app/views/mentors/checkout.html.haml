@@ -1,1 +1,5 @@
 %h1 Mentor Check Out Page
+= collection_select :dropdown, :mentor_validate_checkout_path, School.all, :id, :name, {}, { class: 'form-control', :style => "width:500px"}
+%p
+= link_to 'Check Out',mentor_validate_checkout_path, :class => 'btn btn-success'
+= link_to 'Back', mentor_path, :class => 'btn btn-danger'
