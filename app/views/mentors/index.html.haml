@@ -1,12 +1,13 @@
 
-%button.block Check In
-%button.block Check Out
+-#%button.block{:on_click => "www.google.com", :data => {:author_id => 123, :category => 7}} Check In 
 
+-#%button.block Check Out
 
+=link_to "Check In", mentor_checkin_path , class: "btn btn block"
+=link_to "Check Out", mentor_checkout_url, class: "btn btn block"
 
 -# commenting out temporarily. This is what Choi had for admin views originally. May still need for that.
   %h1 Listing mentors
-
   %table
     %thead
       %tr

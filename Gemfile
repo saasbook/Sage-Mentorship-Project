@@ -6,6 +6,7 @@ ruby '2.4.7'
 gem 'haml'
 gem 'haml-rails'
 gem 'google_sign_in'
+gem 'geocoder'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'

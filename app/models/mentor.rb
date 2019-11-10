@@ -1,6 +1,7 @@
 class Mentor < ApplicationRecord
   belongs_to :school
-  has_many :reports, dependent: :destroy
+  has_many :checkins, dependent: :destroy
+  has_many :checkouts, dependent: :destroy
 
   before_save {self.email = email.downcase}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

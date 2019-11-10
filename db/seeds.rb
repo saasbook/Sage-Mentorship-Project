@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admins = [
+
 {name:'Darain Noveir', email:'bam@sagementorship.org', school: 'Berkeley Arts Magnet School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school: 'Emerson Elementary School'},
 {name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'},
@@ -20,6 +21,7 @@ schools = [
 ]
 
 mentors = [
+{name:'Raj Giri', email:'freedomcomets@berkeley.edu', school: 'Berkeley Arts Magnet School'},
 {name:'Emma Sandoval', school:'Berkeley Arts Magnet School', email:'es@berkeley.edu'},
 {name:'Bradley Smythe', school:'Berkeley Arts Magnet School', email:'bs@berkeley.edu'},
 {name:'Diana Hansen', school:'Emerson Elementary School', email:'dh@berkeley.edu'},
