@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_11_10_231715) do
   end
 
   create_table "checkins", force: :cascade do |t|
-    t.string "time"
+    t.datetime "checkin_time"
     t.string "lat"
     t.string "lon"
     t.integer "mentor_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_11_10_231715) do
   end
 
   create_table "checkouts", force: :cascade do |t|
-    t.string "time"
+    t.datetime "checkout_time"
     t.string "lat"
     t.string "lon"
     t.integer "mentor_id"

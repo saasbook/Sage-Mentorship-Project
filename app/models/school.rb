@@ -22,4 +22,5 @@ class School < ApplicationRecord
     end
     result
   end
+
 end

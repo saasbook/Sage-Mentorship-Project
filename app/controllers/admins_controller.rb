@@ -16,9 +16,9 @@ class AdminsController < ApplicationController
   def show
 
     @present_week = Time.current.beginning_of_week.utc
-    @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
+    #@week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
 
-    @totalhours_list = @admin.totalhours_list(@week_of)
+    @totalhours_list = @admin.totalhours_list(@present_week)
 
   end
 

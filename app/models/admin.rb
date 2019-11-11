@@ -1,5 +1,5 @@
 class Admin < ApplicationRecord
-  has_one :school
+  #has_one :school
 
   before_save {self.email = email.downcase}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -13,6 +13,8 @@ class Admin < ApplicationRecord
   # for all mentors in the specific week for the school of this admin
 
   def totalhours_list(start_of_week)
-    self.school.totalhours_list(start_of_week)
+    if @school = School.find(self.school_id)
+      @school.totalhours_list(start_of_week)
+    end
   end
 end

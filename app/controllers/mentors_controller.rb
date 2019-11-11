@@ -104,7 +104,7 @@ class MentorsController < ApplicationController
     @mentor = Mentor.find(params[:id])
     @lat = request.location.latitude
     @lon = request.location.longitude
-    @chk_in = Checkin.new(:mentor => @mentor, :school_id =>@mentor.school_id, :time=> Time.current, :lat => @lat, :lon => @lon)
+    @chk_in = Checkin.new(:mentor => @mentor, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful' 
     else
@@ -117,7 +117,7 @@ class MentorsController < ApplicationController
     @mentor = Mentor.find(params[:id])
     @lat = request.location.latitude
     @lon = request.location.longitude
-    @chk_in = Checkout.new(:mentor => @mentor, :school_id =>@mentor.school_id, :time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
+    @chk_in = Checkout.new(:mentor => @mentor, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_in.save
         flash[:notice] = 'Checkout succesful' 
     else

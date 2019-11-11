@@ -8,10 +8,10 @@
 
 admins = [
 
-{name:'Darain Noveir', email:'bam@sagementorship.org', school: 'Berkeley Arts Magnet School'},
-{name:'Sweta Parija', email:'emerson@sagementorship.org', school: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'},
-{name:'Nick Test Admin', email:'nwruhman@gmail.com', school: 'Berkeley Arts Magnet School'}
+{name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
+{name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
+{name:'Nick Test Admin', email:'nwruhman@gmail.com', school_id: 'Berkeley Arts Magnet School'}
 ]
 
 schools = [
@@ -63,7 +63,7 @@ schools.each do |school|
 end
 
 admins.each do |admin|
-  admin[:school] = School.where(name: admin[:school_name]).first
+  admin[:school_id] = School.where(name: admin[:school_id]).first.id
   Admin.create!(admin)
 end
 

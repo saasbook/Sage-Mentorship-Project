@@ -6,9 +6,10 @@
 %p
   %b Email:
   = @admin.email
-%p
-  %b School:
-  = @admin.school.name
+-#
+  %p
+    %b School:
+    = @school.name
 
 %br
 %br
@@ -16,18 +17,18 @@
   %b Present Week:
   = @present_week.strftime("%m/%d/%Y")
 
-%p
-  %b Week of:
-  = @week_of.strftime("%m/%d/%Y")
+-#
+  %p
+    %b Week of:
+    = @week_of.strftime("%m/%d/%Y")
 
 %br
 %table
   %thead
     %tr
       %th Mentor
-      %th School
+      -#%th School
       %th Total Hours
-      %th
       %th Forgot Checkout?
       %th
       %th
@@ -38,12 +39,11 @@
       - mentor = r[:mentor]
       - num_hours = r[:num_hours]
       - forgot_checkout = r[:forgot_checkout]
-      %tr
+      %tr.table_row
         %td= mentor.name
-        %td= mentor.school.name
+        -#%td= mentor.school.name
         %td= num_hours
-        %td
-        %td= "Yes" if forgot_checkout
+        %td= forgot_checkout ? "Yes" : "-"
         %td= link_to 'Show', mentor
         %td= link_to 'Edit', edit_mentor_path(mentor)
         %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: 'Are you sure?' }
