@@ -89,25 +89,10 @@ class MentorsController < ApplicationController
   #checkin controller
   def checkin
     @mentor = Mentor.find(params[:id])
-    
-  end
-  #checkout controller
-  def checkout
-    @mentor = Mentor.find(params[:id])
-    
-  end
-
-
-  def appointment
-    @mentor = Mentor.find(params[:id])
-  end
-
-  #validated the location and redirect to validates page confirming the checkin/checkout
-  def validate_checkin
-    #@mentor = Mentor.find(params[:id])
+    puts @mentor.name
     @lat = request.location.latitude
     @lon = request.location.longitude
-    @chk_in = Checkin.new(:mentor => @mentor, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful' 
     else
@@ -116,11 +101,12 @@ class MentorsController < ApplicationController
     end
     
   end
-  def validate_checkout
+  #checkout controller
+  def checkout
     @mentor = Mentor.find(params[:id])
     @lat = request.location.latitude
     @lon = request.location.longitude
-    @chk_in = Checkout.new(:mentor => @mentor, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
+    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_in.save
         flash[:notice] = 'Checkout succesful' 
     else
@@ -129,6 +115,13 @@ class MentorsController < ApplicationController
     end
     
   end
+
+
+  def appointment
+    @mentor = Mentor.find(params[:id])
+  end
+
+ 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mentor

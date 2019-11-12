@@ -13,7 +13,8 @@ admins = [
 ]
 
 supers = [
-{name:'Nick Test Super', email:'nwruhman@gmail.com'}
+{name:'Nick Test Super', email:'nwruhman@gmail.com'},
+{name:'Nick Test Super', email:'freedomcomets@gmail.com'}
 ]
 
 schools = [

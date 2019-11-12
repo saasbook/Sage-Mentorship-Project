@@ -1,9 +1,4 @@
 %p
+%h1 Validate page
 %p
-%h2 Mentor Check In Page
-
-= collection_select :dropdown, :mentor_validate_checkin_path, School.all, :id, :name, {}, { class: 'form-control', :style => "width:500px"}
-%p
-= link_to 'Check In',mentor_validate_checkin_path, :class => 'btn btn-success'
-= link_to 'Back', mentor_path, :class => 'btn btn-danger'
-
+%h2 #{@mentor.name} successfully checked in at #{@chk_in.checkin_time}

@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
   get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
 
-  get '/mentors/:id/validate_checkin', to: 'mentors#validate_checkin', as:'mentor_validate_checkin'
-  get '/mentors/:id/validate_checkout', to: 'mentors#validate_checkout', as:'mentor_validate_checkout'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/admin/checkin', to: 'admins#checkin', as: 'admin_checkin'
