@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
 
+
   #get 'users/root'
   resources :checkouts
   resources :checkins
   resources :admins
   resources :schools
+  resources :supers
 
   # for signed-in-user main page
-  get 'mentors/:id' => 'mentors#index', :as => 'mentor'
+  get 'mentors/' => 'mentors#index', :as => 'mentors'
+  get 'mentors/:id' => 'mentors#appointment', :as => 'mentor'
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
   resources :mentors, except: [:index, :show]
 

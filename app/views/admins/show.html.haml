@@ -1,21 +1,22 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @admin.name
-%p
-  %b Email:
-  = @admin.email
 -#
+  %p
+    %b Name:
+    = @admin.name
+  %p
+    %b Email:
+    = @admin.email
+
   %p
     %b School:
     = @school.name
 
-%br
-%br
-%p
-  %b Present Week:
-  = @present_week.strftime("%m/%d/%Y")
+  %br
+  %br
+  %p
+    %b Present Week:
+    = @present_week.strftime("%m/%d/%Y")
 
 -#
   %p
@@ -24,6 +25,7 @@
 
 %br
 %table
+  %caption= @school.name + ' Activity, week of: ' + @present_week.strftime("%m/%d/%Y")
   %thead
     %tr
       %th Mentor

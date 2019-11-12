@@ -1,0 +1,36 @@
+-#%h1 source freefrontend.com/css-tabs/
+.tabs
+
+  %input#tab1{:checked => "checked", :name => "tab-control", :type => "radio"}/
+  %input#tab2{:name => "tab-control", :type => "radio"}/
+  %input#tab3{:name => "tab-control", :type => "radio"}/
+  %input#tab4{:name => "tab-control", :type => "radio"}/
+
+  %ul
+    %li{:title => "Mentors"}
+      %label{:for => "tab1", :role => "button"}
+        %span Mentors
+    %li{:title => "Schools"}
+      %label{:for => "tab2", :role => "button"}
+        %span Schools
+    %li{:title => "Admins"}
+      %label{:for => "tab3", :role => "button"}
+        %span Admins
+    %li{:title => "Supers"}
+      %label{:for => "tab4", :role => "button"}
+        %span Supers
+  .slider
+    .indicator
+  .content
+    %section
+      %h2> Mentors
+      = render :partial => '/mentors/index', :locals => { :mentors => @mentors }
+    %section
+      %h2 Schools
+      = render :partial => '/schools/index', :locals => { :schools => @schools }
+    %section
+      %h2 Admins
+      = render :partial => '/admins/index', :locals => { :admins => @admins }
+    %section
+      %h2 Supers
+      = render :partial => '/supers/index', :locals => { :admins => @supers }

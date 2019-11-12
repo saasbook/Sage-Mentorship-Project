@@ -15,25 +15,30 @@
  */
 
 /* Styling source citation: http://w3schools.com css navbar examples. */
-body {margin:0; padding-top: 85px;}
+
+/* colors */
+$navbar_background: #213345;
+$navbar_border: #4c6a92;
+$navbar_font: #ffffff;
 
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: visible;
-    background-color: #f3f3f3;
-    border: 1px solid #e7e7e7;
+    background-color: $navbar_background;
+    border: 1px solid $navbar_border;
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 li {
     float: left;
     display: inline-block;
     font-size: 32px;
-    color: #666666;
+    color: $navbar_font;
     text-align: center;
     line-height: 75px;
 }
@@ -74,8 +79,12 @@ li a:hover, .dropdown_left:hover, .dropdown_right:hover {
 
 .dropdown_left:hover .dropdown-content, .dropdown_right:hover .dropdown-content {
     display: block;
+
 }
 
 .dropdown_right:hover .dropdown-content {
     right: 0;
+    z-index: 1;
 }
+
+body {margin:0; padding-top: 65px; #background-color: $navbar_background;}

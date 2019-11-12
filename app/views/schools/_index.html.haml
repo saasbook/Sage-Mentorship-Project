@@ -1,10 +1,8 @@
-%h1 Listing schools
 
 %table
   %thead
     %tr
       %th Name
-      %th Admin
       %th Address
       %th Latitude
       %th Longitude
@@ -16,10 +14,9 @@
     - @schools.each do |school|
       %tr
         %td= school.name
-        %td= school.admin.name
         %td= school.address
-        %td= school.latitude
-        %td= school.longitude
+        %td= school.lat
+        %td= school.lon
         %td= link_to 'Show', school
         %td= link_to 'Edit', edit_school_path(school)
         %td= link_to 'Destroy', school, method: :delete, data: { confirm: 'Are you sure?' }

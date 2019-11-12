@@ -1,0 +1,23 @@
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th School
+      %th
+      %th
+      %th
+
+  %tbody
+    - @mentors.each do |mentor|
+      %tr
+        %td= mentor.name
+        %td= mentor.email
+        %td= mentor.school.name
+        %td= link_to 'Show', mentor
+        %td= link_to 'Edit', edit_mentor_path(mentor)
+        %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+= link_to 'New Mentor', new_mentor_path

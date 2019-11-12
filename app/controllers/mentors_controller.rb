@@ -97,11 +97,14 @@ class MentorsController < ApplicationController
     
   end
 
-  #validated the location and redirect to validates page confirming the checkin/checkout
 
-
-  def validate_checkin
+  def appointment
     @mentor = Mentor.find(params[:id])
+  end
+
+  #validated the location and redirect to validates page confirming the checkin/checkout
+  def validate_checkin
+    #@mentor = Mentor.find(params[:id])
     @lat = request.location.latitude
     @lon = request.location.longitude
     @chk_in = Checkin.new(:mentor => @mentor, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)

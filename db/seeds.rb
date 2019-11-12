@@ -7,11 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admins = [
-
 {name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
-{name:'Nick Test Admin', email:'nwruhman@gmail.com', school_id: 'Berkeley Arts Magnet School'}
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'}
+]
+
+supers = [
+{name:'Nick Test Super', email:'nwruhman@gmail.com'}
 ]
 
 schools = [
@@ -28,7 +30,7 @@ mentors = [
 {name:'Kyler Ochoa', school:'Jefferson Elementary School', email:'ko@berkeley.edu'},
 {name:'Joseph Gonzalez', school:'Jefferson Elementary School', email:'jg@berkeley.edu'},
 {name:'Stephanie Brooks', school:'Jefferson Elementary School', email:'sb@berkeley.edu'},
-{name: 'Nick Ruhman', school: 'Berkeley Arts Magnet School', email: 'nwruhman@berkeley.edu'}
+{name: 'Nick Test Mentor', school: 'Berkeley Arts Magnet School', email: 'nwruhman@berkeley.edu'}
 ]
 
 reports = [
@@ -56,6 +58,7 @@ Report.delete_all
 Mentor.delete_all
 School.delete_all
 Admin.delete_all
+Super.delete_all
 
 
 schools.each do |school|
@@ -70,6 +73,10 @@ end
 mentors.each do |mentor|
   mentor[:school] = School.where(name: mentor[:school]).first
   Mentor.create!(mentor)
+end
+
+supers.each do |super_user|
+  Super.create!(super_user)
 end
 
 =begin

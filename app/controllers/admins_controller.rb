@@ -17,7 +17,7 @@ class AdminsController < ApplicationController
 
     @present_week = Time.current.beginning_of_week.utc
     #@week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
-
+    @school = School.find(@admin.school_id)
     @totalhours_list = @admin.totalhours_list(@present_week)
 
   end

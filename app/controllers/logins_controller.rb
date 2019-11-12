@@ -33,6 +33,6 @@ class LoginsController < ApplicationController
   def find_user(user_token)
     user = Mentor.find_by email: GoogleSignIn::Identity.new(user_token).email_address
     user ||= Admin.find_by email: GoogleSignIn::Identity.new(user_token).email_address
-
+    user ||= Super.find_by email: GoogleSignIn::Identity.new(user_token).email_address
   end
 end
