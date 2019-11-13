@@ -38,7 +38,7 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+        format.html { redirect_back(fallback_location: root_path, notice: 'Admin was successfully created.') }
         format.json { render :show, status: :created, location: @admin }
       else
         format.html { render :new }
@@ -66,7 +66,7 @@ class AdminsController < ApplicationController
   def destroy
     @admin.destroy
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Admin was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -79,6 +79,6 @@ class AdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params.require(:admin).permit(:name, :email)
+      params.require(:admin).permit(:name, :email, :school_id)
     end
 end

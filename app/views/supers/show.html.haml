@@ -30,7 +30,7 @@
       = render :partial => '/schools/index', :locals => { :schools => @schools }
     %section
       %h2 Admins
-      = render :partial => '/admins/index', :locals => { :admins => @admins }
+      = render :partial => '/admins/index', :locals => { :admins => @admins, :super => self }
     %section
       %h2 Supers
       = render :partial => '/supers/index', :locals => { :admins => @supers }

@@ -12,5 +12,8 @@
   .field
     = f.label :email
     = f.text_field :email
+  .field
+    = f.label :school_id
+    = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
   .actions
     = f.submit 'Save'
