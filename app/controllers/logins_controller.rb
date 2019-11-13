@@ -5,6 +5,7 @@ class LoginsController < ApplicationController
   def create
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
+      flash[:notice] = user
       redirect_to user
     else
       redirect_to new_session_url, alert: 'authentication_failed'
