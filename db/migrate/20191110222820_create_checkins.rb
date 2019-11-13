@@ -1,7 +1,7 @@
 class CreateCheckins < ActiveRecord::Migration[5.2]
   def change
     create_table :checkins do |t|
-      t.string :time
+      t.string :checkin_time
       t.string :lat
       t.string :lon
       t.references :mentor, foreign_key: true
