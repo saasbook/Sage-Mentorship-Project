@@ -54,7 +54,7 @@ reports = [
 {type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420}
 ]
 
-Report.delete_all
+
 Mentor.delete_all
 School.delete_all
 Admin.delete_all
