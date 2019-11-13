@@ -13,8 +13,7 @@ admins = [
 ]
 
 supers = [
-{name:'Nick Test Super', email:'nwruhman@gmail.com'},
-{name:'Nick Test Super', email:'freedomcomets@gmail.com'}
+
 ]
 
 schools = [
@@ -31,7 +30,7 @@ mentors = [
 {name:'Kyler Ochoa', school:'Jefferson Elementary School', email:'ko@berkeley.edu'},
 {name:'Joseph Gonzalez', school:'Jefferson Elementary School', email:'jg@berkeley.edu'},
 {name:'Stephanie Brooks', school:'Jefferson Elementary School', email:'sb@berkeley.edu'},
-{name: 'Nick Test Mentor', school: 'Berkeley Arts Magnet School', email: 'nwruhman@berkeley.edu'}
+
 ]
 
 reports = [
