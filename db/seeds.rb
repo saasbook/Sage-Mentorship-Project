@@ -56,9 +56,9 @@ reports = [
 
 
 Mentor.delete_all
-School.delete_all
 Admin.delete_all
 Super.delete_all
+School.delete_all
 
 
 schools.each do |school|
