@@ -1,0 +1,2 @@
+class Super < ApplicationRecord
+end

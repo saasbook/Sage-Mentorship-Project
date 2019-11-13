@@ -1,0 +1,35 @@
+%p#notice= notice
+
+
+%p
+  %b Mentor:
+  = @checkin.mentor.name
+%p
+  %b School:
+  = @checkin.school.name
+
+%p
+  %b Checkin time:
+  = @checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
+%p
+  %b Latitude:
+  = @checkin.latitude
+%p
+  %b Longitude:
+  = @checkin.longitude
+
+%p
+  %b Checkout time:
+  = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless @checkout.nil?
+%p
+  %b Latitude:
+  = @checkout.latitude unless @checkout.nil?
+%p
+  %b Longitude:
+  = @checkout.longitude unless @checkout.nil?
+
+
+
+= link_to 'Edit', edit_checkin_path(@checkin)
+\|
+= link_to 'Back', checkins_path
