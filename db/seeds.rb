@@ -13,7 +13,7 @@ admins = [
 ]
 
 supers = [
-    {name:'Megan Bendicto', email:'nwruhman@berkeley.edu'}
+    {name:'test su', email:'blank@sagementorship.berkeley.edu'}
 ]
 
 schools = [
