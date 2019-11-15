@@ -44,6 +44,10 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 3.7'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'guard-cucumber'
+  gem 'guard-shell'
 end
 
 group :development do
