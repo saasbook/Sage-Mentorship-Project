@@ -1,4 +1,5 @@
 class MentorsController < ApplicationController
+
   before_action :set_mentor, only: [:show, :edit, :update, :destroy]
 
   # GET /mentor/checkin
@@ -49,6 +50,7 @@ class MentorsController < ApplicationController
   # POST /mentors
   # POST /mentors.json
   def create
+    puts param['data']
     @mentor = Mentor.new(mentor_params)
 
     respond_to do |format|
@@ -87,14 +89,16 @@ class MentorsController < ApplicationController
   end
 
   #checkin controller
-  def checkin
+  def checkin_loc
+    puts "-------heere-------"
+    puts params
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
-    @lat = request.location.latitude
-    @lon = request.location.longitude
+    @lat = params[:lat]
+    @lon = params[:lon]
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
     if @chk_in.save
-        flash[:notice] = 'Checkin succesful' 
+        #flash[:notice] = 'Checkin succesful' 
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
@@ -102,25 +106,41 @@ class MentorsController < ApplicationController
     
   end
   #checkout controller
-  def checkout
+
+
+  def checkout_loc
+    puts "-------heere-------"
+    puts params
     @mentor = Mentor.find(params[:id])
-    @lat = request.location.latitude
-    @lon = request.location.longitude
+    @lat = params[:lat]
+    @lon = params[:lon]
     @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_in.save
-        flash[:notice] = 'Checkout succesful' 
+        #flash[:notice] = 'Checkout succesful' 
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
     end
     
   end
-
-
-  def appointment
-    @mentor = Mentor.find(params[:id])
+  def checkin
+   @mentor = Mentor.find(params[:id])
+   @time = Time.current
   end
 
+  def checkout
+   @mentor = Mentor.find(params[:id])
+   @time = Time.current
+  end
+  def appointment
+    @mentor = Mentor.find(params[:id])
+    session['user_id'] = @mentor.id
+  end
+
+  def get_loc
+    puts "----Here----"
+    puts params
+  end
  
   private
     # Use callbacks to share common setup or constraints between actions.
