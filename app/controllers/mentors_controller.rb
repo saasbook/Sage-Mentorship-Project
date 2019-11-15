@@ -96,7 +96,7 @@ class MentorsController < ApplicationController
     puts @mentor.name
     @lat = params[:lat]
     @lon = params[:lon]
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
         #flash[:notice] = 'Checkin succesful' 
     else
@@ -114,7 +114,7 @@ class MentorsController < ApplicationController
     @mentor = Mentor.find(params[:id])
     @lat = params[:lat]
     @lon = params[:lon]
-    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
+    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_in.save
         #flash[:notice] = 'Checkout succesful' 
     else
@@ -125,12 +125,12 @@ class MentorsController < ApplicationController
   end
   def checkin
    @mentor = Mentor.find(params[:id])
-   @time = Time.current
+   @time = Time.now
   end
 
   def checkout
    @mentor = Mentor.find(params[:id])
-   @time = Time.current
+   @time = Time.now
   end
   def appointment
     @mentor = Mentor.find(params[:id])
