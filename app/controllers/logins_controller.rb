@@ -5,6 +5,7 @@ class LoginsController < ApplicationController
   def create
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
+      session['mentor_id'] = user.id
       flash[:notice] = user
       redirect_to user
     else
@@ -33,6 +34,7 @@ class LoginsController < ApplicationController
   private
   def find_user(user_token)
     user = Mentor.find_by email: GoogleSignIn::Identity.new(user_token).email_address
+
     user ||= Admin.find_by email: GoogleSignIn::Identity.new(user_token).email_address
     user ||= Super.find_by email: GoogleSignIn::Identity.new(user_token).email_address
   end

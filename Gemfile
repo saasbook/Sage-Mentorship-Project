@@ -8,6 +8,7 @@ gem 'haml-rails'
 gem 'google_sign_in'
 gem 'geocoder'
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use Puma as the app server
