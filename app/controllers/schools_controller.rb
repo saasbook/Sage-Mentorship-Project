@@ -31,10 +31,10 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(school_params)
-
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @school.save
-        format.html { redirect_to @school, notice: 'School was successfully created.' }
+        format.html { redirect_to @current_user, notice: "School '#{@school.name}' was successfully created." }
         format.json { render :show, status: :created, location: @school }
       else
         format.html { render :new }
@@ -46,9 +46,10 @@ class SchoolsController < ApplicationController
   # PATCH/PUT /schools/1
   # PATCH/PUT /schools/1.json
   def update
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @school.update(school_params)
-        format.html { redirect_to @school, notice: 'School was successfully updated.' }
+        format.html { redirect_to @current_user, notice: "#{@school.name}' was successfully updated." }
         format.json { render :show, status: :ok, location: @school }
       else
         format.html { render :edit }
@@ -61,8 +62,9 @@ class SchoolsController < ApplicationController
   # DELETE /schools/1.json
   def destroy
     @school.destroy
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
-      format.html { redirect_to schools_url, notice: 'School was successfully destroyed.' }
+      format.html { redirect_to @current_user, notice: "#{@school.name} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -75,6 +77,6 @@ class SchoolsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
-      params.require(:school).permit(:name, :address, :latitude, :longitude, :admin_id)
+      params.require(:school).permit(:name, :address, :lat, :lon)
     end
 end
