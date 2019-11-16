@@ -5,7 +5,7 @@ class LoginsController < ApplicationController
   def create
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
-      session['mentor_id'] = user.id
+      session[:user_id] = user.id
       flash[:notice] = user
       redirect_to user
     else
