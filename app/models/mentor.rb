@@ -1,4 +1,5 @@
 class Mentor < ApplicationRecord
+  
   belongs_to :school
   has_many :checkins, dependent: :destroy
   has_many :checkouts, dependent: :destroy

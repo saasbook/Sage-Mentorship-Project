@@ -14,3 +14,45 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+var link= window.location.href
+
+console.log(window.location.href)
+
+function getLocation_checkout() {
+	var new_link = link + '/checkout'
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition_checkout);
+  } else { 
+    alert("Please allow location");
+  }
+}
+function showPosition_checkout(position) {
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+Rails.ajax({
+  url: link + "/checkout_loc"+"?lat=" +latitude + "&lon="+longitude,
+  type: "post"
+})
+}
+
+
+function getLocation_checkin() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition_checkin);
+  } else { 
+    alert("Please allow location");
+  }
+}
+
+function showPosition_checkin(position) {
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+  Rails.ajax({
+  url: link + "/checkin_loc"+"?lat=" +latitude + "&lon="+longitude,
+  type: "post"
+})
+}
+
+
