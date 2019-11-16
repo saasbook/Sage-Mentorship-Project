@@ -33,7 +33,11 @@ var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
 Rails.ajax({
   url: link + "/checkout_loc"+"?lat=" +latitude + "&lon="+longitude,
+<<<<<<< HEAD
   type: "post"
+=======
+  type: "get"
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
 })
 }
 
@@ -51,7 +55,11 @@ var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
   Rails.ajax({
   url: link + "/checkin_loc"+"?lat=" +latitude + "&lon="+longitude,
+<<<<<<< HEAD
   type: "post"
+=======
+  type: "get"
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
 })
 }
 

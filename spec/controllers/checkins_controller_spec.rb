@@ -135,7 +135,7 @@ RSpec.describe CheckinsController, type: :controller do
       checkin = Checkin.create! valid_attributes
       delete :destroy, params: {id: checkin.to_param}, session: valid_session
       expect(response).to redirect_to(checkins_url)
->>>>>>> 7d4cd70f93eba0027fa35344d69c49c159f7915b
+
     end
   end
 

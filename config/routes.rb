@@ -23,8 +23,13 @@ Rails.application.routes.draw do
   #for check in and checkout @Raj
   get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
   get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
+<<<<<<< HEAD
   post '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
   post '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
+=======
+  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
+  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

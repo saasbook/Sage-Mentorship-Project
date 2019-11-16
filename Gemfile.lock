@@ -174,10 +174,23 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
+<<<<<<< HEAD
+=======
+    guard-cucumber (1.5.4)
+      cucumber (>= 1.3.0)
+      guard-compat (~> 1.0)
+      nenv (~> 0.1)
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
     guard-rspec (4.7.3)
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+<<<<<<< HEAD
+=======
+    guard-shell (0.7.1)
+      guard (>= 2.0.0)
+      guard-compat (~> 1.0)
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -330,7 +343,10 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     redcard (1.1.0)
+<<<<<<< HEAD
     redis (4.1.3)
+=======
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
     reek (2.2.1)
       parser (~> 2.2)
       rainbow (~> 2.0)
@@ -442,6 +458,7 @@ GEM
 PLATFORMS
   ruby
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
@@ -457,7 +474,14 @@ DEPENDENCIES
   figaro
   geocoder
   google_sign_in
+<<<<<<< HEAD
   guard-rspec
+=======
+  guard
+  guard-cucumber
+  guard-rspec
+  guard-shell
+>>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
   haml
   haml-rails
   jbuilder (~> 2.5)
