@@ -90,17 +90,12 @@ class MentorsController < ApplicationController
 
   #checkin controller
   def checkin_loc
-    puts "-------heere-------"
-    puts params
+  
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
     @lat = params[:lat]
     @lon = params[:lon]
-<<<<<<< HEAD
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
-=======
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
->>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
     if @chk_in.save
         #flash[:notice] = 'Checkin succesful' 
     else
@@ -113,16 +108,11 @@ class MentorsController < ApplicationController
 
 
   def checkout_loc
-    puts "-------heere-------"
-    puts params
+
     @mentor = Mentor.find(params[:id])
     @lat = params[:lat]
     @lon = params[:lon]
-<<<<<<< HEAD
     @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
-=======
-    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
->>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
     if @chk_in.save
         #flash[:notice] = 'Checkout succesful' 
     else
@@ -133,30 +123,21 @@ class MentorsController < ApplicationController
   end
   def checkin
    @mentor = Mentor.find(params[:id])
-<<<<<<< HEAD
    @time = Time.now
-=======
-   @time = Time.current
->>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
+
+
   end
 
   def checkout
    @mentor = Mentor.find(params[:id])
-<<<<<<< HEAD
    @time = Time.now
-=======
-   @time = Time.current
->>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
+
   end
   def appointment
     @mentor = Mentor.find(params[:id])
     session['user_id'] = @mentor.id
   end
 
-  def get_loc
-    puts "----Here----"
-    puts params
-  end
  
   private
     # Use callbacks to share common setup or constraints between actions.
