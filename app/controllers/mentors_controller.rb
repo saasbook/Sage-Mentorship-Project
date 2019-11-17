@@ -91,7 +91,6 @@ class MentorsController < ApplicationController
 
   #checkin controller
   def checkin_loc
-  
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
     @lat = params[:lat]
@@ -103,13 +102,11 @@ class MentorsController < ApplicationController
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
     end
-    
   end
   #checkout controller
 
 
   def checkout_loc
-
     @mentor = Mentor.find(params[:id])
     @lat = params[:lat]
     @lon = params[:lon]
@@ -120,20 +117,18 @@ class MentorsController < ApplicationController
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
     end
-    
   end
+
   def checkin
    @mentor = Mentor.find(params[:id])
    @time = Time.now
-
-
   end
 
   def checkout
    @mentor = Mentor.find(params[:id])
    @time = Time.now
-
   end
+
   def appointment
     @mentor = Mentor.find(params[:id])
     #session[:user_id] = @mentor.id
