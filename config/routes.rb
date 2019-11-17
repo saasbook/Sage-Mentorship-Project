@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
   resources :mentors, except: [:index, :show]
 
+
+
   # for google_sign_in checks
   get 'login', to: 'logins#new'
   get 'login/create', to: 'logins#create', as: :create_login

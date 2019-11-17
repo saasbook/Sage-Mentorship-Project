@@ -5,7 +5,7 @@
       %th Name
       %th Email
       %th School
-      %th
+      //%th
       %th
       %th
 
@@ -15,7 +15,7 @@
         %td= admin.name
         %td= admin.email
         %td= admin.school.name
-        %td= link_to 'Show', admin
+        //%td= link_to 'Show', admin
         %td= link_to 'Edit', edit_admin_path(admin)
         %td= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' }
 

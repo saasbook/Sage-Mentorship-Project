@@ -64,7 +64,7 @@ class SchoolsController < ApplicationController
     @school.destroy
     @current_user = Super.find(session[:user_id])
     respond_to do |format|
-      format.html { redirect_to @current_user, notice: "#{@school.name} was successfully destroyed." }
+      format.html { redirect_to @current_user, notice: "#{@school.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end

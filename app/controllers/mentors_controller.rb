@@ -50,12 +50,11 @@ class MentorsController < ApplicationController
   # POST /mentors
   # POST /mentors.json
   def create
-    puts param['data']
     @mentor = Mentor.new(mentor_params)
-
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @mentor.save
-        format.html { redirect_to @mentor, notice: 'Mentor was successfully created.' }
+        format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully created." }
         format.json { render :show, status: :created, location: @mentor }
       else
         format.html { render :new }
@@ -67,9 +66,10 @@ class MentorsController < ApplicationController
   # PATCH/PUT /mentors/1
   # PATCH/PUT /mentors/1.json
   def update
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @mentor.update(mentor_params)
-        format.html { redirect_to @mentor, notice: 'Mentor was successfully updated.' }
+        format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @mentor }
       else
         format.html { render :edit }
@@ -82,8 +82,9 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1.json
   def destroy
     @mentor.destroy
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
-      format.html { redirect_to mentors_url, notice: 'Mentor was successfully destroyed.' }
+      format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -135,7 +136,7 @@ class MentorsController < ApplicationController
   end
   def appointment
     @mentor = Mentor.find(params[:id])
-    session['user_id'] = @mentor.id
+    #session[:user_id] = @mentor.id
   end
 
  
