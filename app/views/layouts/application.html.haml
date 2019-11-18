@@ -49,9 +49,7 @@
           %a.dropbtn User
           .dropdown-content
             = google_sign_in_button 'Sign in with Google', proceed_to: 'http://localhost:3000/login/create', prompt: 'select_account'
-            %a{:href => "#"} Sign Out
-            <button type="button">Click Me!</button>
-
+            =link_to("Sign Out", logout_url, :method => :delete)
         #main
           - if flash[:notice]
             %div.alert.alert-danger

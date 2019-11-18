@@ -2,6 +2,7 @@ class LoginsController < ApplicationController
   def new
   end
 
+
   def create
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
@@ -11,6 +12,11 @@ class LoginsController < ApplicationController
     else
       redirect_to new_session_url, alert: 'authentication_failed'
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_url, :notice => "Logged out!"
   end
 
   private
