@@ -29,10 +29,8 @@ before_script:
 script:
  # setup the test database, including any seed data
  - bundle exec rake db:setup
-<<<<<<< HEAD
-=======
+
  - bundle exec rake db:migrate RAILS_ENV=test
->>>>>>> 442aca7f7aaa06c49b826b451a65751a20325dc6
  # insert here any other steps needed (load other sample data, etc) before starting tests
  # run RSpec tests, and capture coverage
  - bundle exec rspec
