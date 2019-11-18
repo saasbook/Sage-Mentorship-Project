@@ -50,6 +50,7 @@
           .dropdown-content
             = google_sign_in_button 'Sign in with Google', proceed_to: 'http://localhost:3000/login/create', prompt: 'select_account'
             %a{:href => "#"} Sign Out
+            <button type="button">Click Me!</button>
 
         #main
           - if flash[:notice]

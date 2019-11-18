@@ -55,21 +55,6 @@ ActiveRecord::Schema.define(version: 2019_11_11_184305) do
     t.index ["school_id"], name: "index_mentors_on_school_id"
   end
 
-  create_table "reports", force: :cascade do |t|
-    t.string "school_id"
-    t.string "checkin_time"
-    t.string "chekcout_time"
-    t.float "checkin_lat"
-    t.float "checkin_lon"
-    t.float "checkout_lat"
-    t.float "checkout_lon"
-    t.boolean "is_checkout"
-    t.integer "mentor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["mentor_id"], name: "index_reports_on_mentor_id"
-  end
-
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.string "address"
