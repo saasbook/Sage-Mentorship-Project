@@ -6,7 +6,7 @@
       %th Address
       %th Latitude
       %th Longitude
-      %th
+      //%th
       %th
       %th
 
@@ -17,7 +17,7 @@
         %td= school.address
         %td= school.lat
         %td= school.lon
-        %td= link_to 'Show', school
+        //%td= link_to 'Show', school
         %td= link_to 'Edit', edit_school_path(school)
         %td= link_to 'Destroy', school, method: :delete, data: { confirm: 'Are you sure?' }
 

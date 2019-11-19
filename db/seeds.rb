@@ -9,11 +9,12 @@
 admins = [
 {name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'}
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
 ]
 
 supers = [
-    {name:'test su', email:'blank@sagementorship.berkeley.edu'}
+{name:'test su', email:'nwruhman@gmail.com'},
+{name:'test super', email:'jasmine.yong@berkeley.edu'}
 ]
 
 schools = [
@@ -30,7 +31,7 @@ mentors = [
 {name:'Kyler Ochoa', school:'Jefferson Elementary School', email:'ko@berkeley.edu'},
 {name:'Joseph Gonzalez', school:'Jefferson Elementary School', email:'jg@berkeley.edu'},
 {name:'Stephanie Brooks', school:'Jefferson Elementary School', email:'sb@berkeley.edu'},
-
+{name:'Tmentor', school:'Jefferson Elementary School', email:'nwruhman@berkeley.edu'}
 ]
 
 reports = [

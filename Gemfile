@@ -6,7 +6,7 @@ ruby '2.4.7'
 gem 'haml'
 gem 'haml-rails'
 gem 'google_sign_in'
-gem 'geocoder'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -66,7 +66,6 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   # Below are added as required in bcourses setup instructions
-  gem 'guard-rspec'
   gem 'simplecov', :require => false
   gem 'cucumber-rails-training-wheels' #basic imperative step defs
   gem 'factory_girl_rails'

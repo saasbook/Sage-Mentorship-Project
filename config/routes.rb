@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
   resources :mentors, except: [:index, :show]
 
+
+
   # for google_sign_in checks
   get 'login', to: 'logins#new'
   get 'login/create', to: 'logins#create', as: :create_login
@@ -27,9 +29,9 @@ Rails.application.routes.draw do
   #for check in and checkout @Raj
   get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
   get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
-  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
-  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
-  
+  post '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
+  post '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/admin/checkin', to: 'admins#checkin', as: 'admin_checkin'

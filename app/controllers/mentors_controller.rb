@@ -51,12 +51,11 @@ class MentorsController < ApplicationController
   # POST /mentors
   # POST /mentors.json
   def create
-    puts param['data']
     @mentor = Mentor.new(mentor_params)
-
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @mentor.save
-        format.html { redirect_to @mentor, notice: 'Mentor was successfully created.' }
+        format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully created." }
         format.json { render :show, status: :created, location: @mentor }
       else
         format.html { render :new }
@@ -68,9 +67,10 @@ class MentorsController < ApplicationController
   # PATCH/PUT /mentors/1
   # PATCH/PUT /mentors/1.json
   def update
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
       if @mentor.update(mentor_params)
-        format.html { redirect_to @mentor, notice: 'Mentor was successfully updated.' }
+        format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @mentor }
       else
         format.html { render :edit }
@@ -83,65 +83,54 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1.json
   def destroy
     @mentor.destroy
+    @current_user = Super.find(session[:user_id])
     respond_to do |format|
-      format.html { redirect_to mentors_url, notice: 'Mentor was successfully destroyed.' }
+      format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
-  #checkin controller
-  def checkin_loc
-    puts "-------heere-------"
+  def checkin
+
+   #@mentor = Mentor.find(params[:id])
+   @time = Time.now
+   puts "----hellocheckin-----"
     puts params
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
-    @lat = params[:lat]
-    @lon = params[:lon]
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :lat => @lat, :lon => @lon)
+    @lat = params[:la]
+    @lon = params[:lo]
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
-        #flash[:notice] = 'Checkin succesful' 
+        flash[:notice] = 'Checkin succesful' 
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
     end
-    
   end
-  #checkout controller
-
-
-  def checkout_loc
-    puts "-------heere-------"
-    puts params
-    @mentor = Mentor.find(params[:id])
-    @lat = params[:lat]
-    @lon = params[:lon]
-    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :lat => @lat, :lon => @lon, :ischeckout => true)
-    if @chk_in.save
-        #flash[:notice] = 'Checkout succesful' 
-    else
-      redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
-    end
-    
-  end
-  def checkin
-   @mentor = Mentor.find(params[:id])
-   @time = Time.current
-  end
+  
 
   def checkout
-   @mentor = Mentor.find(params[:id])
-   @time = Time.current
-  end
-  def appointment
+    puts "----hello-----"
+    puts params
     @mentor = Mentor.find(params[:id])
-    session['user_id'] = @mentor.id
+    @time = Time.now
+    @lat = params[:la]
+    @lon = params[:lo]
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
+    if @chk_out.save
+        flash[:notice] = 'Checkout succesful' 
+    else
+      redirect_to mentor_path
+      flash[:notice] = 'something wrong, please try again' 
+    end
   end
 
-  def get_loc
-    puts "----Here----"
-    puts params
+  def appointment
+    @mentor = Mentor.find(params[:id])
+    #session[:user_id] = @mentor.id
   end
+
  
   private
     # Use callbacks to share common setup or constraints between actions.
