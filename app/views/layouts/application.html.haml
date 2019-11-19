@@ -48,7 +48,6 @@
         %li.dropdown_right
           %a.dropbtn User
           .dropdown-content
-<<<<<<< HEAD
             = google_sign_in_button 'Sign in with Google', proceed_to: 'http://localhost:3000/login/create', prompt: 'select_account'
             =link_to("Sign Out", logout_url, :method => :delete)
         #main
@@ -59,20 +58,6 @@
             %div.alert.alert-danger
               #warning.message= flash[:warning]
 
-      =yield
-=======
-            = google_sign_in_button 'Sign in with Google', proceed_to: create_login_path, prompt: 'select_account'
-            %a{:href => "#"} Sign Out
 
-      .main
-        - if flash[:notice]
-          %div.alert.alert-danger
-            #notice.message= flash[:notice]
-        - elsif flash[:warning]
-          %div.alert.alert-danger
-            #warning.message= flash[:warning]
-        %div.yielded_area
-          =yield
->>>>>>> master
 
 
