@@ -1,6 +1,8 @@
 class SupersController < ApplicationController
   before_action :require_login
-  def index
+
+  def _index
+    @supers = Super.all
   end
 
   def new

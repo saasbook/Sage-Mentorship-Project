@@ -4,13 +4,19 @@ Rails.application.routes.draw do
   #get 'users/root'
   resources :checkouts
   resources :checkins
-  resources :admins
-  resources :schools
-  resources :supers
+
+  get 'admins/' => 'admins#_index', :as => 'admins'
+  resources :admins, except: [:index]
+
+  get 'schools/' => 'schools#_index', :as => 'schools'
+  resources :schools, except: [:index]
+
+  get 'supers/' => 'supers#_index', :as => 'supers'
+  resources :supers, except: [:index]
 
   # for signed-in-user main page
 
-  get 'mentors/' => 'mentors#index', :as => 'mentors'
+  get 'mentors/' => 'mentors#_index', :as => 'mentors'
   get 'mentors/:id/get_loc', to: "mentors#get_loc"
   get 'mentors/:id' => 'mentors#appointment', :as => 'mentor'
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'

@@ -12,7 +12,7 @@ class MentorsController < ApplicationController
 
   # GET /mentors
   # GET /mentors.json
-  def index
+  def _index
     @mentors = Mentor.all
     Rails.logger.debug params.keys
   end
@@ -101,13 +101,13 @@ class MentorsController < ApplicationController
     @lon = params[:lo]
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
-        flash[:notice] = 'Checkin succesful' 
+        flash[:notice] = 'Checkin succesful'
     else
       redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
+      flash[:notice] = 'something wrong, please try again'
     end
   end
-  
+
 
   def checkout
     puts "----hello-----"
@@ -118,10 +118,10 @@ class MentorsController < ApplicationController
     @lon = params[:lo]
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_out.save
-        flash[:notice] = 'Checkout succesful' 
+        flash[:notice] = 'Checkout succesful'
     else
       redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
+      flash[:notice] = 'something wrong, please try again'
     end
   end
 
@@ -130,7 +130,7 @@ class MentorsController < ApplicationController
     #session[:user_id] = @mentor.id
   end
 
- 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mentor
@@ -142,5 +142,5 @@ class MentorsController < ApplicationController
       params.require(:mentor).permit(:name, :email, :school_id)
     end
 
-    
+
 end

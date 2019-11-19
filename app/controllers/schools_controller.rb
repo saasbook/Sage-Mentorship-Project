@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
 
   # GET /schools
   # GET /schools.json
-  def index
+  def _index
     @schools = School.all
   end
 

@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 
   # GET /admins
   # GET /admins.json
-  def index
+  def _index
     @admins = Admin.all
   end
 
