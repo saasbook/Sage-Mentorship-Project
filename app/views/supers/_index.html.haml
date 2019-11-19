@@ -11,6 +11,7 @@
       %tr
         %td= super_user.name
         %td= super_user.email
+        %td= link_to 'Edit', edit_super_path(super_user)
         %td= link_to 'Destroy', super_user, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br

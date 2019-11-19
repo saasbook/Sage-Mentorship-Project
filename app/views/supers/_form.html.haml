@@ -1,0 +1,17 @@
+= form_for @super do |f|
+  - if @super.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@super.errors.count, "error(s)")} prohibited this school from being saved:"
+      %ul
+        - @super.errors.full_messages.each do |message|
+          %li= message
+          %br
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :email
+    = f.text_field :email
+  .actions
+    = f.submit 'Save'
