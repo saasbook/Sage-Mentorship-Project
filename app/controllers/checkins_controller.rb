@@ -1,5 +1,5 @@
 class CheckinsController < ApplicationController
-
+  before_action :require_login
   before_action :set_checkin, only: [:show, :edit, :update, :destroy]
 
   # GET /checkins

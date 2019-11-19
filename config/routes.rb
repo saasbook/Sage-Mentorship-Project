@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   get 'login', to: 'logins#new'
   get 'login/create', to: 'logins#create', as: :create_login
 
+  # for log out
+  delete '/logout',  to: 'logins#destroy'
+  resource :session
+
   #for check in and checkout @Raj
   get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
   get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
