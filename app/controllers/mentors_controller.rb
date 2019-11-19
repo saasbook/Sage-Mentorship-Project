@@ -1,5 +1,5 @@
 class MentorsController < ApplicationController
-
+  before_action :require_login
   before_action :set_mentor, only: [:show, :edit, :update, :destroy]
 
   # GET /mentor/checkin

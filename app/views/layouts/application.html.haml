@@ -49,7 +49,7 @@
           %a.dropbtn User
           .dropdown-content
             = google_sign_in_button 'Sign in with Google', proceed_to: create_login_path, prompt: 'select_account'
-            %a{:href => "#"} Sign Out
+            =link_to("Sign Out", logout_url, :method => :delete)
 
       .main
         - if flash[:notice]
