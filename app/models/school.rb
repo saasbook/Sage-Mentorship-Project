@@ -1,5 +1,6 @@
 class School < ApplicationRecord
-  #belongs_to :admin
+#  has_one :admin
+  has_many :admins
   has_many :mentors
   has_many :checkins
 

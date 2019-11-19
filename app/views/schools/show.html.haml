@@ -5,17 +5,21 @@
   = @school.name
 %p
   %b Admin:
-  = @school.admin.name
+  - @school.admins.each do |admin|
+    %br
+    = admin.name
+
+-#=@school.admin.name
+
 %p
   %b Address:
   = @school.address
 %p
   %b Latitude:
-  = @school.latitude
+  = @school.lat
 %p
   %b Longitude:
-  = @school.longitude
-
+  = @school.lon
 
 %br
 %br
