@@ -47,4 +47,5 @@ class Mentor < ApplicationRecord
     end
     {num_hours: (duration / 1.hour), forgot_checkout: forgot_checkout}
   end
+
 end

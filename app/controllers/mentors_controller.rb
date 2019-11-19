@@ -89,44 +89,40 @@ class MentorsController < ApplicationController
     end
   end
 
-  #checkin controller
-  def checkin_loc
+  def checkin
+
+   #@mentor = Mentor.find(params[:id])
+   @time = Time.now
+   puts "----hellocheckin-----"
+    puts params
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
-    @lat = params[:lat]
-    @lon = params[:lon]
+    @lat = params[:la]
+    @lon = params[:lo]
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
-        #flash[:notice] = 'Checkin succesful' 
+        flash[:notice] = 'Checkin succesful' 
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
     end
   end
-  #checkout controller
-
-
-  def checkout_loc
-    @mentor = Mentor.find(params[:id])
-    @lat = params[:lat]
-    @lon = params[:lon]
-    @chk_in = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
-    if @chk_in.save
-        #flash[:notice] = 'Checkout succesful' 
-    else
-      redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
-    end
-  end
-
-  def checkin
-   @mentor = Mentor.find(params[:id])
-   @time = Time.now
-  end
+  
 
   def checkout
-   @mentor = Mentor.find(params[:id])
-   @time = Time.now
+    puts "----hello-----"
+    puts params
+    @mentor = Mentor.find(params[:id])
+    @time = Time.now
+    @lat = params[:la]
+    @lon = params[:lo]
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
+    if @chk_out.save
+        flash[:notice] = 'Checkout succesful' 
+    else
+      redirect_to mentor_path
+      flash[:notice] = 'something wrong, please try again' 
+    end
   end
 
   def appointment
