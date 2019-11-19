@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get 'mentors/' => 'mentors#_index', :as => 'mentors'
   get 'mentors/:id/get_loc', to: "mentors#get_loc"
+  get 'mentors/new' => 'mentors#new', :as => 'new_mentor'
   get 'mentors/:id' => 'mentors#appointment', :as => 'mentor'
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
   resources :mentors, except: [:index, :show]
