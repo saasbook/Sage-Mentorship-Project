@@ -6,15 +6,18 @@ class LoginsController < ApplicationController
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
       session[:user_id] = user.id
+      session[:user_email] = user.email
       redirect_to user
     else
       session[:user_id] = nil if session[:user_id]
+      session[:user_email] = nil if session[:user_email]
       redirect_to root_path, notice: 'User does not exist.'
     end
   end
 
   def destroy
     session[:user_id] = nil
+    session[:user_email] = nil
     redirect_to root_url, :notice => "Logged out!"
   end
 
