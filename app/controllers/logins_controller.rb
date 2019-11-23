@@ -32,6 +32,4 @@ class LoginsController < ApplicationController
   def get_email_from_token(user_token)
     (sign_in_token = GoogleSignIn::Identity.new(user_token)) ? sign_in_token.email_address : nil
   end
-
-
 end
