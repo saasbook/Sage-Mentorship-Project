@@ -14,7 +14,8 @@ admins = [
 
 supers = [
 {name:'test su', email:'nwruhman@gmail.com'},
-{name:'test super', email:'jasmine.yong@berkeley.edu'}
+{name:'test super', email:'jasmine.yong@berkeley.edu'},
+{name:'sage president', email:'president@sagementorship.org'}
 ]
 
 schools = [
