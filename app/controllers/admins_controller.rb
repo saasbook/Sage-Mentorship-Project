@@ -15,12 +15,9 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
-
     @present_week = Time.current.beginning_of_week.utc
-    #@week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
     @school = School.find(@admin.school_id)
     @totalhours_list = @admin.totalhours_list(@present_week)
-
   end
 
   # GET /admins/new
@@ -36,7 +33,7 @@ class AdminsController < ApplicationController
   # POST /admins.json
   def create
     @admin = Admin.new(admin_params)
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @admin.save
         format.html { redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully created." }
@@ -51,7 +48,7 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @admin.update(admin_params)
         format.html { redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully updated." }
@@ -67,7 +64,7 @@ class AdminsController < ApplicationController
   # DELETE /admins/1.json
   def destroy
     @admin.destroy
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html {  redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully deleted." }
       format.json { head :no_content }

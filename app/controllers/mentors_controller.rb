@@ -51,7 +51,7 @@ class MentorsController < ApplicationController
   # POST /mentors.json
   def create
     @mentor = Mentor.new(mentor_params)
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @mentor.save
         format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully created." }
@@ -66,7 +66,7 @@ class MentorsController < ApplicationController
   # PATCH/PUT /mentors/1
   # PATCH/PUT /mentors/1.json
   def update
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @mentor.update(mentor_params)
         format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully updated." }
@@ -82,7 +82,7 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1.json
   def destroy
     @mentor.destroy
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully deleted." }
       format.json { head :no_content }
