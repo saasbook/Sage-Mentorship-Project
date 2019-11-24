@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   before_action :require_login
+  before_action :authorize_admin
   before_action :set_school, only: [:show, :edit, :update, :destroy]
 
   # GET /schools
