@@ -5,10 +5,10 @@ class LoginsController < ApplicationController
   def create
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
-      session[:user_id] = user.id
+      session[:email_address] = user.email
       redirect_to user
     else
-      session[:user_id] = nil if session[:user_id]
+      session[:email_address] = nil if session[:user_id]
       redirect_to root_path, notice: 'User does not exist.'
     end
   end
@@ -20,12 +20,8 @@ class LoginsController < ApplicationController
 
   private
   def authenticate_with_google
-    if flash
-      Rails.logger.debug 'Flash keys below'
-      Rails.logger.debug flash.keys
-    end
     if user_token = flash[:google_sign_in_token]
-      find_user(user_token)
+      find_user_by_email(get_email_from_token(user_token))
     elsif error = flash[:google_sign_in_token].error
       logger.error "Google authentication error: #{error}"
       nil
@@ -33,10 +29,7 @@ class LoginsController < ApplicationController
   end
 
   private
-  def find_user(user_token)
-    user = Mentor.find_by email: GoogleSignIn::Identity.new(user_token).email_address
-
-    user ||= Admin.find_by email: GoogleSignIn::Identity.new(user_token).email_address
-    user ||= Super.find_by email: GoogleSignIn::Identity.new(user_token).email_address
+  def get_email_from_token(user_token)
+    (sign_in_token = GoogleSignIn::Identity.new(user_token)) ? sign_in_token.email_address : nil
   end
 end

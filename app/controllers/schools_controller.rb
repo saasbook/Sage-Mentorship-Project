@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   before_action :require_login
+  before_action :authorize_admin
   before_action :set_school, only: [:show, :edit, :update, :destroy]
 
   # GET /schools
@@ -32,7 +33,7 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(school_params)
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @school.save
         format.html { redirect_to @current_user, notice: "School '#{@school.name}' was successfully created." }
@@ -47,7 +48,7 @@ class SchoolsController < ApplicationController
   # PATCH/PUT /schools/1
   # PATCH/PUT /schools/1.json
   def update
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @school.update(school_params)
         format.html { redirect_to @current_user, notice: "#{@school.name}' was successfully updated." }
@@ -63,7 +64,7 @@ class SchoolsController < ApplicationController
   # DELETE /schools/1.json
   def destroy
     @school.destroy
-    @current_user = Super.find(session[:user_id])
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html { redirect_to @current_user, notice: "#{@school.name} was successfully deleted." }
       format.json { head :no_content }
