@@ -1,5 +1,6 @@
 class SupersController < ApplicationController
   before_action :require_login
+  before_action :authorize_super
   def index
   end
 
