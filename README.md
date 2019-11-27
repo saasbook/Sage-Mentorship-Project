@@ -24,10 +24,10 @@ Things you may want to cover:
 
 * ...
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/667781a06cb35e287489/maintainability)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/maintainability)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/667781a06cb35e287489/test_coverage)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/test_coverage)
 
-[![Build Status](https://travis-ci.com/Sage-Foundation-Mentorship/sage-checkin-webapp.svg?branch=master)](https://travis-ci.com/Sage-Foundation-Mentorship/sage-checkin-webapp)
+[![Build Status](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project.svg?branch=master)](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project)
 
 
