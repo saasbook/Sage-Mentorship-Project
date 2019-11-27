@@ -8,7 +8,7 @@
 
 admins = [
 {name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
-{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school_id: 'Turnup Elementary School'},
+{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school_id: 'Jefferson Elementary School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
 {name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
 ]
