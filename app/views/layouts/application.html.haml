@@ -16,18 +16,17 @@
 
         - if @current_user.is_a? Mentor
           %li
-            = link_to "Attendance List", mentor_details_path(@current_user)
+            = link_to "Weeks Summary", mentor_details_path(@current_user)
             = link_to "Check in & Check out", @current_user
 
         - elsif @current_user.is_a? Admin
           %li
-            = link_to "Attendance", @current_user
-            = link_to "Schools", schools_path
+            = link_to "School Activities", @current_user
             = link_to "Mentors", mentors_path
 
         - elsif @current_user.is_a? Super
           %li
-            = link_to "Accounts", @current_user
+            = link_to "Manage Accounts", @current_user
 
         %li.dropdown_right
           %a.dropbtn
@@ -49,4 +48,3 @@
             #warning.message= flash[:warning]
         %div.yielded_area
           %div{:class => "container", :style => "text-align: left", :id => "main"}=yield
-
