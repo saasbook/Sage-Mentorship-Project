@@ -29,7 +29,7 @@
 
 - if @checkout.nil?
   %p{:style => "text-indent: 40px"}
-    = link_to 'Create New Checkout', new_checkout_path
+    = link_to 'Create New Checkout', new_checkout_path(:correspond_checkin_id => @checkin.id)
 - else
   %p{:style => "text-indent: 40px"}
     %b Mentor:

@@ -12,7 +12,7 @@ class Checkin < ApplicationRecord
 	def correspond_checkout
 		checkin_time = self.checkin_time
 		checkout = Checkout.where("mentor_id = :mentor_id and school_id = :school_id
-                and checkout_time > :checkin_time
+                and checkout_time >= :checkin_time
                 and checkout_time >= :same_day_start
                 and checkout_time <= :same_day_end",
 															:mentor_id => self.mentor_id,

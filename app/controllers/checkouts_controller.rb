@@ -5,6 +5,15 @@ class CheckoutsController < ApplicationController
   # GET /checkouts/new
   def new
     @checkout = Checkout.new
+    unless params[:correspond_checkin_id].nil?
+        @checkin = Checkin.find(params[:correspond_checkin_id])
+        @checkout.mentor = @checkin.mentor
+        @checkout.school_id = @checkin.school.id
+        @checkout.lat = @checkin.lat
+        @checkout.lon = @checkin.lon
+        @checkout.checkout_time = @checkin.checkin_time
+        #@checkout.isValid = @checkin.isValid
+    end
   end
 
   # GET /checkouts/1/edit
