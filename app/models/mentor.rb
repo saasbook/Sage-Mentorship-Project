@@ -80,4 +80,26 @@ class Mentor < ApplicationRecord
       anyInvalid: anyInvalid}
   end
 
+  # return the weeks summary of the mentor (total hours, etc) for every week
+  def weeks_summary
+    summary =[]
+    if self.checkins.count > 0
+      first_week = self.first_week
+      week_date = Time.now.utc
+      while week_date >= first_week do
+        summary.push(totalhours(week_date))
+        week_date = week_date.last_week
+      end
+    end
+    summary
+  end
+
+  # return the beginning_of_week of the earliest checkin record for the mentor
+  def first_week
+      sorted_checkins = Checkin.where(["mentor_id = ?", self.id]).order('checkin_time ASC')
+      first_checkin_time = sorted_checkins.first.checkin_time
+      first_week = first_checkin_time.beginning_of_week.utc
+  end
+
+
 end
