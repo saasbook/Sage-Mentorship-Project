@@ -12,12 +12,7 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-
-    @present_week = Time.current.beginning_of_week.utc
-    @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
-
-    @totalhours_list = @school.totalhours_list(@week_of)
-
+      @week = Time.now.beginning_of_week.utc
   end
 
   # GET /schools/new

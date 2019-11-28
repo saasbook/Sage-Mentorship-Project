@@ -1,66 +1,25 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @school.name
-%p
-  %b Admin:
-  - @school.admins.each do |admin|
-    %br
-    = admin.name
-
--#=@school.admin.name
-
-%p
-  %b Address:
-  = @school.address
-%p
-  %b Latitude:
-  = @school.lat
-%p
-  %b Longitude:
-  = @school.lon
-
 %br
-%br
-%p
-  %b Present Week:
-  = @present_week.strftime("%m/%d/%Y")
-%p
-  %b Week of:
-  = @week_of.strftime("%m/%d/%Y")
-
-
 %br
 %table
+  %caption= @school.name + ' Activity, week of: ' + @week.strftime("%m/%d/%Y")
+
   %thead
     %tr
       %th Mentor
-      %th School
       %th Total Hours
-      %th
       %th Forgot Checkout?
-      %th
-      %th
-      %th
 
   %tbody
-    - @totalhours_list.each do |r|
+    - @school.activities(@week).each do |r|
       - mentor = r[:mentor]
       - num_hours = r[:num_hours]
-      - forgot_checkout = r[:forgot_checkout]
-      %tr
-        %td= mentor.name
-        %td= mentor.school.name
+      - forgot_checkout = r[:forgot_checkout] ? "Yes" : "-"
+      - anyInvalid = r[:anyInvalid] ? "Yes" : "-"
+
+      %tr.table_row
+        %td= link_to mentor.name, mentor_details_path(mentor)
         %td= num_hours
-        %td
-        %td= "Yes" if forgot_checkout
-        %td= link_to 'Show', mentor
-        %td= link_to 'Edit', edit_mentor_path(mentor)
-        %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'Edit', edit_school_path(@school)
-\|
-= link_to 'Back', schools_path
+        %td= forgot_checkout
+        %td= anyInvalid
