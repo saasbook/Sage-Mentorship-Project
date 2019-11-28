@@ -1,3 +1,27 @@
+%head
+
+%link{:href => "/stylesheets/jquery-ui.css", :rel => "stylesheet"}/
+%link{:href => "/stylesheets/style.css", :rel => "stylesheet"}/
+%script{:src => "/javascripts/jquery-1.12.4.js"}
+%script{:src => "/javascripts/jquery-ui.js"}
+:javascript
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      firstDay: 1
+    });
+  } );
+
+%body
+
+%p#notice= notice
+
+%p
+  = form_tag(@school, :method => :get, :align => "center") do
+    Week of:
+    %input#datepicker{:type => "text", :name => "week_date", :autocomplete => "off", :value => @week_date.strftime("%m/%d/%Y")}
+    %input{:type => "submit", :value => "Select"}
+
+
 %br
 %br
 
