@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
 
   #get 'users/root'
-  resources :checkouts
-  resources :checkins
+  resources :checkouts, except: [:index]
+  resources :checkins, except: [:index]
 
   get 'admins/' => 'admins#_index', :as => 'admins'
   resources :admins, except: [:index]
