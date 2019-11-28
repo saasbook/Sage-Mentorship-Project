@@ -16,9 +16,7 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
-    @present_week = Time.current.beginning_of_week.utc
-    @school = School.find(@admin.school_id)
-    @totalhours_list = @admin.totalhours_list(@present_week)
+    redirect_to @admin.school
   end
 
   # GET /admins/new
