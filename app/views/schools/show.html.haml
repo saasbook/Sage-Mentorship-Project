@@ -1,4 +1,25 @@
+%head
+
+%link{:href => "/stylesheets/jquery-ui.css", :rel => "stylesheet"}/
+%link{:href => "/stylesheets/style.css", :rel => "stylesheet"}/
+%script{:src => "/javascripts/jquery-1.12.4.js"}
+%script{:src => "/javascripts/jquery-ui.js"}
+:javascript
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      firstDay: 1
+    });
+  } );
+
+%body
+
 %p#notice= notice
+
+%p
+  = form_tag(@school, :method => :get, :align => "center") do
+    Week of:
+    %input#datepicker{:type => "text", :name => "week_date", :autocomplete => "off", :value => @week_date.strftime("%m/%d/%Y")}
+    %input{:type => "submit", :value => "Select"}
 
 %br
 %br
@@ -19,7 +40,7 @@
       - anyInvalid = r[:anyInvalid] ? "Yes" : "-"
 
       %tr.table_row
-        %td= link_to mentor.name, mentor_details_path(mentor)
+        %td= link_to mentor.name, mentor_attendances_path(mentor, :week_date => @week_date.strftime("%m/%d/%Y"))
         %td= num_hours
         %td= forgot_checkout
         %td= anyInvalid
