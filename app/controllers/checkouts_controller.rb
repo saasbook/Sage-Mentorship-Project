@@ -1,11 +1,6 @@
 class CheckoutsController < ApplicationController
   before_action :require_login
-  before_action :set_checkout, only: [:show, :edit, :update, :destroy]
-
-  # GET /checkouts/1
-  # GET /checkouts/1.json
-  def show
-  end
+  before_action :set_checkout, only: [:edit, :update, :destroy]
 
   # GET /checkouts/new
   def new
