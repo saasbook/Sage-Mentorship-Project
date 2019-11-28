@@ -20,22 +20,6 @@ class MentorsController < ApplicationController
   # GET /mentors/1
   # GET /mentors/1.json
   def show
-
-    @present_week = Time.current.beginning_of_week.utc
-    @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
-
-    totalhours = @mentor.totalhours(@week_of)
-    @num_hours = totalhours[:num_hours]
-    @forgot_checkout = totalhours[:forgot_checkout]
-
-    @attendences_list = @mentor.attendences(@week_of)
-
-    @complete_attendences_list = []
-    @mentor.checkins.each do |checkin|
-        checkout = checkin.correspond_checkout
-        @complete_attendences_list.push({checkin:checkin, checkout:checkout})
-    end
-
   end
 
   # GET /mentors/new
