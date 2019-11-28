@@ -8,15 +8,11 @@ Rails.application.routes.draw do
   resources :schools
   resources :supers
 
-  # for signed-in-user main page
-
-  get 'mentors/' => 'mentors#index', :as => 'mentors'
-  get 'mentors/:id/get_loc', to: "mentors#get_loc"
-  get 'mentors/:id' => 'mentors#appointment', :as => 'mentor'
+  # for mentors
+  resources :mentors, except: [:show]#[:index, :show]#, :edit]
+  get 'mentors/:id/' => 'mentors#appointment'
+  get 'mentors/:id/get_loc', to: "mentors#get_loc", :as => 'get_mentor_loc'
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
-  resources :mentors, except: [:index, :show]
-
-
 
   # for google_sign_in checks
   get 'login', to: 'logins#new'
@@ -38,8 +34,4 @@ Rails.application.routes.draw do
   #get '/mentor/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
 
   root :to => 'logins#new'
-  #
-  #root :to => redirect('/mentor/checkin')
-  #get 'mentors/:id', to: 'checkins#mentors'
-  #root :to => 'checkins#index'
 end

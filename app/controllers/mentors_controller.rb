@@ -98,7 +98,7 @@ class MentorsController < ApplicationController
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful' 
-        redirect_to mentor_checkin_url
+        redirect_to @mentor
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
@@ -114,7 +114,7 @@ class MentorsController < ApplicationController
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful' 
-        redirect_to mentor_checkout_url
+        redirect_to @mentor
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again' 
