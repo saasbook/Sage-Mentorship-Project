@@ -7,19 +7,21 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admins = [
-{name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
-{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school_id: 'Jefferson Elementary School'},
-{name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
-{name:'Choi Adm', email:'choimanng@gmail.com', school_id: 'Jefferson Elementary School'}
+{name:'Darain Noveir', email:'bam@sagementorship.org', school: 'Berkeley Arts Magnet School'},
+{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school: 'Jefferson Elementary School'},
+{name:'Sweta Parija', email:'emerson@sagementorship.org', school: 'Emerson Elementary School'},
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'},
+{name:'Choi Adm', email:'choimanng@gmail.com', school: 'Jefferson Elementary School'}
 ]
 
 supers = [
+{name:'sage president', email:'president@sagementorship.org'},
+{name:'Managing Director', email:'managingdirector@sagementorship.org'},
+{name:'Sage VP', email:'vp@sagementorship.org'},
 {name:'test su', email:'nwruhman@gmail.com'},
 {name:'test super', email:'jasmine.yong@berkeley.edu'},
 {name:'Choi Sup', email:'choimanng@berkeley.edu'},
-{name:'test superduper', email:'toni.oshikanlu9@gmail.com'},
-{name:'sage president', email:'president@sagementorship.org'}
+{name:'test superduper', email:'toni.oshikanlu9@gmail.com'}
 ]
 
 schools = [
@@ -61,7 +63,8 @@ reports = [
 {type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420}
 ]
 
-
+Checkin.delete_all
+Checkout.delete_all
 Mentor.delete_all
 Admin.delete_all
 Super.delete_all
@@ -73,7 +76,7 @@ schools.each do |school|
 end
 
 admins.each do |admin|
-  admin[:school_id] = School.where(name: admin[:school_id]).first.id
+  admin[:school] = School.where(name: admin[:school]).first
   Admin.create!(admin)
 end
 
@@ -86,11 +89,10 @@ supers.each do |super_user|
   Super.create!(super_user)
 end
 
-=begin
-
 reports.each do |check|
   check[:mentor] = Mentor.where(name: check[:mentor]).first
-  check[:school] = School.where(name: check[:school]).first
+  check[:school_id] = School.where(name: check[:school]).first.id
+  check.delete(:school)
   type = check[:type]
   check.delete(:type)
   if type == 'checkin'
@@ -99,5 +101,3 @@ reports.each do |check|
     Checkout.create!(check)
   end
 end
-
-=end
