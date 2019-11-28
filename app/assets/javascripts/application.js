@@ -29,7 +29,7 @@ function getLocation_checkout() {
 function showPosition_checkout(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(link + "/checkout"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(link + "/checkout_loc"+"?la=" +latitude + "&lo="+longitude);
 }
 
 function getLocation_checkin() {
@@ -43,7 +43,7 @@ function getLocation_checkin() {
 function showPosition_checkin(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(link + "/checkin"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(link + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
 }
 
 

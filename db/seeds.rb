@@ -8,6 +8,7 @@
 
 admins = [
 {name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
+{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school_id: 'Jefferson Elementary School'},
 {name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
 {name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
 {name:'Choi Adm', email:'choimanng@gmail.com', school_id: 'Jefferson Elementary School'}
@@ -16,7 +17,9 @@ admins = [
 supers = [
 {name:'test su', email:'nwruhman@gmail.com'},
 {name:'test super', email:'jasmine.yong@berkeley.edu'},
-{name:'Choi Sup', email:'choimanng@berkeley.edu'}
+{name:'Choi Sup', email:'choimanng@berkeley.edu'},
+{name:'test superduper', email:'toni.oshikanlu9@gmail.com'},
+{name:'sage president', email:'president@sagementorship.org'}
 ]
 
 schools = [

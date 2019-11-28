@@ -6,6 +6,7 @@ ruby '2.4.7'
 gem 'haml'
 gem 'haml-rails'
 gem 'google_sign_in'
+gem 'devise'
 
 
 

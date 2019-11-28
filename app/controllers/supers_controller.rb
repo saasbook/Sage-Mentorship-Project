@@ -1,5 +1,6 @@
 class SupersController < ApplicationController
   before_action :require_login
+  before_action :authorize_super
   before_action :set_super, only: [:show, :edit, :update, :destroy]
 
   def _index
