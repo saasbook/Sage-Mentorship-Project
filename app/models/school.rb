@@ -1,6 +1,5 @@
 class School < ApplicationRecord
-#  has_one :admin
-  has_many :admins
+  has_one :admin
   has_many :mentors
   has_many :checkins
 
@@ -13,13 +12,16 @@ class School < ApplicationRecord
   # for all mentors in the specific week for the school
   # Assuming each mentor is associated with only one school, not many-to-many association
 
-  def totalhours_list(start_of_week)
+  def activities(week_date)
     result = []
     self.mentors.each do |mentor|
-        totalhours = mentor.totalhours(start_of_week)
-        num_hours = totalhours[:num_hours]
-        forgot_checkout = totalhours[:forgot_checkout]
-        result.push({mentor:mentor, num_hours:num_hours, forgot_checkout: forgot_checkout})
+        totalhours = mentor.totalhours(week_date)
+        if totalhours[:school_name] == self.name
+          num_hours = totalhours[:num_hours]
+          forgot_checkout = totalhours[:forgot_checkout]
+          anyInvalid = totalhours[:anyInvalid]
+          result.push({mentor:mentor, num_hours:num_hours, forgot_checkout: forgot_checkout, anyInvalid: anyInvalid})
+        end
     end
     result
   end
