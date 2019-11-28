@@ -1,114 +1,27 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @mentor.name
-%p
-  %b Email:
-  = @mentor.email
-%p
-  %b School:
-  = @mentor.school.name
-
-
-%br
-%br
-%p
-  %b Present Week:
-  = @present_week.strftime("%m/%d/%Y")
-%p
-  %b Week of:
-  = @week_of.strftime("%m/%d/%Y")
-%p
-  %b Total Hours:
-  = @num_hours
-%p
-  %b Forgot Checkout this week?:
-  = @forgot_checkout ? "Yes" : "No"
-
-
-%br
-%b Attendence List of the week:
-%br
-%br
-
-%table
-  %thead
-    %tr
-      %th Mentor
-      %th School
-      %th Checkin time
-      %th Latitude
-      %th Longitude
-      %th Checkout time
-      %th Latitude
-      %th Longitude
-      %th
-      %th
-      %th
-
-  %tbody
-    - @attendences_list.each do |check|
-      - checkin = check[:checkin]
-      - checkout = check[:checkout]
-      %tr
-        %td= checkin.mentor.name
-        %td= checkin.school.name
-        %td= checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
-        %td= checkin.latitude
-        %td= checkin.longitude
-        %td= checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless checkout.nil?
-        %td= checkout.nil? ? "Forgot to checkout" : checkout.latitude
-        %td= checkout.longitude unless checkout.nil?
-        %td= link_to 'Show', checkin
-        %td= link_to 'Edit', edit_checkin_path(checkin)
-        %td= link_to 'Destroy', checkin, method: :delete, data: { confirm: 'Are you sure?' }
-
-
-%br
-%br
-%br
-%br
-%br
-%b Complete Attendence List:
-
 %br
 %br
 %table
+  %caption= 'Weeks Summary of ' + @mentor.name
+
   %thead
     %tr
-      %th Mentor
+      %th Week of
       %th School
-      %th Checkin time
-      %th Latitude
-      %th Longitude
-      %th Checkout time
-      %th Latitude
-      %th Longitude
-      %th
-      %th
-      %th
+      %th Total Hours
+      %th Forgot Checkout?
+      %th Any Invalid?
 
   %tbody
-    - @complete_attendences_list.each do |check|
-      - checkin = check[:checkin]
-      - checkout = check[:checkout]
-      %tr
-        %td= checkin.mentor.name
-        %td= checkin.school.name
-        %td= checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
-        %td= checkin.latitude
-        %td= checkin.longitude
-        %td= checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless checkout.nil?
-        %td= checkout.nil? ? "Forgot to checkout" : checkout.latitude
-        %td= checkout.longitude unless checkout.nil?
-        %td= link_to 'Show', checkin
-        %td= link_to 'Edit', edit_checkin_path(checkin)
-        %td= link_to 'Destroy', checkin, method: :delete, data: { confirm: 'Are you sure?' }
+    - @mentor.weeks_summary.each do |week|
+      - week_date = week[:week_date]
+      - school_name = week[:school_name]
+      - num_hours = week[:num_hours]
+      - forgot_checkout = week[:forgot_checkout] ? "Yes" : "-"
+      - anyInvalid = week[:anyInvalid] ? "Yes" : "-"
 
-%br
-
-
-= link_to 'Edit', edit_mentor_path(@mentor)
-\|
-= link_to 'Back', mentors_path
+      %tr.table_row
+        %td= week_date
+        %td= school_name
+        %td= num_hours
+        %td= forgot_checkout
+        %td= anyInvalid
