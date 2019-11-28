@@ -18,9 +18,8 @@
       - num_hours = week[:num_hours]
       - forgot_checkout = week[:forgot_checkout] ? "Yes" : "-"
       - anyInvalid = week[:anyInvalid] ? "Yes" : "-"
-
       %tr.table_row
-        %td= week_date
+        %td= link_to week_date, mentor_attendances_path(@mentor, :week_date => week_date)
         %td= school_name
         %td= num_hours
         %td= forgot_checkout

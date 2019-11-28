@@ -1,6 +1,6 @@
 class MentorsController < ApplicationController
   before_action :require_login
-  before_action :set_mentor, only: [:show, :edit, :update, :destroy]
+  before_action :set_mentor, only: [:show, :edit, :update, :destroy, :attendances]
 
   # GET /mentor/checkin
   def checkin
@@ -17,10 +17,21 @@ class MentorsController < ApplicationController
     Rails.logger.debug params.keys
   end
 
-  # GET /mentors/1
-  # GET /mentors/1.json
+  # GET /mentors/1/details
   def show
   end
+
+
+  # GET /mentors/1/attendances
+  def attendances
+    if params[:week_date].nil?
+      @week_date = Time.now
+    else
+      @week_date = DateTime.strptime(params[:week_date], "%m/%d/%Y")
+    end
+    @week_date = @week_date.beginning_of_week.utc
+  end
+
 
   # GET /mentors/new
   def new
