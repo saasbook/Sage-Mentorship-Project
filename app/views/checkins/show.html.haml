@@ -13,20 +13,20 @@
   = @checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
 %p
   %b Latitude:
-  = @checkin.latitude
+  = @checkin.lat
 %p
   %b Longitude:
-  = @checkin.longitude
+  = @checkin.lon
 
 %p
   %b Checkout time:
   = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless @checkout.nil?
 %p
   %b Latitude:
-  = @checkout.latitude unless @checkout.nil?
+  = @checkout.lat unless @checkout.nil?
 %p
   %b Longitude:
-  = @checkout.longitude unless @checkout.nil?
+  = @checkout.lon unless @checkout.nil?
 
 
 

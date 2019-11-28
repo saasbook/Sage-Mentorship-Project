@@ -22,11 +22,12 @@
         %td= checkin.mentor.name
         %td= checkin.school.name
         %td= checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
-        %td= checkin.latitude
-        %td= checkin.longitude
-        %td= checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless checkout.nil?
-        %td= checkout.latitude unless checkout.nil?
-        %td= checkout.longitude unless checkout.nil?
+        %td= checkin.lat
+        %td= checkin.lon
+        - unless checkout.nil?
+          %td= checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S")
+          %td= checkout.lat
+          %td= checkout.lon
         %td= link_to 'Show', checkin
         %td= link_to 'Edit', edit_checkin_path(checkin)
         %td= link_to 'Destroy', checkin, method: :delete, data: { confirm: 'Are you sure?' }

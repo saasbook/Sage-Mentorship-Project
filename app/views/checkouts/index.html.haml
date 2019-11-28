@@ -16,8 +16,8 @@
     - @checkouts.each do |checkout|
       %tr
         %td= checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S")
-        %td= checkout.latitude
-        %td= checkout.longitude
+        %td= checkout.lat
+        %td= checkout.lon
         %td= checkout.mentor.name
         %td= checkout.school.name
         %td= link_to 'Show', checkout
