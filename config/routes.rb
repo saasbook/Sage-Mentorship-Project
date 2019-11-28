@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   #get 'users/root'
   resources :checkins, except: [:index]
   resources :checkouts, except: [:index, :show]
@@ -17,14 +16,20 @@ Rails.application.routes.draw do
   # for signed-in-user main page
 
   get 'mentors/' => 'mentors#_index', :as => 'mentors'
-  get 'mentors/:id/get_loc', to: "mentors#get_loc"
   get 'mentors/new' => 'mentors#new', :as => 'new_mentor'
   get 'mentors/:id' => 'mentors#appointment', :as => 'mentor'
   get 'mentors/:id/details' => 'mentors#show', :as => 'mentor_details'
   get 'mentors/:id/attendances' => 'mentors#attendances', :as => 'mentor_attendances'
-  resources :mentors, except: [:index, :show]
+  resources :mentors, except: [:index, :show, :new]
 
+  #for check in and checkout @Raj
+  get 'mentors/:id/get_loc', to: "mentors#get_loc"
+  get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
+  get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
+  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
+  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
 
+  root :to => 'logins#new'
 
   # for google_sign_in checks
   get 'login', to: 'logins#new'
@@ -34,20 +39,5 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'logins#destroy'
   resource :session
 
-  #for check in and checkout @Raj
-  get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
-  get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
-  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
-  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  get '/admin/checkin', to: 'admins#checkin', as: 'admin_checkin'
-  #get '/mentor/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
-  #get '/mentor/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
-
-  root :to => 'logins#new'
-  #
-  #root :to => redirect('/mentor/checkin')
-  #get 'mentors/:id', to: 'checkins#mentors'
-  #root :to => 'checkins#index'
 end
