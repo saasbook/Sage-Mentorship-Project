@@ -12,7 +12,7 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-      @week = Time.now.beginning_of_week.utc
+      @week_date = Time.now.beginning_of_week.utc
   end
 
   # GET /schools/new
