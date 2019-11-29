@@ -34,6 +34,7 @@ mentors = [
 {name:'Kyler Ochoa', school:'Jefferson Elementary School', email:'ko@berkeley.edu'},
 {name:'Joseph Gonzalez', school:'Jefferson Elementary School', email:'jg@berkeley.edu'},
 {name:'Stephanie Brooks', school:'Jefferson Elementary School', email:'sb@berkeley.edu'},
+{name:'Stephanie niu', school:'Jefferson Elementary School', email:'johnsparksljc@gmail.com'},
 {name:'Tmentor', school:'Jefferson Elementary School', email:'nwruhman@berkeley.edu'}
 ]
 

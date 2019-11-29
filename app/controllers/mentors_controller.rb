@@ -20,22 +20,20 @@ class MentorsController < ApplicationController
   # GET /mentors/1
   # GET /mentors/1.json
   def show
+      @present_week = Time.current.beginning_of_week.utc
+      @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
 
-    @present_week = Time.current.beginning_of_week.utc
-    @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
+      totalhours = @mentor.totalhours(@week_of)
+      @num_hours = totalhours[:num_hours]
+      @forgot_checkout = totalhours[:forgot_checkout]
 
-    totalhours = @mentor.totalhours(@week_of)
-    @num_hours = totalhours[:num_hours]
-    @forgot_checkout = totalhours[:forgot_checkout]
+      @attendences_list = @mentor.attendences(@week_of)
 
-    @attendences_list = @mentor.attendences(@week_of)
-
-    @complete_attendences_list = []
-    @mentor.checkins.each do |checkin|
-        checkout = checkin.correspond_checkout
-        @complete_attendences_list.push({checkin:checkin, checkout:checkout})
-    end
-
+      @complete_attendences_list = []
+      @mentor.checkins.each do |checkin|
+          checkout = checkin.correspond_checkout
+          @complete_attendences_list.push({checkin:checkin, checkout:checkout})
+        end
   end
 
   # GET /mentors/new
@@ -135,7 +133,12 @@ class MentorsController < ApplicationController
 
 
   def appointment
-    @mentor = Mentor.find(params[:id])
+    if session[:id].to_i != params[:id].to_i
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to mentor_path(session[:id])
+    else 
+      @mentor = Mentor.find(params[:id])
+    end
     #session[:user_id] = @mentor.id
   end
 
