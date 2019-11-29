@@ -6,6 +6,7 @@ class LoginsController < ApplicationController
     if user = authenticate_with_google
       cookies.signed[:user_id] = user.id
       session[:email_address] = user.email
+      session[:id] = user.id
       redirect_to user
     else
       session[:email_address] = nil if session[:user_id]
