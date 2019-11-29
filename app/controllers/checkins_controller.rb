@@ -11,7 +11,6 @@ class CheckinsController < ApplicationController
   # GET /checkins/1
   # GET /checkins/1.json
   def show
-    puts "hahahahahah"
     @checkout = @checkin.correspond_checkout
   end
 
