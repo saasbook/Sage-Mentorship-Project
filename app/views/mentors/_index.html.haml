@@ -1,6 +1,6 @@
 %table
 
-  - if !request.url.include?(super_path(@current_user))
+  - if !@current_user.is_a? Super
     %br
     %caption= "Menotrs"
 
