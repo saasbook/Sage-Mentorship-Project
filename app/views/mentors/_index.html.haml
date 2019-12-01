@@ -1,4 +1,9 @@
 %table
+
+  - if !request.url.include?(super_path(@current_user))
+    %br
+    %caption= "Menotrs"
+
   %thead
     %tr
       %th Name

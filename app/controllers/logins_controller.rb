@@ -15,7 +15,7 @@ class LoginsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    session[:user_email] = nil
+    session[:email_address] = nil
     redirect_to root_url, :notice => "Logged out!"
   end
 

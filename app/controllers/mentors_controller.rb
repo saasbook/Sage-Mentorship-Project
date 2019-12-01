@@ -18,11 +18,13 @@ class MentorsController < ApplicationController
   end
 
   # GET /mentors/1/details
+  # show the weeks summary of the mentor
   def show
   end
 
 
   # GET /mentors/1/attendances
+  # show the detailed attendances list of the mentor at a specific week
   def attendances
     if params[:week_date].nil?
       @week_date = Time.now
@@ -90,6 +92,7 @@ class MentorsController < ApplicationController
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
+    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
@@ -106,6 +109,7 @@ class MentorsController < ApplicationController
     @time = Time.now
     @lat = params[:la]
     @lon = params[:lo]
+    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful'
@@ -125,9 +129,6 @@ class MentorsController < ApplicationController
     @mentor = Mentor.find(params[:id])
     @time = Time.now
   end
-
-
-
 
   def appointment
     @mentor = Mentor.find(params[:id])

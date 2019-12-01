@@ -22,7 +22,7 @@ function getLocation_checkout() {
 	var new_link = link + '/checkout'
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition_checkout);
-  } else { 
+  } else {
     alert("Please allow location");
   }
 }
@@ -35,7 +35,7 @@ document.location.replace(link + "/checkout_loc"+"?la=" +latitude + "&lo="+longi
 function getLocation_checkin() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition_checkin);
-  } else { 
+  } else {
     alert("Please allow location");
   }
 }
@@ -45,5 +45,3 @@ var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
 document.location.replace(link + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
 }
-
-

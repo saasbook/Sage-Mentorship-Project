@@ -3,10 +3,6 @@ class AdminsController < ApplicationController
   before_action :authorize_admin
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
-  # GET /admin/checkin
-  def checkin
-  end
-
   # GET /admins
   # GET /admins.json
   def _index

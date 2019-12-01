@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   resources :checkins, except: [:index]
   resources :checkouts, except: [:index, :show]
 
-  get 'admins/' => 'admins#_index', :as => 'admins'
-  resources :admins, except: [:index]
-
   get 'schools/' => 'schools#_index', :as => 'schools'
   resources :schools, except: [:index]
 
   get 'supers/' => 'supers#_index', :as => 'supers'
   resources :supers, except: [:index]
+
+  get 'admins/' => 'admins#_index', :as => 'admins'
+  resources :admins, except: [:index]
 
   # for signed-in-user main page
 
