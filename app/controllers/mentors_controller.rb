@@ -12,7 +12,7 @@ class MentorsController < ApplicationController
         'Content-Disposition'
       ] = "attachment; filename='items.xlsx'"
     }
-    format.html { render :index }
+    format.html { render :_index }
   end
     Rails.logger.debug params.keys
   end
