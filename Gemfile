@@ -8,6 +8,10 @@ gem 'haml-rails'
 gem 'google_sign_in'
 gem 'devise'
 
+#Gem to export
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

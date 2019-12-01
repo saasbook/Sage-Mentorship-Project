@@ -14,6 +14,7 @@ admins = [
 ]
 
 supers = [
+{name:'test raj', email:'rajgiri0520@gmail.com'},
 {name:'test su', email:'nwruhman@gmail.com'},
 {name:'test super', email:'jasmine.yong@berkeley.edu'},
 {name:'test superduper', email:'toni.oshikanlu9@gmail.com'},
@@ -38,26 +39,33 @@ mentors = [
 {name:'Tmentor', school:'Jefferson Elementary School', email:'nwruhman@berkeley.edu'}
 ]
 
-reports = [
-{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-18 13:00:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-18 14:00:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
+checkin = [
+{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-18 13:00:00', lat: 37.876869, lon: -122.270348},
+{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
 
-{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-24 13:00:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-24 14:30:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
-{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
+{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-24 13:00:00', lat: 37.876869, lon: -122.270348},
+{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
 
-{type: 'checkin', mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkin_time: '2019-10-18 13:00:00', lat: 37.861570, lon: -122.251160},
-{type: 'checkout', mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkout_time: '2019-10-18 14:00:00', lat: 37.861570, lon: -122.251160},
+{mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkin_time: '2019-10-18 13:00:00', lat: 37.861570, lon: -122.251160},
 
-{type: 'checkin', mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420},
+{mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420},
 
-{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-24 13:00:00', lat: 37.878910, lon: -122.284420},
-{type: 'checkout', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkout_time: '2019-10-24 14:30:00', lat: 37.878910, lon: -122.284420},
-{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420}
+{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-24 13:00:00', lat: 37.878910, lon: -122.284420},
+{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420}
 ]
+
+checkout = [
+{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-18 14:00:00', lat: 37.876869, lon: -122.270348},
+{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
+
+{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-24 14:30:00', lat: 37.876869, lon: -122.270348},
+{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
+
+{mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkout_time: '2019-10-18 14:00:00', lat: 37.861570, lon: -122.251160},
+{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkout_time: '2019-10-24 14:30:00', lat: 37.878910, lon: -122.284420},
+]
+
+
 
 
 Mentor.delete_all

@@ -1,3 +1,4 @@
+require 'csv'
 class Checkin < ApplicationRecord
 	belongs_to :mentor
 
