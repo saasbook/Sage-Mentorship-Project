@@ -13,12 +13,4 @@ class Admin < ApplicationRecord
   #  write_attribute(:school_id, School.find_by_name(:school_id))
   #end
 
-  # return the list of totalhours = {num_hours, forgot_checkout}
-  # for all mentors in the specific week for the school of this admin
-
-  def totalhours_list(start_of_week)
-    if @school = School.find(self.school_id)
-      @school.totalhours_list(start_of_week)
-    end
-  end
 end

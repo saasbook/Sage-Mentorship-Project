@@ -1,9 +1,15 @@
 class ApplicationController < ActionController::Base
+  before_action :get_user
+
 	def require_login
   		if !session[:email_address]
         	redirect_to root_url
     	end
 	end
+
+  def get_user
+      @current_user = find_user_by_email(session[:email_address])
+  end
 
 	private
 	def model_name
@@ -15,7 +21,7 @@ class ApplicationController < ActionController::Base
 		user = Mentor.find_by(email: email_address) || Admin.find_by(email: email_address) || Super.find_by(email: email_address)
 	end
 
-	
+
 	def authorize_admin
 		email_address = session[:email_address]
 		user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
@@ -31,4 +37,5 @@ class ApplicationController < ActionController::Base
 			redirect_to root_url
 		end
 	end
+
 end

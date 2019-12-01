@@ -1,21 +1,23 @@
-
 %table
+
+  - if !@current_user.is_a? Super
+    %br
+    %caption= "Menotrs"
+
   %thead
     %tr
       %th Name
       %th Email
       %th School
-      //%th
       %th
       %th
 
   %tbody
     - @mentors.each do |mentor|
       %tr
-        %td= mentor.name
+        %td= link_to mentor.name, mentor_details_path(mentor)
         %td= mentor.email
         %td= mentor.school.name
-        //%td= link_to 'Show', mentor
         %td= link_to 'Edit', edit_mentor_path(mentor), method: :get
         %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: 'Are you sure?' }
 

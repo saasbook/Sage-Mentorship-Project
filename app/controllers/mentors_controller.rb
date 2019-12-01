@@ -1,11 +1,10 @@
 class MentorsController < ApplicationController
   before_action :require_login
-  before_action :set_mentor, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_mentor, only: [:show, :edit, :update, :destroy, :attendances]
 
   # GET /mentors
   # GET /mentors.json
-  def index
+  def _index
     @mentors = Mentor.all
     respond_to do |format|
     format.xlsx {
@@ -18,24 +17,23 @@ class MentorsController < ApplicationController
     Rails.logger.debug params.keys
   end
 
-  # GET /mentors/1
-  # GET /mentors/1.json
+  # GET /mentors/1/details
+  # show the weeks summary of the mentor
   def show
-      @present_week = Time.current.beginning_of_week.utc
-      @week_of = Time.zone.parse("0:0am Oct 21st, 2019").utc
-
-      totalhours = @mentor.totalhours(@week_of)
-      @num_hours = totalhours[:num_hours]
-      @forgot_checkout = totalhours[:forgot_checkout]
-
-      @attendences_list = @mentor.attendences(@week_of)
-
-      @complete_attendences_list = []
-      @mentor.checkins.each do |checkin|
-          checkout = checkin.correspond_checkout
-          @complete_attendences_list.push({checkin:checkin, checkout:checkout})
-        end
   end
+
+
+  # GET /mentors/1/attendances
+  # show the detailed attendances list of the mentor at a specific week
+  def attendances
+    if params[:week_date].nil?
+      @week_date = Time.now
+    else
+      @week_date = DateTime.strptime(params[:week_date], "%m/%d/%Y")
+    end
+    @week_date = @week_date.beginning_of_week.utc
+  end
+
 
   # GET /mentors/new
   def new
@@ -94,34 +92,36 @@ class MentorsController < ApplicationController
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
+    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon,:date => Date.today)
     if @chk_in.save
-        flash[:notice] = 'Checkin succesful' 
+        flash[:notice] = 'Checkin succesful'
         redirect_to mentor_checkin_url
     else
       redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
+      flash[:notice] = 'something wrong, please try again'
     end
   end
-  
+
 
   def checkout_loc
     @mentor = Mentor.find(params[:id])
     @time = Time.now
     @lat = params[:la]
     @lon = params[:lo]
+    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true, :date => Date.today)
     if @chk_out.save
-        flash[:notice] = 'Checkout succesful' 
+        flash[:notice] = 'Checkout succesful'
         redirect_to mentor_checkout_url
     else
       redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again' 
+      flash[:notice] = 'something wrong, please try again'
     end
   end
 
   def checkin
-   
+
     @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
     @mentor = Mentor.find(params[:id])
     @time = Time.now
@@ -132,20 +132,17 @@ class MentorsController < ApplicationController
     @time = Time.now
   end
 
-
-
-
   def appointment
     if session[:id].to_i != params[:id].to_i
       flash[:notice] = "You don't have access to that page!"
       redirect_to mentor_path(session[:id])
-    else 
+    else
       @mentor = Mentor.find(params[:id])
     end
     #session[:user_id] = @mentor.id
   end
 
- 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mentor
@@ -157,5 +154,5 @@ class MentorsController < ApplicationController
       params.require(:mentor).permit(:name, :email, :school_id)
     end
 
-    
+
 end

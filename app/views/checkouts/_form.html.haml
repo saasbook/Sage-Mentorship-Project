@@ -11,15 +11,18 @@
     = f.datetime_select :checkout_time
   .field
     = f.label :latitude
-    = f.text_field :latitude
+    = f.text_field :lat
   .field
     = f.label :longitude
-    = f.text_field :longitude
+    = f.text_field :lon
   .field
-    = f.label :mentor
-    = f.text_field :mentor
+    = f.label :mentor_id
+    = f.collection_select :mentor_id, Mentor.all, :id, :name, prompt: "Select Mentor"
   .field
-    = f.label :school
-    = f.text_field :school
+    = f.label :school_id
+    = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
+  -#.field
+    -#= f.label :isValid
+    -#= f.check_box :isValid
   .actions
     = f.submit 'Save'

@@ -7,18 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admins = [
-{name:'Darain Noveir', email:'bam@sagementorship.org', school_id: 'Berkeley Arts Magnet School'},
-{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school_id: 'Jefferson Elementary School'},
-{name:'Sweta Parija', email:'emerson@sagementorship.org', school_id: 'Emerson Elementary School'},
-{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school_id: 'Jefferson Elementary School'},
+{name:'Darain Noveir', email:'bam@sagementorship.org', school: 'Berkeley Arts Magnet School'},
+{name:'tonite Parija', email:'tonioshikanlu@berkeley.edu', school: 'Jefferson Elementary School'},
+{name:'Sweta Parija', email:'emerson@sagementorship.org', school: 'Emerson Elementary School'},
+{name:'Megan Bendicto', email:'jefferson@sagementorship.org', school: 'Jefferson Elementary School'},
+{name:'Choi Adm', email:'choimanng@gmail.com', school: 'Jefferson Elementary School'}
 ]
 
 supers = [
 {name:'test raj', email:'rajgiri0520@gmail.com'},
 {name:'test su', email:'nwruhman@gmail.com'},
 {name:'test super', email:'jasmine.yong@berkeley.edu'},
-{name:'test superduper', email:'toni.oshikanlu9@gmail.com'},
-{name:'sage president', email:'president@sagementorship.org'}
+{name:'Choi Sup', email:'choimanng@berkeley.edu'},
+{name:'test superduper', email:'toni.oshikanlu9@gmail.com'}
 ]
 
 schools = [
@@ -35,39 +36,38 @@ mentors = [
 {name:'Kyler Ochoa', school:'Jefferson Elementary School', email:'ko@berkeley.edu'},
 {name:'Joseph Gonzalez', school:'Jefferson Elementary School', email:'jg@berkeley.edu'},
 {name:'Stephanie Brooks', school:'Jefferson Elementary School', email:'sb@berkeley.edu'},
+{name:'Tmentor', school:'Jefferson Elementary School', email:'nwruhman@berkeley.edu'},
 {name:'Stephanie niu', school:'Jefferson Elementary School', email:'johnsparksljc@gmail.com'},
-{name:'Tmentor', school:'Jefferson Elementary School', email:'nwruhman@berkeley.edu'}
+{name:'Choi Ment', email:'choimangg@gmail.com', school: 'Berkeley Arts Magnet School'}
 ]
 
-checkin = [
-{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-18 13:00:00', lat: 37.876869, lon: -122.270348},
-{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
+last_Monday = Date.today.monday.last_week.strftime("%Y-%m-%d")
+this_Monday = Date.today.monday.strftime("%Y-%m-%d")
+this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
 
-{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-24 13:00:00', lat: 37.876869, lon: -122.270348},
-{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkin_time: '2019-10-25 13:00:00', lat: 37.876869, lon: -122.270348},
+reports = [
+{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '13:00:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '14:00:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', lat: 37.876869, lon: -122.270348},
 
-{mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkin_time: '2019-10-18 13:00:00', lat: 37.861570, lon: -122.251160},
+{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '13:00:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '14:30:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', lat: 37.876869, lon: -122.270348},
+{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', lat: 37.876869, lon: -122.270348},
 
-{mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420},
+{type: 'checkin', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '13:00:00', lat: 37.861570, lon: -122.251160},
+{type: 'checkout', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '14:00:00', lat: 37.861570, lon: -122.251160},
 
-{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-24 13:00:00', lat: 37.878910, lon: -122.284420},
-{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkin_time: '2019-10-25 13:00:00', lat: 37.878910, lon: -122.284420}
+{type: 'checkin', mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', lat: 37.878910, lon: -122.284420},
+
+{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '13:00:00', lat: 37.878910, lon: -122.284420},
+{type: 'checkout', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '14:30:00', lat: 37.878910, lon: -122.284420},
+{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', lat: 37.878910, lon: -122.284420}
 ]
 
-checkout = [
-{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-18 14:00:00', lat: 37.876869, lon: -122.270348},
-{mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
-
-{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-24 14:30:00', lat: 37.876869, lon: -122.270348},
-{mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', checkout_time: '2019-10-25 14:00:00', lat: 37.876869, lon: -122.270348},
-
-{mentor: 'Diana Hansen', school: 'Emerson Elementary School', checkout_time: '2019-10-18 14:00:00', lat: 37.861570, lon: -122.251160},
-{mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', checkout_time: '2019-10-24 14:30:00', lat: 37.878910, lon: -122.284420},
-]
-
-
-
-
+Checkin.delete_all
+Checkout.delete_all
 Mentor.delete_all
 Admin.delete_all
 Super.delete_all
@@ -79,7 +79,7 @@ schools.each do |school|
 end
 
 admins.each do |admin|
-  admin[:school_id] = School.where(name: admin[:school_id]).first.id
+  admin[:school] = School.where(name: admin[:school]).first
   Admin.create!(admin)
 end
 
@@ -92,18 +92,24 @@ supers.each do |super_user|
   Super.create!(super_user)
 end
 
-=begin
-
 reports.each do |check|
-  check[:mentor] = Mentor.where(name: check[:mentor]).first
-  check[:school] = School.where(name: check[:school]).first
   type = check[:type]
+  if type == 'checkin'
+    check[:checkin_time] = check[:date] + ' ' + check[:time]
+  else
+    check[:checkout_time] = check[:date] + ' ' + check[:time]
+  end
+
+  check[:mentor] = Mentor.where(name: check[:mentor]).first
+  check[:school_id] = School.where(name: check[:school]).first.id
+  check.delete(:school)
+  check.delete(:date)
+  check.delete(:time)
   check.delete(:type)
+
   if type == 'checkin'
     Checkin.create!(check)
   else
     Checkout.create!(check)
   end
 end
-
-=end

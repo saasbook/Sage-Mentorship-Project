@@ -1,21 +1,19 @@
 class CheckoutsController < ApplicationController
   before_action :require_login
-  before_action :set_checkout, only: [:show, :edit, :update, :destroy]
-
-  # GET /checkouts
-  # GET /checkouts.json
-  def index
-    @checkouts = Checkout.all
-  end
-
-  # GET /checkouts/1
-  # GET /checkouts/1.json
-  def show
-  end
+  before_action :set_checkout, only: [:edit, :update, :destroy]
 
   # GET /checkouts/new
   def new
     @checkout = Checkout.new
+    unless params[:correspond_checkin_id].nil?
+        @checkin = Checkin.find(params[:correspond_checkin_id])
+        @checkout.mentor = @checkin.mentor
+        @checkout.school_id = @checkin.school.id
+        @checkout.lat = @checkin.lat
+        @checkout.lon = @checkin.lon
+        @checkout.checkout_time = @checkin.checkin_time
+        #@checkout.isValid = @checkin.isValid
+    end
   end
 
   # GET /checkouts/1/edit

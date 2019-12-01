@@ -2,12 +2,6 @@ class CheckinsController < ApplicationController
   before_action :require_login
   before_action :set_checkin, only: [:show, :edit, :update, :destroy]
 
-  # GET /checkins
-  # GET /checkins.json
-  def index
-    @checkins = Checkin.all
-  end
-
   # GET /checkins/1
   # GET /checkins/1.json
   def show

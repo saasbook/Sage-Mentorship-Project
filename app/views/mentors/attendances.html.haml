@@ -1,0 +1,69 @@
+%head
+
+%link{:href => "/stylesheets/jquery-ui.css", :rel => "stylesheet"}/
+%link{:href => "/stylesheets/style.css", :rel => "stylesheet"}/
+%script{:src => "/javascripts/jquery-1.12.4.js"}
+%script{:src => "/javascripts/jquery-ui.js"}
+:javascript
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      firstDay: 1
+    });
+  } );
+
+%body
+
+%p#notice= notice
+
+%p
+  = form_tag(@school, :method => :get, :align => "center") do
+    Week of:
+    %input#datepicker{:type => "text", :name => "week_date", :autocomplete => "off", :value => @week_date.strftime("%m/%d/%Y")}
+    %input{:type => "submit", :value => "Select"}
+
+
+%br
+%br
+
+%table
+  %caption= 'Attendances of ' + @mentor.name + ', week of: ' + @week_date.strftime("%m/%d/%Y")
+
+  %thead
+    %tr
+      %th{:rowspan => 2} Date
+      %th{:rowspan => 2} Hours
+      %th{:rowspan => 2} School
+      %th{:colspan => 3} ~ Check In ~
+      %th{:colspan => 3} ~ Check Out ~
+    %tr
+      %th Time
+      %th Location
+      %th Invalid
+      %th Time
+      %th Location
+      %th Invalid
+
+  %tbody
+    - @mentor.attendances(@week_date).each do |check|
+      - date = check[:date]
+      - duration = check[:duration]
+      - school_name = check[:school_name]
+      - checkin = check[:checkin]
+      - checkout = check[:checkout]
+      %tr
+        %td= link_to date, checkin
+        %td= duration
+        %td= school_name
+
+        %td= checkin.checkin_time.strftime("%H:%M:%S")
+        %td= "(" + checkin.lat.to_s + ", " + checkin.lon.to_s + ")"
+        %td= "-"
+        -#%td= checkin.isValid ? "-" : "invalid"
+
+        - if checkout.nil?
+          %td{:colspan => 3} Forgot to checkout
+        - else
+          %td= checkout.checkout_time.strftime("%H:%M:%S")
+          %td= "(" + checkout.lat.to_s + ", " + checkout.lon.to_s + ")"
+          %td= "-"
+          -#%td= checkout.isValid ? "-" : "invalid"

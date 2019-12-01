@@ -1,35 +1,56 @@
 %p#notice= notice
 
-
-%p
+%h2 Check In
+%p{:style => "text-indent: 40px"}
   %b Mentor:
   = @checkin.mentor.name
-%p
-  %b School:
-  = @checkin.school.name
-
-%p
-  %b Checkin time:
+%p{:style => "text-indent: 40px"}
+  %b Time:
   = @checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
-%p
+%p{:style => "text-indent: 40px"}
   %b Latitude:
-  = @checkin.latitude
-%p
+  = @checkin.lat
+%p{:style => "text-indent: 40px"}
   %b Longitude:
-  = @checkin.longitude
-
-%p
-  %b Checkout time:
-  = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S") unless @checkout.nil?
-%p
-  %b Latitude:
-  = @checkout.latitude unless @checkout.nil?
-%p
-  %b Longitude:
-  = @checkout.longitude unless @checkout.nil?
+  = @checkin.lon
+%p{:style => "text-indent: 40px"}
+  %b Location:
+  = @checkin.school.name
+%p{:style => "text-indent: 40px"}
+  %b isValid:
+-#= @checkin.isValid
+%p{:style => "text-indent: 40px"}
+  = link_to 'Edit Check In', edit_checkin_path(@checkin)
 
 
+%br
+%br
+%h2 Check Out
 
-= link_to 'Edit', edit_checkin_path(@checkin)
-\|
-= link_to 'Back', checkins_path
+- if @checkout.nil?
+  %p{:style => "text-indent: 40px"}
+    = link_to 'Create New Checkout', new_checkout_path(:correspond_checkin_id => @checkin.id)
+- else
+  %p{:style => "text-indent: 40px"}
+    %b Mentor:
+    = @checkout.mentor.name
+  %p{:style => "text-indent: 40px"}
+    %b Time:
+    = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S")
+  %p{:style => "text-indent: 40px"}
+    %b Latitude:
+    = @checkout.lat
+  %p{:style => "text-indent: 40px"}
+    %b Longitude:
+    = @checkout.lon
+  %p{:style => "text-indent: 40px"}
+    %b Location:
+    = @checkout.school.name
+  %p{:style => "text-indent: 40px"}
+    %b isValid:
+  -#= @checkout.isValid
+  %p{:style => "text-indent: 40px"}
+    = link_to 'Edit Check Out', edit_checkout_path(@checkout)
+
+%br
+= link_to 'Back', mentor_attendances_path(@checkin.mentor)

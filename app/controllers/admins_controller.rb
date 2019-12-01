@@ -3,27 +3,21 @@ class AdminsController < ApplicationController
   before_action :authorize_admin
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
-  # GET /admin/checkin
-  def checkin
-  end
-
   # GET /admins
   # GET /admins.json
-  def index
+  def _index
     @admins = Admin.all
   end
 
   # GET /admins/1
   # GET /admins/1.json
   def show
-    if session[:id].to_i == params[:id].to_i
-      @present_week = Time.current.beginning_of_week.utc
-      @school = School.find(@admin.school_id)
-      @totalhours_list = @admin.totalhours_list(@present_week)
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to admin_path(session[:id]) 
-  end
+#    if session[:id].to_i == params[:id].to_i
+      redirect_to @admin.school
+#    else
+#      flash[:notice] = "You don't have access to that page!"
+#      redirect_to admin_path(session[:id])
+#    end
   end
 
   # GET /admins/new
