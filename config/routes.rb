@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   get 'mentors/:id/get_loc', to: "mentors#get_loc"
   get '/mentors/:id/checkin', to: 'mentors#checkin', as: 'mentor_checkin'
   get '/mentors/:id/checkout', to: 'mentors#checkout', as: 'mentor_checkout'
-  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc'
-  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc'
+  get '/mentors/:id/checkin_loc', to: 'mentors#checkin_loc', as: 'mentor_checkin_loc'
+  get '/mentors/:id/checkout_loc', to: 'mentors#checkout_loc', as: 'mentor_checkout_loc'
 
   root :to => 'logins#new'
 
