@@ -6,6 +6,14 @@ class MentorsController < ApplicationController
   # GET /mentors.json
   def _index
     @mentors = Mentor.all
+    respond_to do |format|
+    format.xlsx {
+      response.headers[
+        'Content-Disposition'
+      ] = "attachment; filename='items.xlsx'"
+    }
+    format.html { render :index }
+  end
     Rails.logger.debug params.keys
   end
 
@@ -85,7 +93,7 @@ class MentorsController < ApplicationController
     @lat = params[:la]
     @lon = params[:lo]
     logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon)
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
         redirect_to mentor_checkin_url
@@ -102,7 +110,7 @@ class MentorsController < ApplicationController
     @lat = params[:la]
     @lon = params[:lo]
     logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true)
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true, :date => Date.today)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful'
         redirect_to mentor_checkout_url
@@ -113,6 +121,8 @@ class MentorsController < ApplicationController
   end
 
   def checkin
+
+    @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
     @mentor = Mentor.find(params[:id])
     @time = Time.now
   end
