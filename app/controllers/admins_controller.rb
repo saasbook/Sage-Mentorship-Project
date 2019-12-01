@@ -12,7 +12,12 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
-    redirect_to @admin.school
+    if session[:id].to_i == params[:id].to_i
+      redirect_to @admin.school
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to admin_path(session[:id])
+    end
   end
 
   # GET /admins/new

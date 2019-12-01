@@ -2,14 +2,6 @@ class MentorsController < ApplicationController
   before_action :require_login
   before_action :set_mentor, only: [:show, :edit, :update, :destroy, :attendances]
 
-  # GET /mentor/checkin
-  def checkin
-  end
-
-  # GET /mentor/checkout
-  def checkout
-  end
-
   # GET /mentors
   # GET /mentors.json
   def _index
@@ -131,7 +123,12 @@ class MentorsController < ApplicationController
   end
 
   def appointment
-    @mentor = Mentor.find(params[:id])
+    if session[:id].to_i != params[:id].to_i
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to mentor_path(session[:id])
+    else
+      @mentor = Mentor.find(params[:id])
+    end
     #session[:user_id] = @mentor.id
   end
 

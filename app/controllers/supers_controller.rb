@@ -16,10 +16,15 @@ class SupersController < ApplicationController
   end
 
   def show
+    if session[:id].to_i == params[:id].to_i
     @schools = School.all
     @mentors = Mentor.all
     @admins = Admin.all
     @supers = Super.all
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to super_path(session[:id]) 
+  end
   end
 
   # POST /supers
