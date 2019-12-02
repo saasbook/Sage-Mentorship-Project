@@ -42,9 +42,9 @@ mentors = [
 {name:'Choi Ment', email:'choimangg@gmail.com', school: 'Berkeley Arts Magnet School'}
 ]
 
-@last_Monday = Date.today.monday.last_week.strftime("%Y-%m-%d")
-@this_Monday = Date.today.monday.strftime("%Y-%m-%d")
-@this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
+last_Monday = Date.today.monday.last_week.strftime("%Y-%m-%d")
+this_Monday = Date.today.monday.strftime("%Y-%m-%d")
+this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
 
 reports = [
 {type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
@@ -104,7 +104,7 @@ reports.each do |check|
   check[:mentor] = Mentor.where(name: check[:mentor]).first
   check[:school_id] = School.where(name: check[:school]).first.id
   check.delete(:school)
-  check.delete(:date)
+  #check.delete(:date)
   check.delete(:time)
   check.delete(:type)
 
