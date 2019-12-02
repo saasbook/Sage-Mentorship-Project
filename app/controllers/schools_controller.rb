@@ -13,11 +13,11 @@ class SchoolsController < ApplicationController
   # GET /schools/1.json
   def show
       if params[:week_date].nil?
-        @week_date = Time.now
+        @week_date = Time.current
       else
-        @week_date = DateTime.strptime(params[:week_date], "%m/%d/%Y")
+        @week_date = Time.strptime(params[:week_date], "%m/%d/%Y")
       end
-      @week_date = @week_date.beginning_of_week.utc
+      @week_date = @week_date.beginning_of_week
   end
 
   # GET /schools/new

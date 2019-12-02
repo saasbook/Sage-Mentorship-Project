@@ -29,11 +29,11 @@ class MentorsController < ApplicationController
   # show the detailed attendances list of the mentor at a specific week
   def attendances
     if params[:week_date].nil?
-      @week_date = Time.now
+      @week_date = Time.current
     else
-      @week_date = DateTime.strptime(params[:week_date], "%m/%d/%Y")
+      @week_date = Time.zone.strptime(params[:week_date], "%m/%d/%Y")
     end
-    @week_date = @week_date.beginning_of_week.utc
+    @week_date = @week_date.beginning_of_week
   end
 
 
@@ -89,14 +89,14 @@ class MentorsController < ApplicationController
   end
 
   def checkin_loc
-    @time = Time.now
+    @time = Time.current
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
     @isValid = true
-    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
+    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
         redirect_to mentor_checkin_url
@@ -109,12 +109,12 @@ class MentorsController < ApplicationController
 
   def checkout_loc
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
     @lat = params[:la]
     @lon = params[:lo]
     @isValid = true
-    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
+    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful'
         redirect_to mentor_checkout_url
@@ -128,12 +128,12 @@ class MentorsController < ApplicationController
 
     @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
   end
 
   def checkout
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
   end
 
   def appointment
