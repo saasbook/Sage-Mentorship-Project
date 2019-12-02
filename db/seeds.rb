@@ -108,6 +108,7 @@ reports.each do |check|
   check[:mentor] = Mentor.where(name: check[:mentor]).first
   check[:school_id] = School.where(name: check[:school]).first.id
   check.delete(:school)
+  #check.delete(:date)
   check.delete(:time)
   check.delete(:lat)
   check.delete(:lon)
