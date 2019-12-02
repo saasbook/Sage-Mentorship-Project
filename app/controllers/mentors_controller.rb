@@ -31,7 +31,7 @@ class MentorsController < ApplicationController
     if params[:week_date].nil?
       @week_date = Time.current
     else
-      @week_date = Time.zone.strptime(params[:week_date], "%m/%d/%Y")
+      @week_date = Time.strptime(params[:week_date], "%m/%d/%Y")
     end
     @week_date = @week_date.beginning_of_week
   end
