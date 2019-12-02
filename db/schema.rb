@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_101545) do
+ActiveRecord::Schema.define(version: 2019_12_01_212345) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_101545) do
 
   create_table "checkouts", force: :cascade do |t|
     t.datetime "checkout_time"
-    t.string "checkin_lat"
+    t.string "checkout_lat"
     t.string "checkout_lon"
     t.integer "mentor_id"
     t.string "date"
@@ -55,6 +55,21 @@ ActiveRecord::Schema.define(version: 2019_11_22_101545) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_mentors_on_school_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "school_id"
+    t.string "checkin_time"
+    t.string "chekcout_time"
+    t.float "checkin_lat"
+    t.float "checkin_lon"
+    t.float "checkout_lat"
+    t.float "checkout_lon"
+    t.boolean "is_checkout"
+    t.integer "mentor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentor_id"], name: "index_reports_on_mentor_id"
   end
 
   create_table "schools", force: :cascade do |t|
