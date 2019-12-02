@@ -5,12 +5,14 @@ class MentorsController < ApplicationController
   # GET /mentors
   # GET /mentors.json
   def _index
+    sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
+    @records_array = ActiveRecord::Base.connection.execute(sql)
     @mentors = Mentor.all
     respond_to do |format|
     format.xlsx {
       response.headers[
         'Content-Disposition'
-      ] = "attachment; filename='items.xlsx'"
+      ] = "attachment; filename=mentor_reports_#{Date.today}.xlsx"
     }
     format.html { render :_index }
   end
