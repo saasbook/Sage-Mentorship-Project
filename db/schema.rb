@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_01_212345) do
+ActiveRecord::Schema.define(version: 2019_12_02_032443) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_12_01_212345) do
     t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "isValid"
     t.index ["mentor_id"], name: "index_checkins_on_mentor_id"
     t.index ["school_id"], name: "index_checkins_on_school_id"
   end
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_12_01_212345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ischeckout"
+    t.boolean "isValid"
     t.index ["mentor_id"], name: "index_checkouts_on_mentor_id"
     t.index ["school_id"], name: "index_checkouts_on_school_id"
   end
@@ -55,21 +57,6 @@ ActiveRecord::Schema.define(version: 2019_12_01_212345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_mentors_on_school_id"
-  end
-
-  create_table "reports", force: :cascade do |t|
-    t.string "school_id"
-    t.string "checkin_time"
-    t.string "chekcout_time"
-    t.float "checkin_lat"
-    t.float "checkin_lon"
-    t.float "checkout_lat"
-    t.float "checkout_lon"
-    t.boolean "is_checkout"
-    t.integer "mentor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["mentor_id"], name: "index_reports_on_mentor_id"
   end
 
   create_table "schools", force: :cascade do |t|
