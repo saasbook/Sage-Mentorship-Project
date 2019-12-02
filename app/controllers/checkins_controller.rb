@@ -21,8 +21,8 @@ class CheckinsController < ApplicationController
   # POST /checkins.json
   def create
     @checkin = Checkin.new(checkin_params)
-
     respond_to do |format|
+      @checkin.date = @checkin.checkin_time.to_date
       if @checkin.save
         format.html { redirect_to @checkin, notice: 'Checkin was successfully created.' }
         format.json { render :show, status: :created, location: @checkin }
@@ -37,6 +37,7 @@ class CheckinsController < ApplicationController
   # PATCH/PUT /checkins/1.json
   def update
     respond_to do |format|
+      @checkin.date = @checkin.checkin_time.to_date
       if @checkin.update(checkin_params)
         format.html { redirect_to @checkin, notice: 'Checkin was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkin }
@@ -65,6 +66,6 @@ class CheckinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkin_params
-      params.require(:checkin).permit(:checkin_time, :latitude, :longitude, :mentor_id, :school_id)
+      params.require(:checkin).permit(:checkin_time, :checkin_lat, :checkin_lon, :mentor_id, :school_id, :isValid)
     end
 end

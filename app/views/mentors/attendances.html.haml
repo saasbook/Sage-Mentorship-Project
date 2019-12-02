@@ -38,10 +38,10 @@
     %tr
       %th Time
       %th Location
-      %th Invalid
+      %th Invalid Geoloc
       %th Time
       %th Location
-      %th Invalid
+      %th Invalid Geoloc
 
   %tbody
     - @mentor.attendances(@week_date).each do |check|
@@ -56,14 +56,12 @@
         %td= school_name
 
         %td= checkin.checkin_time.strftime("%H:%M:%S")
-        %td= "(" + checkin.lat.to_s + ", " + checkin.lon.to_s + ")"
-        %td= "-"
-        -#%td= checkin.isValid ? "-" : "invalid"
+        %td= "(" + checkin.checkin_lat.to_s + ", " + checkin.checkin_lon.to_s + ")"
+        %td= checkin.isValid ? "-" : "invalid"
 
         - if checkout.nil?
           %td{:colspan => 3} Forgot to checkout
         - else
           %td= checkout.checkout_time.strftime("%H:%M:%S")
-          %td= "(" + checkout.lat.to_s + ", " + checkout.lon.to_s + ")"
-          %td= "-"
-          -#%td= checkout.isValid ? "-" : "invalid"
+          %td= "(" + checkout.checkout_lat.to_s + ", " + checkout.checkout_lon.to_s + ")"
+          %td= checkout.isValid ? "-" : "invalid"

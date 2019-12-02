@@ -30,7 +30,8 @@
     %tr
       %th Mentor
       %th Total Hours
-      %th Forgot Checkout?
+      %th Any Missed Checkout?
+      %th Any Invalid Geoloc?
 
   %tbody
     - @school.activities(@week_date).each do |r|

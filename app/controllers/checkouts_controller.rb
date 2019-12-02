@@ -9,10 +9,10 @@ class CheckoutsController < ApplicationController
         @checkin = Checkin.find(params[:correspond_checkin_id])
         @checkout.mentor = @checkin.mentor
         @checkout.school_id = @checkin.school.id
-        @checkout.lat = @checkin.lat
-        @checkout.lon = @checkin.lon
+        @checkout.checkout_lat = @checkin.checkin_lat
+        @checkout.checkout_lon = @checkin.checkin_lon
         @checkout.checkout_time = @checkin.checkin_time
-        #@checkout.isValid = @checkin.isValid
+        @checkout.isValid = @checkin.isValid
     end
   end
 
@@ -24,10 +24,10 @@ class CheckoutsController < ApplicationController
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
-
     respond_to do |format|
+      @checkout.date = @checkout.checkout_time.to_date
       if @checkout.save
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
+        format.html { redirect_to @checkout.correspond_checkin, notice: 'Checkout was successfully created.' }
         format.json { render :show, status: :created, location: @checkout }
       else
         format.html { render :new }
@@ -40,8 +40,9 @@ class CheckoutsController < ApplicationController
   # PATCH/PUT /checkouts/1.json
   def update
     respond_to do |format|
+      @checkout.date = @checkout.checkout_time.to_date
       if @checkout.update(checkout_params)
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully updated.' }
+        format.html { redirect_to @checkout.correspond_checkin, notice: 'Checkout was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkout }
       else
         format.html { render :edit }
@@ -68,6 +69,6 @@ class CheckoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkout_params
-      params.require(:checkout).permit(:checkout_time, :latitude, :longitude, :mentor_id, :school_id)
+      params.require(:checkout).permit(:checkout_time, :checkout_lat, :checkout_lon, :mentor_id, :school_id, :isValid)
     end
 end

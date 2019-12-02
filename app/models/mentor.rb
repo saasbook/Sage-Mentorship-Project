@@ -24,13 +24,12 @@ class Mentor < ApplicationRecord
             school_name = checkin.school.name
             checkout = checkin.correspond_checkout
             forgot_checkout = checkout.nil?
-            #isValid = checkin.isValid && checkout.isValid
+            isValid = checkin.isValid && (checkout.nil? ? true : checkout.isValid)
             duration = duration_length(checkin, checkout)
             result.push({school_name:school_name,
                         date:date, duration:duration,
                         forgot_checkout: forgot_checkout,
-                        isValid: true,
-                        #isValid: isValid,
+                        isValid: isValid,
                         checkin:checkin, checkout:checkout})
         end
      end
