@@ -4,8 +4,10 @@ wb.add_worksheet(name: "mentor_reports") do |sheet|
   # Create the header row
   sheet.add_row ["mentor_id", "school_id","checkin_time","checkout_time","checkin_lat","checkin_lon","checkout_lat","checkout_lon","checked_out"]
   # Create entries for each item
-  @records_array.each do |item|
-    sheet.add_row [item[3], item[4],item[11],item[1],item[11],item[12],item[2],item[9],item[8]]
+  if !@records_array.empty?
+	  	@records_array.each do |item|
+	    sheet.add_row [item[3], item[4],item[11],item[1],item[11],item[12],item[2],item[9],item[8]]
+	end
   end
 end
 

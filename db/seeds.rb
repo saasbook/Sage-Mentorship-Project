@@ -30,6 +30,7 @@ schools = [
 
 mentors = [
 {name:'Raj Giri', email:'freedomcomets@berkeley.edu', school: 'Berkeley Arts Magnet School'},
+{name:'Raj second', email:'nepal25208@gmail.com', school: 'Berkeley Arts Magnet School'},
 {name:'Emma Sandoval', school:'Berkeley Arts Magnet School', email:'es@berkeley.edu'},
 {name:'Bradley Smythe', school:'Berkeley Arts Magnet School', email:'bs@berkeley.edu'},
 {name:'Diana Hansen', school:'Emerson Elementary School', email:'dh@berkeley.edu'},
@@ -41,9 +42,9 @@ mentors = [
 {name:'Choi Ment', email:'choimangg@gmail.com', school: 'Berkeley Arts Magnet School'}
 ]
 
-last_Monday = Date.today.monday.last_week.strftime("%Y-%m-%d")
-this_Monday = Date.today.monday.strftime("%Y-%m-%d")
-this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
+@last_Monday = Date.today.monday.last_week.strftime("%Y-%m-%d")
+@this_Monday = Date.today.monday.strftime("%Y-%m-%d")
+@this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
 
 reports = [
 {type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
