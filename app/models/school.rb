@@ -16,7 +16,7 @@ class School < ApplicationRecord
     result = []
     self.mentors.each do |mentor|
         totalhours = mentor.totalhours(week_date)
-        if totalhours[:school_name] == self.name
+        if totalhours[:school_name] == self.name || totalhours[:school_name].nil?
           num_hours = totalhours[:num_hours]
           forgot_checkout = totalhours[:forgot_checkout]
           anyInvalid = totalhours[:anyInvalid]
