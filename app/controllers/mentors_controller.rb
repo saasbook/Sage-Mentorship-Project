@@ -93,7 +93,7 @@ class MentorsController < ApplicationController
     @lat = params[:la]
     @lon = params[:lo]
     logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :lat => @lat, :lon => @lon,:date => Date.today)
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :checkin_lat => @lat, :checkin_lon => @lon,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
         redirect_to mentor_checkin_url
@@ -110,7 +110,7 @@ class MentorsController < ApplicationController
     @lat = params[:la]
     @lon = params[:lo]
     logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :lat => @lat, :lon => @lon, :ischeckout => true, :date => Date.today)
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :date => Date.today)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful'
         redirect_to mentor_checkout_url

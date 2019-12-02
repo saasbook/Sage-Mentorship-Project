@@ -16,10 +16,8 @@
 //= require_tree .
 
 
-var link= window.location.href
 
 function getLocation_checkout() {
-	var new_link = link + '/checkout'
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition_checkout);
   } else {
@@ -29,7 +27,7 @@ function getLocation_checkout() {
 function showPosition_checkout(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(link + "/checkout_loc"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(window.location.href + "/checkout_loc"+"?la=" +latitude + "&lo="+longitude);
 }
 
 function getLocation_checkin() {
@@ -43,5 +41,5 @@ function getLocation_checkin() {
 function showPosition_checkin(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(link + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(window.location.href + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
 }
