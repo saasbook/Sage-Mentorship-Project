@@ -11,6 +11,15 @@ class CheckinsController < ApplicationController
   # GET /checkins/new
   def new
     @checkin = Checkin.new
+    unless params[:mentor_id].nil?
+        mentor = Mentor.find(params[:mentor_id])
+        school = mentor.school
+        @checkin.mentor = mentor
+        @checkin.school_id = school.id
+        @checkin.checkin_lat = school.lat
+        @checkin.checkin_lon = school.lon
+        @checkin.isValid = true
+    end
   end
 
   # GET /checkins/1/edit
