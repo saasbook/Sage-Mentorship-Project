@@ -13,16 +13,16 @@
 
 %body
 
-%p#notice= notice
-
 %p
   = form_tag(@school, :method => :get, :align => "center") do
     Week of:
     %input#datepicker{:type => "text", :name => "week_date", :autocomplete => "off", :value => @week_date.strftime("%m/%d/%Y")}
     %input{:type => "submit", :value => "Select"}
 
-
 %br
+  = link_to 'Delete Mentor', @mentor, method: :delete, data: { confirm: "Are you sure you want to remove #{@mentor.name} from the database?" }
+%br
+  = link_to 'Edit Mentor Details', edit_mentor_path(@mentor), method: :get
 %br
 
 %table

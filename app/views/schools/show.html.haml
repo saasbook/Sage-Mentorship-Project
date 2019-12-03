@@ -13,16 +13,15 @@
 
 %body
 
-%p#notice= notice
-
 %p
   = form_tag(@school, :method => :get, :align => "center") do
     Week of:
     %input#datepicker{:type => "text", :name => "week_date", :autocomplete => "off", :value => @week_date.strftime("%m/%d/%Y")}
     %input{:type => "submit", :value => "Select"}
 
-%br
-%br
+%p
+  = link_to 'Create New Mentor', new_mentor_path
+
 %table
   %caption= @school.name + ' Activity, week of: ' + @week_date.strftime("%m/%d/%Y")
 
