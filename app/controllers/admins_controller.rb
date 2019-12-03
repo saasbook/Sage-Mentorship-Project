@@ -6,27 +6,46 @@ class AdminsController < ApplicationController
   # GET /admins
   # GET /admins.json
   def _index
-    @admins = Admin.all
+    email_address = session[:email_address]
+    if Super.find_by(email: email_address)
+      @admins = Admin.all
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to root_path
+    end
   end
 
   # GET /admins/1
   # GET /admins/1.json
   def show
-#    if session[:id].to_i == params[:id].to_i
+    email_address = session[:email_address]
+    if session[:id].to_i == params[:id].to_i || Super.find_by(email: email_address)
       redirect_to @admin.school
-#    else
-#      flash[:notice] = "You don't have access to that page!"
-#      redirect_to admin_path(session[:id])
-#    end
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to admin_path(session[:id])
+    end
   end
 
   # GET /admins/new
   def new
-    @admin = Admin.new
+    email_address = session[:email_address]
+    if Super.find_by(email: email_address)
+      @admin = Admin.new
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to root_path
+    end
   end
 
   # GET /admins/1/edit
   def edit
+     email_address = session[:email_address]
+     if Super.find_by(email: email_address)
+      else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to root_path
+    end
   end
 
   # POST /admins
@@ -63,11 +82,17 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
+    email_address = session[:email_address]
+    if Super.find_by(email: email_address)
     @admin.destroy
     @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html {  redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully deleted." }
       format.json { head :no_content }
+    end
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to root_path
     end
   end
 

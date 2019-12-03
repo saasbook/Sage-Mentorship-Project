@@ -4,6 +4,11 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/new
   def new
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkout = Checkout.new
     unless params[:correspond_checkin_id].nil?
         @checkin = Checkin.find(params[:correspond_checkin_id])
@@ -18,6 +23,11 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/1/edit
   def edit
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
   end
 
   # POST /checkouts
@@ -54,6 +64,11 @@ class CheckoutsController < ApplicationController
   # DELETE /checkouts/1
   # DELETE /checkouts/1.json
   def destroy
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkout.destroy
     respond_to do |format|
       format.html { redirect_to checkouts_url, notice: 'Checkout was successfully destroyed.' }
