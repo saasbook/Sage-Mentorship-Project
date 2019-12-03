@@ -1,7 +1,8 @@
 class School < ApplicationRecord
-  has_one :admin
-  has_many :mentors
-  has_many :checkins
+  has_one :admin, dependent: :destroy
+  has_many :mentors, dependent: :destroy
+  has_many :checkins, dependent: :destroy
+  has_many :checkouts, dependent: :destroy
 
   validates :name, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 100}
   validates :address, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 300}

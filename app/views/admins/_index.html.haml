@@ -14,7 +14,7 @@
         %td= admin.email
         %td= admin.school.name
         %td= link_to 'Edit', edit_admin_path(admin)
-        %td= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Destroy', admin, method: :delete, data: { confirm: "Are you sure you want to remove Admin #{admin.name} from the database?" }
 
 
 %br
