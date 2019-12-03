@@ -40,7 +40,7 @@
       - anyInvalid = r[:anyInvalid] ? "Yes" : "-"
 
       %tr.table_row
-        %td= link_to mentor.name, mentor_attendances_path(mentor, :week_date => @week_date.strftime("%m/%d/%Y"))
+        %td= link_to mentor.name, mentor_details_path(mentor)
         %td= num_hours
         %td= forgot_checkout
         %td= anyInvalid

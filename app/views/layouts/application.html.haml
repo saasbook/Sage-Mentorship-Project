@@ -22,7 +22,6 @@
         - elsif @current_user.is_a? Admin
           %li
             = link_to "School Activities", @current_user
-            = link_to "Mentors", mentors_path
 
         - elsif @current_user.is_a? Super
           %li
