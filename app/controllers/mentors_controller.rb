@@ -5,6 +5,11 @@ class MentorsController < ApplicationController
   # GET /mentors
   # GET /mentors.json
   def _index
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
     @records_array = ActiveRecord::Base.connection.execute(sql)
     @mentors = Mentor.all
@@ -22,28 +27,48 @@ class MentorsController < ApplicationController
   # GET /mentors/1/details
   # show the weeks summary of the mentor
   def show
+    email_address = session[:email_address]
+    if session[:id].to_i == params[:id].to_i || user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+      else
+        redirect_to mentor_path(session[:id])
   end
+end
 
 
   # GET /mentors/1/attendances
   # show the detailed attendances list of the mentor at a specific week
   def attendances
-    if params[:week_date].nil?
-      @week_date = Time.now
-    else
-      @week_date = DateTime.strptime(params[:week_date], "%m/%d/%Y")
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
     end
-    @week_date = @week_date.beginning_of_week.utc
+    if params[:week_date].nil?
+      @week_date = Time.current
+    else
+      @week_date = Time.strptime(params[:week_date], "%m/%d/%Y")
+    end
+    @week_date = @week_date.beginning_of_week
   end
 
 
   # GET /mentors/new
   def new
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @mentor = Mentor.new
   end
 
   # GET /mentors/1/edit
   def edit
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
   end
 
   # POST /mentors
@@ -80,6 +105,11 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1
   # DELETE /mentors/1.json
   def destroy
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @mentor.destroy
     @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
@@ -89,13 +119,14 @@ class MentorsController < ApplicationController
   end
 
   def checkin_loc
-    @time = Time.now
+    @time = Time.current
     @mentor = Mentor.find(params[:id])
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
-    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.now, :checkin_lat => @lat, :checkin_lon => @lon,:date => Date.today)
+    @isValid = true
+    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
+    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
         redirect_to mentor_checkin_url
@@ -108,11 +139,12 @@ class MentorsController < ApplicationController
 
   def checkout_loc
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
     @lat = params[:la]
     @lon = params[:lo]
-    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.now}"
-    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.now, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :date => Date.today)
+    @isValid = true
+    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
+    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
     if @chk_out.save
         flash[:notice] = 'Checkout succesful'
         redirect_to mentor_checkout_url
@@ -126,12 +158,12 @@ class MentorsController < ApplicationController
 
     @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
   end
 
   def checkout
     @mentor = Mentor.find(params[:id])
-    @time = Time.now
+    @time = Time.current
   end
 
   def appointment

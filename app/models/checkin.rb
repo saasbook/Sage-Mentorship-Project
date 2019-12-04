@@ -19,7 +19,7 @@ class Checkin < ApplicationRecord
 															:mentor_id => self.mentor_id,
 															:school_id => self.school_id                ,
 															:checkin_time => checkin_time,
-															:same_day_start => checkin_time.beginning_of_day.utc,
-															:same_day_end => checkin_time.end_of_day.utc).first
+															:same_day_start => checkin_time.beginning_of_day,
+															:same_day_end => checkin_time.end_of_day).first
 	end
 end

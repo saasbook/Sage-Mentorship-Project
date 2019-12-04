@@ -47,24 +47,24 @@ this_Monday = Date.today.monday.strftime("%Y-%m-%d")
 this_Tuesday = Date.today.beginning_of_week(:tuesday).strftime("%Y-%m-%d")
 
 reports = [
-{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
-{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '14:00:00', checkout_lat: 37.876869, checkout_lon: -122.270348},
-{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
-{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', checkout_lat: 37.876869, checkout_lon: -122.270348},
+{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '13:00:00', lat: 37.876869, lon: -122.270348, isValid: true},
+{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: last_Monday, time: '14:00:00', lat: 37.876869, lon: -122.270348, isValid: true},
+{type: 'checkin', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', lat: 37.876869, lon: -122.270348, isValid: false},
+{type: 'checkout', mentor: 'Emma Sandoval', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', lat: 37.876869, lon: -122.270348, isValid: false},
 
-{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
-{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '14:30:00', checkout_lat: 37.876869, checkout_lon: -122.270348},
-{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', checkin_lat: 37.876869, checkin_lon: -122.270348},
-{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', checkout_lat: 37.876869, checkout_lon: -122.270348},
+{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '13:00:00', lat: 37.876869, lon: -122.270348, isValid: true},
+{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Monday, time: '14:30:00', lat: 37.876869, lon: -122.270348, isValid: true},
+{type: 'checkin', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '13:00:00', lat: 37.876869, lon: -122.270348, isValid: true},
+{type: 'checkout', mentor: 'Bradley Smythe', school: 'Berkeley Arts Magnet School', date: this_Tuesday, time: '14:00:00', lat: 37.876869, lon: -122.270348, isValid: true},
 
-{type: 'checkin', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '13:00:00', checkin_lat: 37.861570, checkin_lon: -122.251160},
-{type: 'checkout', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '14:00:00', checkout_lat: 37.861570, checkout_lon: -122.251160},
+{type: 'checkin', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '13:00:00', lat: 37.861570, lon: -122.251160, isValid: true},
+{type: 'checkout', mentor: 'Diana Hansen', school: 'Emerson Elementary School', date: last_Monday, time: '14:00:00', lat: 37.861570, lon: -122.251160, isValid: true},
 
-{type: 'checkin', mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', checkin_lat: 37.878910, checkin_lon: -122.284420},
+{type: 'checkin', mentor: 'Joseph Gonzalez', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', lat: 37.878910, lon: -122.284420, isValid: true},
 
-{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '13:00:00', checkin_lat: 37.878910, checkin_lon: -122.284420},
-{type: 'checkout', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '14:30:00', checkout_lat: 37.878910, checkout_lon: -122.284420},
-{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', checkin_lat: 37.878910, checkin_lon: -122.284420}
+{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '13:00:00', lat: 37.878910, lon: -122.284420, isValid: true},
+{type: 'checkout', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Monday, time: '14:30:00', lat: 37.878910, lon: -122.284420, isValid: true},
+{type: 'checkin', mentor: 'Stephanie Brooks', school: 'Jefferson Elementary School', date: this_Tuesday, time: '13:00:00', lat: 37.878910, lon: -122.284420, isValid: true}
 ]
 
 Checkin.delete_all
@@ -97,8 +97,12 @@ reports.each do |check|
   type = check[:type]
   if type == 'checkin'
     check[:checkin_time] = check[:date] + ' ' + check[:time]
+    check[:checkin_lat] = check[:lat]
+    check[:checkin_lon] = check[:lon]
   else
     check[:checkout_time] = check[:date] + ' ' + check[:time]
+    check[:checkout_lat] = check[:lat]
+    check[:checkout_lon] = check[:lon]
   end
 
   check[:mentor] = Mentor.where(name: check[:mentor]).first
@@ -106,7 +110,10 @@ reports.each do |check|
   check.delete(:school)
   #check.delete(:date)
   check.delete(:time)
+  check.delete(:lat)
+  check.delete(:lon)
   check.delete(:type)
+
 
   if type == 'checkin'
     Checkin.create!(check)

@@ -5,24 +5,48 @@ class CheckinsController < ApplicationController
   # GET /checkins/1
   # GET /checkins/1.json
   def show
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkout = @checkin.correspond_checkout
   end
 
   # GET /checkins/new
   def new
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkin = Checkin.new
+    unless params[:mentor_id].nil?
+        mentor = Mentor.find(params[:mentor_id])
+        school = mentor.school
+        @checkin.mentor = mentor
+        @checkin.school_id = school.id
+        @checkin.checkin_lat = school.lat
+        @checkin.checkin_lon = school.lon
+        @checkin.isValid = true
+    end
   end
 
   # GET /checkins/1/edit
   def edit
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
   end
 
   # POST /checkins
   # POST /checkins.json
   def create
     @checkin = Checkin.new(checkin_params)
-
     respond_to do |format|
+      @checkin.date = @checkin.checkin_time.to_date
       if @checkin.save
         format.html { redirect_to @checkin, notice: 'Checkin was successfully created.' }
         format.json { render :show, status: :created, location: @checkin }
@@ -37,6 +61,7 @@ class CheckinsController < ApplicationController
   # PATCH/PUT /checkins/1.json
   def update
     respond_to do |format|
+      @checkin.date = @checkin.checkin_time.to_date
       if @checkin.update(checkin_params)
         format.html { redirect_to @checkin, notice: 'Checkin was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkin }
@@ -50,6 +75,11 @@ class CheckinsController < ApplicationController
   # DELETE /checkins/1
   # DELETE /checkins/1.json
   def destroy
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkin.destroy
     respond_to do |format|
       format.html { redirect_to checkins_url, notice: 'Checkin was successfully destroyed.' }
@@ -65,6 +95,6 @@ class CheckinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkin_params
-      params.require(:checkin).permit(:checkin_time, :latitude, :longitude, :mentor_id, :school_id)
+      params.require(:checkin).permit(:checkin_time, :checkin_lat, :checkin_lon, :mentor_id, :school_id, :isValid)
     end
 end

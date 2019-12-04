@@ -4,30 +4,40 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/new
   def new
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkout = Checkout.new
     unless params[:correspond_checkin_id].nil?
         @checkin = Checkin.find(params[:correspond_checkin_id])
         @checkout.mentor = @checkin.mentor
         @checkout.school_id = @checkin.school.id
-        @checkout.lat = @checkin.lat
-        @checkout.lon = @checkin.lon
+        @checkout.checkout_lat = @checkin.checkin_lat
+        @checkout.checkout_lon = @checkin.checkin_lon
         @checkout.checkout_time = @checkin.checkin_time
-        #@checkout.isValid = @checkin.isValid
+        @checkout.isValid = @checkin.isValid
     end
   end
 
   # GET /checkouts/1/edit
   def edit
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
   end
 
   # POST /checkouts
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
-
     respond_to do |format|
+      @checkout.date = @checkout.checkout_time.to_date
       if @checkout.save
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
+        format.html { redirect_to @checkout.correspond_checkin, notice: 'Checkout was successfully created.' }
         format.json { render :show, status: :created, location: @checkout }
       else
         format.html { render :new }
@@ -40,8 +50,9 @@ class CheckoutsController < ApplicationController
   # PATCH/PUT /checkouts/1.json
   def update
     respond_to do |format|
+      @checkout.date = @checkout.checkout_time.to_date
       if @checkout.update(checkout_params)
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully updated.' }
+        format.html { redirect_to @checkout.correspond_checkin, notice: 'Checkout was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkout }
       else
         format.html { render :edit }
@@ -53,6 +64,11 @@ class CheckoutsController < ApplicationController
   # DELETE /checkouts/1
   # DELETE /checkouts/1.json
   def destroy
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @checkout.destroy
     respond_to do |format|
       format.html { redirect_to checkouts_url, notice: 'Checkout was successfully destroyed.' }
@@ -68,6 +84,6 @@ class CheckoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkout_params
-      params.require(:checkout).permit(:checkout_time, :latitude, :longitude, :mentor_id, :school_id)
+      params.require(:checkout).permit(:checkout_time, :checkout_lat, :checkout_lon, :mentor_id, :school_id, :isValid)
     end
 end

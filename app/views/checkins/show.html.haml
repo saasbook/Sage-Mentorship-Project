@@ -9,16 +9,16 @@
   = @checkin.checkin_time.strftime("%m/%d/%Y %H:%M:%S")
 %p{:style => "text-indent: 40px"}
   %b Latitude:
-  = @checkin.lat
+  = @checkin.checkin_lat
 %p{:style => "text-indent: 40px"}
   %b Longitude:
-  = @checkin.lon
+  = @checkin.checkin_lon
 %p{:style => "text-indent: 40px"}
   %b Location:
   = @checkin.school.name
 %p{:style => "text-indent: 40px"}
   %b isValid:
--#= @checkin.isValid
+  = @checkin.isValid
 %p{:style => "text-indent: 40px"}
   = link_to 'Edit Check In', edit_checkin_path(@checkin)
 
@@ -39,16 +39,16 @@
     = @checkout.checkout_time.strftime("%m/%d/%Y %H:%M:%S")
   %p{:style => "text-indent: 40px"}
     %b Latitude:
-    = @checkout.lat
+    = @checkout.checkout_lat
   %p{:style => "text-indent: 40px"}
     %b Longitude:
-    = @checkout.lon
+    = @checkout.checkout_lon
   %p{:style => "text-indent: 40px"}
     %b Location:
     = @checkout.school.name
   %p{:style => "text-indent: 40px"}
     %b isValid:
-  -#= @checkout.isValid
+    = @checkout.isValid
   %p{:style => "text-indent: 40px"}
     = link_to 'Edit Check Out', edit_checkout_path(@checkout)
 
