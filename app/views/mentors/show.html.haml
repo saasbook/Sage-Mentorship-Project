@@ -24,3 +24,8 @@
         %td= num_hours
         %td= forgot_checkout
         %td= anyInvalid
+
+%br
+-unless @current_user.is_a? Mentor
+  = link_to 'Create new checkin', new_checkin_path(:mentor_id => @mentor.id)
+

@@ -9,6 +9,7 @@ class CheckoutsController < ApplicationController
     unless params[:correspond_checkin_id].nil?
         @checkin = Checkin.find(params[:correspond_checkin_id])
         @checkout.mentor = @checkin.mentor
+        @mentor_id = @checkout.mentor.id
         @checkout.school_id = @checkin.school.id
         @checkout.checkout_lat = @checkin.checkin_lat
         @checkout.checkout_lon = @checkin.checkin_lon
@@ -19,12 +20,19 @@ class CheckoutsController < ApplicationController
 
   # GET /checkouts/1/edit
   def edit
+    @mentor_id = @checkout.mentor_id
   end
 
   # POST /checkouts
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
+    @checkout.checkout_lat = @checkout.school.lat
+    @checkout.checkout_lon = @checkout.school.lon
+    unless params[:mentor_id].nil?
+        @checkout.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkout.date = @checkout.checkout_time.to_date
       if @checkout.save
@@ -40,6 +48,12 @@ class CheckoutsController < ApplicationController
   # PATCH/PUT /checkouts/1
   # PATCH/PUT /checkouts/1.json
   def update
+    @checkout.checkout_lat = @checkout.school.lat
+    @checkout.checkout_lon = @checkout.school.lon
+    unless params[:mentor_id].nil?
+        @checkout.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkout.date = @checkout.checkout_time.to_date
       if @checkout.update(checkout_params)

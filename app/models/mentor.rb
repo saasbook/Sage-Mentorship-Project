@@ -101,5 +101,12 @@ class Mentor < ApplicationRecord
       first_week = first_checkin_time.beginning_of_week
   end
 
+  def accumulated_hours
+    acc_hours = 0
+    weeks_summary.each do |week|
+        acc_hours += week[:num_hours]
+    end
+    return acc_hours
+  end
 
 end

@@ -63,8 +63,3 @@
           %td= "(" + checkout.checkout_lat.to_s + ", " + checkout.checkout_lon.to_s + ")"
           %td= checkout.isValid ? "-" : "invalid"
 
-
-%br
--unless @current_user.is_a? Mentor
-  = link_to 'Create new checkin', new_checkin_path(:mentor_id => @mentor.id)
-

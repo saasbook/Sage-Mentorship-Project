@@ -12,7 +12,8 @@ class CheckinsController < ApplicationController
   # GET /checkins/new
   def new
     @checkin = Checkin.new
-    unless params[:mentor_id].nil?
+    @mentor_id = params[:mentor_id]
+    unless @mentor_id.nil?
         mentor = Mentor.find(params[:mentor_id])
         school = mentor.school
         @checkin.mentor = mentor
@@ -25,12 +26,19 @@ class CheckinsController < ApplicationController
 
   # GET /checkins/1/edit
   def edit
+    @mentor_id = @checkin.mentor_id
   end
 
   # POST /checkins
   # POST /checkins.json
   def create
     @checkin = Checkin.new(checkin_params)
+    @checkin.checkin_lat = @checkin.school.lat
+    @checkin.checkin_lon = @checkin.school.lon
+    unless params[:mentor_id].nil?
+        @checkin.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkin.date = @checkin.checkin_time.to_date
       if @checkin.save
@@ -46,6 +54,12 @@ class CheckinsController < ApplicationController
   # PATCH/PUT /checkins/1
   # PATCH/PUT /checkins/1.json
   def update
+    @checkin.checkin_lat = @checkin.school.lat
+    @checkin.checkin_lon = @checkin.school.lon
+    unless params[:mentor_id].nil?
+        @checkin.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkin.date = @checkin.checkin_time.to_date
       if @checkin.update(checkin_params)

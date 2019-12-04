@@ -15,5 +15,6 @@
   .field
     = f.label :isValid
     = f.check_box :isValid
+  = f.hidden_field :mentor_id, value: @mentor_id
   .actions
     = f.submit 'Save'
