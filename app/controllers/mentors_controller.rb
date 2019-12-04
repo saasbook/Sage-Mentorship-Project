@@ -1,18 +1,17 @@
 class MentorsController < ApplicationController
-  before_action :require_login
-  before_action :set_mentor, only: [:show, :edit, :update, :destroy, :attendances]
+  append_before_action :authorize_super, only: [:_index]
+  append_before_action :authorize_admin_or_higher, only: [:new, :create]
+  append_before_action :authorize_specific_admin_or_higher, only: [:edit, :update, :destroy]
+  append_before_action :authorize_specific_mentor_admin_or_higher, only: [:show, :attendances]
+  append_before_action :authorize_specific_mentor, only: [:appointment, :checkin, :checkout, :checkin_loc, :checkout_loc]
+  before_action :set_mentor, only: [:show, :edit, :update, :destroy, :attendances, :appointment, :checkin, :checkout, :checkin_loc, :checkout_loc]
 
   # GET /mentors
   # GET /mentors.json
   def _index
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
+    @mentors = Mentor.all
     sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
     @records_array = ActiveRecord::Base.connection.execute(sql)
-    @mentors = Mentor.all
     respond_to do |format|
     format.xlsx {
       response.headers[
@@ -27,22 +26,11 @@ class MentorsController < ApplicationController
   # GET /mentors/1/details
   # show the weeks summary of the mentor
   def show
-    email_address = session[:email_address]
-    if session[:id].to_i == params[:id].to_i || user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-      else
-        redirect_to mentor_path(session[:id])
   end
-end
-
 
   # GET /mentors/1/attendances
   # show the detailed attendances list of the mentor at a specific week
   def attendances
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
     if params[:week_date].nil?
       @week_date = Time.current
     else
@@ -54,28 +42,17 @@ end
 
   # GET /mentors/new
   def new
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
     @mentor = Mentor.new
   end
 
   # GET /mentors/1/edit
   def edit
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
   end
 
   # POST /mentors
   # POST /mentors.json
   def create
     @mentor = Mentor.new(mentor_params)
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @mentor.save
         format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully created." }
@@ -90,7 +67,6 @@ end
   # PATCH/PUT /mentors/1
   # PATCH/PUT /mentors/1.json
   def update
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @mentor.update(mentor_params)
         format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully updated." }
@@ -105,13 +81,7 @@ end
   # DELETE /mentors/1
   # DELETE /mentors/1.json
   def destroy
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
     @mentor.destroy
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html { redirect_to @current_user, notice: "Mentor #{@mentor.name} was successfully deleted." }
       format.json { head :no_content }
@@ -120,7 +90,6 @@ end
 
   def checkin_loc
     @time = Time.current
-    @mentor = Mentor.find(params[:id])
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
@@ -138,7 +107,6 @@ end
 
 
   def checkout_loc
-    @mentor = Mentor.find(params[:id])
     @time = Time.current
     @lat = params[:la]
     @lon = params[:lo]
@@ -155,29 +123,51 @@ end
   end
 
   def checkin
-
     @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
-    @mentor = Mentor.find(params[:id])
     @time = Time.current
   end
 
   def checkout
-    @mentor = Mentor.find(params[:id])
     @time = Time.current
   end
 
   def appointment
-    if session[:id].to_i != params[:id].to_i
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to mentor_path(session[:id])
-    else
-      @mentor = Mentor.find(params[:id])
-    end
-    #session[:user_id] = @mentor.id
   end
 
 
   private
+
+    # Authorize only if the @current_user is a super or is admin of this mentor
+	def authorize_specific_admin_or_higher
+        return if @current_user.is_a?(Super)
+        return if is_admin_of_this_mentor?
+        fail_authentication_redirect
+	end
+
+	# Authorize only if the @current_user is this mentor or the admin of this mentor or a super
+	def authorize_specific_mentor_admin_or_higher
+        return if @current_user.is_a?(Super)
+        return if is_admin_of_this_mentor?
+        return if is_this_mentor?
+        fail_authentication_redirect
+    end
+
+    # Authorize only if the @current_user is this mentor
+	def authorize_specific_mentor
+	    return if is_this_mentor?
+        fail_authentication_redirect
+	end
+
+    def is_this_mentor?
+        this_mentor = set_mentor
+        return @current_user.is_a?(Mentor) && @current_user.id == this_mentor.id
+    end
+
+    def is_admin_of_this_mentor?
+        this_mentor = set_mentor
+        return @current_user.is_a?(Admin) && @current_user.school.id == this_mentor.school.id
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_mentor
       @mentor = Mentor.find(params[:id])

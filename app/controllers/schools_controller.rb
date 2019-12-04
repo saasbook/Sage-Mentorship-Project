@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
-  before_action :require_login
-  before_action :authorize_admin
+  append_before_action :authorize_super, only: [:_index, :new, :edit, :create, :update, :destroy]
+  append_before_action :authorize_specific_admin_or_higher, only: [:show]
   before_action :set_school, only: [:show, :edit, :update, :destroy]
 
   # GET /schools
@@ -33,7 +33,6 @@ class SchoolsController < ApplicationController
   # POST /schools.json
   def create
     @school = School.new(school_params)
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @school.save
         format.html { redirect_to @current_user, notice: "School '#{@school.name}' was successfully created." }
@@ -48,7 +47,6 @@ class SchoolsController < ApplicationController
   # PATCH/PUT /schools/1
   # PATCH/PUT /schools/1.json
   def update
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @school.update(school_params)
         format.html { redirect_to @current_user, notice: "#{@school.name}' was successfully updated." }
@@ -64,7 +62,6 @@ class SchoolsController < ApplicationController
   # DELETE /schools/1.json
   def destroy
     @school.destroy
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html { redirect_to @current_user, notice: "#{@school.name} was successfully deleted." }
       format.json { head :no_content }
@@ -72,6 +69,19 @@ class SchoolsController < ApplicationController
   end
 
   private
+
+    # Authorize only if the @current_user is a super or is admin of this school
+	def authorize_specific_admin_or_higher
+        return if @current_user.is_a?(Super)
+        return if is_admin_of_this_school?
+        fail_authentication_redirect
+	end
+
+    def is_admin_of_this_school?
+        this_school = set_school
+        return @current_user.is_a?(Admin) && @current_user.school.id == this_school.id
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_school
       @school = School.find(params[:id])

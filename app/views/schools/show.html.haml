@@ -31,6 +31,8 @@
       %th Total Hours
       %th Any Missed Checkout?
       %th Any Invalid Geoloc?
+      %th
+      %th
 
   %tbody
     - @school.activities(@week_date).each do |r|
@@ -44,3 +46,6 @@
         %td= num_hours
         %td= forgot_checkout
         %td= anyInvalid
+        %td= link_to 'Edit', edit_mentor_path(mentor), method: :get
+        %td= link_to 'Destroy', mentor, method: :delete, data: { confirm: "Are you sure you want to remove Mentor #{mentor.name} from the database? All related checkin, checkout records will also be deleted" }
+

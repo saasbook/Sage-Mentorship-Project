@@ -1,58 +1,33 @@
 class AdminsController < ApplicationController
-  before_action :require_login
-  before_action :authorize_admin
+  append_before_action :authorize_super, only: [:_index, :new, :create, :edit, :update, :destroy]
+  append_before_action :authorize_specific_admin_or_higher, only: [:show]
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
   # GET /admins.json
   def _index
-    email_address = session[:email_address]
-    if Super.find_by(email: email_address)
       @admins = Admin.all
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to root_path
-    end
   end
 
   # GET /admins/1
   # GET /admins/1.json
   def show
-    email_address = session[:email_address]
-    if session[:id].to_i == params[:id].to_i || Super.find_by(email: email_address)
       redirect_to @admin.school
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to admin_path(session[:id])
-    end
   end
 
   # GET /admins/new
   def new
-    email_address = session[:email_address]
-    if Super.find_by(email: email_address)
       @admin = Admin.new
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to root_path
-    end
   end
 
   # GET /admins/1/edit
   def edit
-     email_address = session[:email_address]
-     if Super.find_by(email: email_address)
-      else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to root_path
-    end
   end
 
   # POST /admins
   # POST /admins.json
   def create
     @admin = Admin.new(admin_params)
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @admin.save
         format.html { redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully created." }
@@ -67,7 +42,6 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @admin.update(admin_params)
         format.html { redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully updated." }
@@ -82,21 +56,27 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    email_address = session[:email_address]
-    if Super.find_by(email: email_address)
     @admin.destroy
-    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       format.html {  redirect_to @current_user, notice: "Admin '#{@admin.name}' was successfully deleted." }
       format.json { head :no_content }
     end
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to root_path
-    end
   end
 
   private
+
+    # Authorize only if the @current_user is this admin
+	def authorize_specific_admin_or_higher
+    	return if @current_user.is_a?(Super)
+        return if is_this_admin?
+        fail_authentication_redirect
+	end
+
+    def is_this_admin?
+        this_admin = set_admin
+        return @current_user.is_a?(Admin) && @current_user.id == this_admin.id
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Admin.find(params[:id])
