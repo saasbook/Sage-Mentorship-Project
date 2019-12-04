@@ -4,7 +4,7 @@ wb.add_worksheet(name: "mentor_reports") do |sheet|
   # Create the header row
   sheet.add_row ["mentor_name", "school_name","checkin_time","checkout_time","checkin_lat","checkin_lon","checkout_lat","checkout_lon","checked_out"]
   # Create entries for each item
-  if !@records_array.empty?
+  if !@records_array.nil?
 	  	@records_array.each do |item|
 	  	@mentor_name = Mentor.find(item["mentor_id"]).name
 	  	@school_name = School.find(item["school_id"]).name
