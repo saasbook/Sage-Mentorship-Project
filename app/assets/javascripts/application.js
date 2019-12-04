@@ -41,7 +41,7 @@ document.location.replace(window.location.href + "/checkin_loc"+"?la=" +latitude
 }
 
 function showError() {
-    alert("Please allow location"); 
+    alert("Please allow location and Refresh page to Check-In"); 
 }
 
 
