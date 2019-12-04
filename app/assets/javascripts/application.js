@@ -19,10 +19,8 @@
 
 function getLocation_checkout() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition_checkout);
-  } else {
-    alert("Please allow location");
-  }
+    navigator.geolocation.getCurrentPosition(showPosition_checkout, showError);
+  } 
 }
 function showPosition_checkout(position) {
 var latitude = position.coords.latitude;
@@ -32,10 +30,8 @@ document.location.replace(window.location.href + "/checkout_loc"+"?la=" +latitud
 
 function getLocation_checkin() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition_checkin);
-  } else {
-    alert("Please allow location");
-  }
+    navigator.geolocation.getCurrentPosition(showPosition_checkin, showError);
+  } 
 }
 
 function showPosition_checkin(position) {
@@ -43,3 +39,12 @@ var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
 document.location.replace(window.location.href + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
 }
+
+function showError() {
+    alert("Please allow location"); 
+}
+
+
+
+
+
