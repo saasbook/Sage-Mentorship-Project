@@ -8,7 +8,12 @@ wb.add_worksheet(name: "mentor_reports") do |sheet|
 	  	@records_array.each do |item|
 	  	@mentor_name = Mentor.find(item["mentor_id"]).name
 	  	@school_name = School.find(item["school_id"]).name
-	    sheet.add_row [@mentor_name, @school_name,item["checkin_time"],item["checkout_time"],item["checkin_lat"],item["checkin_lon"],item["checkout_lat"],item["checkout_lon"],item["ischeckout"]]
+	  	if item["ischeckout"].nil?
+	  		@ischeckout = 'No'
+	  	else
+	  		@ischeckout = 'Yes'
+	  	end
+	    sheet.add_row [@mentor_name, @school_name,item["checkin_time"],item["checkout_time"],item["checkin_lat"],item["checkin_lon"],item["checkout_lat"],item["checkout_lon"],@ischeckout]
 	end
   end
 end
