@@ -5,6 +5,11 @@ class MentorsController < ApplicationController
   # GET /mentors
   # GET /mentors.json
   def _index
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
     @records_array = ActiveRecord::Base.connection.execute(sql)
     @mentors = Mentor.all
@@ -22,12 +27,22 @@ class MentorsController < ApplicationController
   # GET /mentors/1/details
   # show the weeks summary of the mentor
   def show
+    email_address = session[:email_address]
+    if session[:id].to_i == params[:id].to_i || user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+      else
+        redirect_to mentor_path(session[:id])
   end
+end
 
 
   # GET /mentors/1/attendances
   # show the detailed attendances list of the mentor at a specific week
   def attendances
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     if params[:week_date].nil?
       @week_date = Time.current
     else
@@ -39,11 +54,21 @@ class MentorsController < ApplicationController
 
   # GET /mentors/new
   def new
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @mentor = Mentor.new
   end
 
   # GET /mentors/1/edit
   def edit
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
   end
 
   # POST /mentors
@@ -80,6 +105,11 @@ class MentorsController < ApplicationController
   # DELETE /mentors/1
   # DELETE /mentors/1.json
   def destroy
+    email_address = session[:email_address]
+    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
+    if user.blank?
+      redirect_to mentor_path(session[:id])
+    end
     @mentor.destroy
     @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
