@@ -31,8 +31,11 @@ class SchoolsController < ApplicationController
 
   # POST /schools
   # POST /schools.json
-  def create
+  
+def create
     @school = School.new(school_params)
+    @school.lat, @school.lon = School.convert_location(@school.address)
+    @current_user = find_user_by_email(session[:email_address])
     respond_to do |format|
       if @school.save
         format.html { redirect_to @current_user, notice: "School '#{@school.name}' was successfully created." }
@@ -47,8 +50,11 @@ class SchoolsController < ApplicationController
   # PATCH/PUT /schools/1
   # PATCH/PUT /schools/1.json
   def update
+    @current_user = find_user_by_email(session[:email_address])
+    @feilds = school_params
+    @feilds[:lat], @feilds[:lon] = School.convert_location(@feilds[:address])
     respond_to do |format|
-      if @school.update(school_params)
+      if @school.update(@feilds)
         format.html { redirect_to @current_user, notice: "#{@school.name}' was successfully updated." }
         format.json { render :show, status: :ok, location: @school }
       else
@@ -89,6 +95,6 @@ class SchoolsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
-      params.require(:school).permit(:name, :address, :lat, :lon)
+      params.require(:school).permit(:name, :address)
     end
 end

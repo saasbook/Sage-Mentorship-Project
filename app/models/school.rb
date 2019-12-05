@@ -6,8 +6,6 @@ class School < ApplicationRecord
 
   validates :name, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 100}
   validates :address, presence: true,  uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 300}
-  validates :lat, presence: true
-  validates :lon, presence: true
 
   # return the list of totalhours = {num_hours, forgot_checkout}
   # for all mentors in the specific week for the school
@@ -27,4 +25,10 @@ class School < ApplicationRecord
     result
   end
 
+  def self.convert_location(address)
+    result = Geocoder.search(address)
+    lat = result[0].latitude
+    lon = result[0].longitude
+    return lat,lon
+  end
 end
