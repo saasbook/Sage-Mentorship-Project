@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'supers/' => 'supers#_index', :as => 'supers'
   resources :supers, except: [:index]
+  #Routes to delete all data from all checkins and checkouts table
+  get '/supers/:id/cleandb', to: 'supers#cleandb',:as=> "cleandb"
 
   get 'admins/' => 'admins#_index', :as => 'admins'
   resources :admins, except: [:index]

@@ -26,6 +26,15 @@ class SupersController < ApplicationController
   def edit
   end
 
+  #GET /supers/cleanup
+  #Careful with this route, it deletes all data from the db
+  def cleandb
+  Checkin.delete_all    
+  Checkout.delete_all
+  redirect_to super_path
+
+  end
+
   # POST /supers
   # POST /supers.json
   def create

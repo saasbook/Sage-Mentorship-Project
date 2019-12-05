@@ -23,6 +23,8 @@ class MentorsController < ApplicationController
     Rails.logger.debug params.keys
   end
 
+
+
   # GET /mentors/1/details
   # show the weeks summary of the mentor
   def show
