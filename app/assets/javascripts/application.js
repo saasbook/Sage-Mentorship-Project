@@ -25,7 +25,7 @@ function getLocation_checkout() {
 function showPosition_checkout(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(window.location.href + "/checkout_loc"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(window.location.href.replace('#','') + "/checkout_loc"+"?la=" +latitude + "&lo="+longitude);
 }
 
 function getLocation_checkin() {
@@ -37,7 +37,7 @@ function getLocation_checkin() {
 function showPosition_checkin(position) {
 var latitude = position.coords.latitude;
 var longitude = position.coords.longitude;
-document.location.replace(window.location.href + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
+document.location.replace(window.location.href.replace('#','') + "/checkin_loc"+"?la=" +latitude + "&lo="+longitude);
 }
 
 function showError() {
