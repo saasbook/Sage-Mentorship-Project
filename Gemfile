@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.7'
-
 gem 'haml'
 gem 'haml-rails'
 gem 'google_sign_in'
@@ -83,6 +82,7 @@ group :production do
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
+#Gem for location
+gem 'geocoder'
 # Gem for app-wide API key encryption
 gem 'figaro'
