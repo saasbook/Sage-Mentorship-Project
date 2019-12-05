@@ -1,39 +1,38 @@
 class CheckoutsController < ApplicationController
-  before_action :require_login
+  append_before_action :authorize_admin_or_higher, only: [:new, :create]
+  append_before_action :authorize_specific_admin_or_higher, only: [:edit, :update, :destroy]
   before_action :set_checkout, only: [:edit, :update, :destroy]
 
   # GET /checkouts/new
   def new
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
     @checkout = Checkout.new
     unless params[:correspond_checkin_id].nil?
         @checkin = Checkin.find(params[:correspond_checkin_id])
         @checkout.mentor = @checkin.mentor
+        @mentor_id = @checkout.mentor.id
         @checkout.school_id = @checkin.school.id
         @checkout.checkout_lat = @checkin.checkin_lat
         @checkout.checkout_lon = @checkin.checkin_lon
         @checkout.checkout_time = @checkin.checkin_time
-        @checkout.isValid = @checkin.isValid
+        @checkout.isValid = true
     end
   end
 
   # GET /checkouts/1/edit
   def edit
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
+    @mentor_id = @checkout.mentor_id
   end
 
   # POST /checkouts
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
+    @checkout.checkout_lat = @checkout.school.lat
+    @checkout.checkout_lon = @checkout.school.lon
+    unless params[:mentor_id].nil?
+        @checkout.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkout.date = @checkout.checkout_time.to_date
       if @checkout.save
@@ -49,6 +48,12 @@ class CheckoutsController < ApplicationController
   # PATCH/PUT /checkouts/1
   # PATCH/PUT /checkouts/1.json
   def update
+    @checkout.checkout_lat = @checkout.school.lat
+    @checkout.checkout_lon = @checkout.school.lon
+    unless params[:mentor_id].nil?
+        @checkout.mentor = Mentor.find(params[:mentor_id])
+    end
+
     respond_to do |format|
       @checkout.date = @checkout.checkout_time.to_date
       if @checkout.update(checkout_params)
@@ -64,11 +69,6 @@ class CheckoutsController < ApplicationController
   # DELETE /checkouts/1
   # DELETE /checkouts/1.json
   def destroy
-    email_address = session[:email_address]
-    user = Admin.find_by(email: email_address) || Super.find_by(email: email_address)
-    if user.blank?
-      redirect_to mentor_path(session[:id])
-    end
     @checkout.destroy
     respond_to do |format|
       format.html { redirect_to checkouts_url, notice: 'Checkout was successfully destroyed.' }
@@ -77,6 +77,19 @@ class CheckoutsController < ApplicationController
   end
 
   private
+
+    # Authorize only if the @current_user is a super or is admin of the mentor of this checkout
+	def authorize_specific_admin_or_higher
+        return if @current_user.is_a?(Super)
+        return if is_admin_of_this_checkout?
+        fail_authentication_redirect
+	end
+
+    def is_admin_of_this_checkout?
+        this_checkout = set_checkout
+        return @current_user.is_a?(Admin) && @current_user.school.id == this_checkout.mentor.school.id
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_checkout
       @checkout = Checkout.find(params[:id])

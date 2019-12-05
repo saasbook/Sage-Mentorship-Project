@@ -1,4 +1,6 @@
-%h1 Editing checkin
+%h1
+  = "Editing checkin " + ("of " + @checkin.mentor.name) unless @checkin.mentor.nil?
+%br
 
 = render 'form'
 

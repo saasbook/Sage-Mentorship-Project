@@ -1,4 +1,6 @@
 class LoginsController < ApplicationController
+  skip_before_action :require_login, raise: false
+
   def new
   end
 

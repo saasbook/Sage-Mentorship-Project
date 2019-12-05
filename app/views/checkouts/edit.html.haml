@@ -1,4 +1,6 @@
-%h1 Editing checkout
+%h1
+  = "Editing checkout " + ("of " + @checkout.mentor.name) unless @checkout.mentor.nil?
+%br
 
 = render 'form'
 

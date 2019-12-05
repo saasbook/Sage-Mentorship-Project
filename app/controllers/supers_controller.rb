@@ -1,10 +1,21 @@
 class SupersController < ApplicationController
-  before_action :require_login
-  before_action :authorize_super
+  append_before_action :authorize_super
   before_action :set_super, only: [:show, :edit, :update, :destroy]
 
   def _index
     @supers = Super.all
+  end
+
+  def show
+    if session[:id].to_i == params[:id].to_i
+      @schools = School.all
+      @mentors = Mentor.all
+      @admins = Admin.all
+      @supers = Super.all
+    else
+      flash[:notice] = "You don't have access to that page!"
+      redirect_to super_path(session[:id])
+    end
   end
 
   def new
@@ -13,18 +24,6 @@ class SupersController < ApplicationController
 
   # GET /supers/1/edit
   def edit
-  end
-
-  def show
-    if session[:id].to_i == params[:id].to_i
-    @schools = School.all
-    @mentors = Mentor.all
-    @admins = Admin.all
-    @supers = Super.all
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to super_path(session[:id]) 
-  end
   end
 
   # POST /supers
@@ -41,7 +40,6 @@ class SupersController < ApplicationController
       end
     end
   end
-
 
   # PATCH/PUT /supers/1
   # PATCH/PUT /supers/1.json
@@ -73,11 +71,6 @@ class SupersController < ApplicationController
       end
     end
   end
-
-  def delete
-  end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

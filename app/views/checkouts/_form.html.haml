@@ -10,19 +10,11 @@
     = f.label :checkout_time
     = f.datetime_select :checkout_time
   .field
-    = f.label :latitude
-    = f.text_field :checkout_lat
-  .field
-    = f.label :longitude
-    = f.text_field :checkout_lon
-  .field
-    = f.label :mentor_id
-    = f.collection_select :mentor_id, Mentor.all, :id, :name, prompt: "Select Mentor"
-  .field
     = f.label :school_id
     = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
   .field
     = f.label :isValid
     = f.check_box :isValid
+  = f.hidden_field :mentor_id, value: @mentor_id
   .actions
     = f.submit 'Save'
