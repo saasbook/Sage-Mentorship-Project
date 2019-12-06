@@ -6,19 +6,19 @@ Feature: account management
 
   Background: mentors and schools have been added to database, signed in as a super_user
 
-    Given the following "schools" exist:
+    Given the following schools exist:
       | Berkeley Arts Magnet School     | 2015 Virginia St, Berkeley, CA 94709  | 37.876869  | -122.270348   |
       | Jefferson Elementary School     | 1400 Ada St, Berkeley, CA 94702       | 37.878910  | -122.284420   |
 
-    And the following "mentors" exist:
+    And the following mentors exist:
       | Emma Sandoval     | es@berkeley.edu | Berkeley Arts Magnet School  |
       | Kyler Ochoa       | ko@berkeley.edu | Jefferson Elementary School  |
       | Joseph Gonzalez   | jg@berkeley.edu | Jefferson Elementary School  |
 
-    And the following "checkins" exist:
+    And the following checkins exist:
       | Emma Sandoval     | Berkeley Arts Magnet School | 2019-12-1 13:00:00  | 37.876869 | -122.270348 | true |
 
-    And the following "checkouts" exist:
+    And the following checkouts exist:
       | Emma Sandoval     | Berkeley Arts Magnet School | 2019-12-1 14:00:00  | 37.876869 | -122.270348 | true |
 
     Given I am signed in as a "superuser"

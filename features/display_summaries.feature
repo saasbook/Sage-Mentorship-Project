@@ -6,41 +6,49 @@ Feature: display_summaries
 
   Background: mentors and schools have been added to database, signed in as a admin
 
-    Given the following "schools" exist:
+    Given the following schools exist:
       | Berkeley Arts Magnet School     | 2015 Virginia St, Berkeley, CA 94709  | 37.876869  | -122.270348   |
 
-    Given the following "admins" exist:
+    Given the following admins exist:
+      | name       | email                      | school_id                    |
       | Darain     | darain@sagementorship.org  | Berkeley Arts Magnet School  |
 
-    And the following "mentors" exist:
+    And the following mentors exist:
+      | name      | email             | school_id                    |
       | Emma      | emma@berkeley.edu | Berkeley Arts Magnet School  |
-      | Kyler     | ko@berkeley.edu | Berkeley Arts Magnet School  |
-      | Joseph    | jg@berkeley.edu | Berkeley Arts Magnet School  |
+      | Kyler     | ko@berkeley.edu   | Berkeley Arts Magnet School  |
+      | Joseph    | jg@berkeley.edu   | Berkeley Arts Magnet School  |
 
-    And the following "checkins" exist:
-      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 13:00:00  | 30 | -120 | false |
-      | Joseph    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869 | -122.270348 | true |
+    And the following checkins exist:
+      | mentor_id | school_id                   | checkin_time       | checkin_lat| checkin_time | isValid |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 30         | -120         | false   |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869  | -122.270348  | true    |
 
-    And the following "checkouts" exist:
-      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 14:00:00  | 30 | -120 | false |
-      | Joseph    | Berkeley Arts Magnet School | 2019-12-3 10:00:00  | 37.876869 | -122.270348 | true |
+    And the following checkouts exist:
+      | mentor_id | school_id                   | checkout_time      |checkout_lat|checkout_time | isValid |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 14:00:00 | 30         | -120         | false   |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-3 10:00:00 | 37.876869  | -122.270348  | true    |
 
-    And the following "checkins" exist:
-      | Emma     | Berkeley Arts Magnet School | 2019-12-2 13:00:00  | 37.876869 | -122.270348 | true |
-      | Emma    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869 | -122.270348 | true |
-      | Emma    | Berkeley Arts Magnet School | 2019-12-4 9:00:00  | 37.876869 | -122.270348 | true |
+    And the following checkins exist:
+      | mentor_id | school_id                 | checkin_time       |checkin_lat| checkin_time| isValid |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 37.876869 | -122.270348 | true    |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869 | -122.270348 | true    |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-4 9:00:00  | 37.876869 | -122.270348 | true    |
 
-    And the following "checkouts" exist:
-      | Emma    | Berkeley Arts Magnet School | 2019-12-3 10:00:00  | 37.876869 | -122.270348 | true |
-      | Emma    | Berkeley Arts Magnet School | 2019-12-4 10:00:00  | 37.876869 | -122.270348 | true |
+    And the following checkouts exist:
+      | mentor_id | school_id                 | checkout_time       |checkout_lat|checkout_time| isValid |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-3 10:00:00  | 37.876869  | -122.270348 | true    |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-4 10:00:00  | 37.876869  | -122.270348 | true    |
 
-    And the following "checkins" exist:
-      | Kyler     | Berkeley Arts Magnet School | 2019-11-18 13:00:00  | 37.876869 | -122.270348 | true |
+    And the following checkins exist:
+      | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_time| isValid |  
+      | Kyler     | Berkeley Arts Magnet School | 2019-11-18 13:00:00  | 37.876869 | -122.270348 | true    |
 
-    And the following "checkins" exist:
-      | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869 | -122.270348 | true |
+    And the following checkins exist:
+      | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_time| isValid |
+      | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869 | -122.270348 | true    |
 
-    And I am signed in as an "admin(Darain Noveir)"
+    And I am signed in as an admin "Darain"
 
 
     Scenario: the mentor checkined with invalid geolocation
