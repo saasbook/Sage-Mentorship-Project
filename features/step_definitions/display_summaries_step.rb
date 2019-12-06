@@ -6,33 +6,39 @@ end
 
 Given("the following admins exist:") do |table|
   table.hashes.each do |admin|
+    admin["school_id"] = School.where(name: admin["school_id"]).first.id
     Admin.create admin
   end
 end
 
+
 Given("the following mentors exist:") do |table|
   table.hashes.each do |mentor|
+    mentor["school_id"] = School.where(name: mentor["school_id"]).first.id
     Mentor.create mentor
   end
 end
 
 Given("the following checkins exist:") do |table|
   table.hashes.each do |checkin|
+    checkin["mentor_id"] = Mentor.where(name: checkin["mentor_id"]).first.id
+    checkin["school_id"] = School.where(name: checkin["school_id"]).first.id
     Checkin.create checkin
   end
 end
 
 Given("the following checkouts exist:") do |table|
   table.hashes.each do |checkout|
+    checkout["mentor_id"] = Mentor.where(name: checkout["mentor_id"]).first.id
+    checkout["school_id"] = School.where(name: checkout["school_id"]).first.id
     Checkout.create checkout
   end
 end
 
 Given("I am signed in as an admin {string}") do |string|
-  user  =  Admin.where(name: string)
-  email = Admin.where(name: string).email
+  user  =  Admin.where(name: string).first
   headers = {}
-  Rack::Utils.set_cookie_header!(headers, "email_address", @user.email)
+  Rack::Utils.set_cookie_header!(headers, "email_address", user.email)
   cookie_string = headers['Set-Cookie']
   Capybara.current_session.driver.browser.set_cookie(cookie_string)
 end
