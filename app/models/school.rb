@@ -31,4 +31,12 @@ class School < ApplicationRecord
     lon = result[0].longitude
     return lat,lon
   end
+
+  def my_location
+    my_geolocation = [self.lat, self.lon]
+  end
+
+  def in_range?(mentor_location)
+    Geocoder::Calculations.distance_between(my_location, mentor_location) <= 0.25
+  end
 end
