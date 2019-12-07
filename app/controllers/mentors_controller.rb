@@ -95,7 +95,7 @@ class MentorsController < ApplicationController
     puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
-    @isValid = true
+    @isValid = my_school.in_range?([@lat, @lon])
     logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
     if @chk_in.save
@@ -112,7 +112,7 @@ class MentorsController < ApplicationController
     @time = Time.current
     @lat = params[:la]
     @lon = params[:lo]
-    @isValid = true
+    @isValid = my_school.in_range?([@lat, @lon])
     logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
     if @chk_out.save
@@ -180,5 +180,7 @@ class MentorsController < ApplicationController
       params.require(:mentor).permit(:name, :email, :school_id)
     end
 
-
+  def my_school
+    @school = School.find(@mentor.school_id)
+  end
 end
