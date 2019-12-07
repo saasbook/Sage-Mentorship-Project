@@ -37,20 +37,36 @@ end
 
 Given("I am signed in as an admin {string}") do |string|
   user  =  Admin.where(name: string).first
+  puts user.email
   headers = {}
-  Rack::Utils.set_cookie_header!(headers, "email_address", user.email)
+  Rack::Utils.set_cookie_header!(headers, :email_address, user.email)
   cookie_string = headers['Set-Cookie']
   Capybara.current_session.driver.browser.set_cookie(cookie_string)
+  visit schools_path
+  save_and_open_page
+  puts page.html
 end
 
-Given("I am on the {string} page") do |string|
-  visit path_to(string)
+Given("I am on the {string} page and I pass {string} as school and {string} date") do |string, string2, string3|
+  school = School.where(name: string2).first
+  visit school_path(school, :week_date => string3)
+  #save_and_open_page
 end
 
 Then("I should see the the following table row :") do |table|
-  if page.respond_to? :should
-    page.should have_content(table)
-  else
-      assert page.has_content(table)
+  table.hashes.each do |row|
+    find(:table_row, row)
   end
 end
+
+Given("I am on the {string} page and pass {string} as mentor") do |string, string2|
+  mentor = Mentor.where(name: string2).first
+  visit mentor_details_path(mentor)
+  
+end
+
+Given("I am on the {string} page and pass {string} as mentor and {string} as date") do |string, string2, string3|
+  mentor = Mentor.where(name: string2).first
+  visit mentor_attendacnes_path(mentor, :name => string2, :week_date => string3)
+end
+
