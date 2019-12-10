@@ -37,19 +37,16 @@ Given("the following checkouts exist:") do |table|
   end
 end
 
-Given("I am signed in as an admin {string}") do |string|
-  user  =  Admin.where(name: string).first
+Given("I am signed in as an admin {string}") do |admin_name|
+  user  =  Admin.where(name: admin_name).first
   allow_any_instance_of(ApplicationController).to receive(:find_user_by_email).and_return(user)
-  school = user.school
-  week_date = Time.strptime("2019-12-2", "%Y-%m-%d").strftime("%m/%d/%Y")
-  visit school_path(school, :week_date => week_date)
-  puts page.html
 end
 
-Given("I am on the {string} page and I pass {string} as school and {string} date") do |string, string2, string3|
-  school = School.where(name: string2).first
-  visit school_path(school, :week_date => string3)
-  #save_and_open_page
+Given("I am on the {string} page and I pass {string} as school and {string} date") do |page_name, school_name, week_date|
+  if page_name == "schools"
+    school = School.where(name: school_name).first
+    visit school_path(school, :week_date => week_date)
+  end
 end
 
 Then("I should see the the following table row :") do |table|
@@ -58,14 +55,17 @@ Then("I should see the the following table row :") do |table|
   end
 end
 
-Given("I am on the {string} page and pass {string} as mentor") do |string, string2|
-  mentor = Mentor.where(name: string2).first
-  visit mentor_details_path(mentor)
-
+Given("I am on the {string} page and pass {string} as mentor") do |page_name, mentor_name|
+  if page_name == "weeks_summary"
+      mentor = Mentor.where(name: mentor_name).first
+      visit mentor_details_path(mentor)
+  end
 end
 
-Given("I am on the {string} page and pass {string} as mentor and {string} as date") do |string, string2, string3|
-  mentor = Mentor.where(name: string2).first
-  visit mentor_attendacnes_path(mentor, :name => string2, :week_date => string3)
+Given("I am on the {string} page and pass {string} as mentor and {string} as date") do |page_name, mentor_name, week_date|
+  if page_name == "attendances"
+    mentor = Mentor.where(name: mentor_name).first
+    visit mentor_attendances_path(mentor, :week_date => week_date)
+  end
 end
 
