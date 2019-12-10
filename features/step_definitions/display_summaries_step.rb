@@ -1,3 +1,5 @@
+require 'cucumber/rspec/doubles'
+
 Given("the following schools exist:") do |table|
   table.hashes.each do |school|
     School.create school
@@ -37,13 +39,10 @@ end
 
 Given("I am signed in as an admin {string}") do |string|
   user  =  Admin.where(name: string).first
-  puts user.email
-  headers = {}
-  Rack::Utils.set_cookie_header!(headers, :email_address, user.email)
-  cookie_string = headers['Set-Cookie']
-  Capybara.current_session.driver.browser.set_cookie(cookie_string)
-  visit schools_path
-  save_and_open_page
+  allow_any_instance_of(ApplicationController).to receive(:find_user_by_email).and_return(user)
+  school = user.school
+  week_date = Time.strptime("2019-12-2", "%Y-%m-%d").strftime("%m/%d/%Y")
+  visit school_path(school, :week_date => week_date)
   puts page.html
 end
 
@@ -62,7 +61,7 @@ end
 Given("I am on the {string} page and pass {string} as mentor") do |string, string2|
   mentor = Mentor.where(name: string2).first
   visit mentor_details_path(mentor)
-  
+
 end
 
 Given("I am on the {string} page and pass {string} as mentor and {string} as date") do |string, string2, string3|

@@ -4,6 +4,7 @@ Feature: display_summaries
   So that I can monitor the attendance of the mentors assigned to my school
   I want to view the school activities, weeks summaries and the attendances list of a mentor for a specific week
 
+
   Background: mentors and schools have been added to database, signed in as a admin
 
     Given the following schools exist:
@@ -22,17 +23,17 @@ Feature: display_summaries
 
     And the following checkins exist:
       | mentor_id | school_id                   | checkin_time       | checkin_lat| checkin_lon | isValid |
-      | Joseph    | Berkeley Arts Magnet School | 2019/12/2 13:00:00 | 30         | -120         | false   |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 30         | -120         | false   |
       | Joseph    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869  | -122.270348  | true    |
 
     And the following checkouts exist:
       | mentor_id | school_id                   | checkout_time      |checkout_lat|checkout_lon  | isValid |
-      | Joseph    | Berkeley Arts Magnet School | 2019/12/2 14:00:00 | 30         | -120         | false   |
+      | Joseph    | Berkeley Arts Magnet School | 2019-12-2 14:00:00 | 30         | -120         | false   |
       | Joseph    | Berkeley Arts Magnet School | 2019-12-3 10:00:00 | 37.876869  | -122.270348  | true    |
 
     And the following checkins exist:
       | mentor_id | school_id                 | checkin_time       |checkin_lat| checkin_lon | isValid |
-      | Emma    | Berkeley Arts Magnet School | 2019/12/2 13:00:00 | 37.876869 | -122.270348 | true    |
+      | Emma    | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 37.876869 | -122.270348 | true    |
       | Emma    | Berkeley Arts Magnet School | 2019-12-3 9:00:00  | 37.876869 | -122.270348 | true    |
       | Emma    | Berkeley Arts Magnet School | 2019-12-4 9:00:00  | 37.876869 | -122.270348 | true    |
 
@@ -42,11 +43,11 @@ Feature: display_summaries
       | Emma    | Berkeley Arts Magnet School | 2019-12-4 10:00:00  | 37.876869  | -122.270348 | true    |
 
     And the following checkins exist:
-      | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_lon | isValid |  
+      | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_lon | isValid |
       | Kyler     | Berkeley Arts Magnet School | 2019-11-18 13:00:00  | 37.876869 | -122.270348 | true    |
 
-    And the following checkins exist:
-      | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_lon | isValid |
+    And the following checkouts exist:
+      | mentor_id | school_id                   | checkout_time         |checkout_lat| checkout_lon | isValid |
       | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869 | -122.270348 | true    |
 
     And I am signed in as an admin "Darain"
