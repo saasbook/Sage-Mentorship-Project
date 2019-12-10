@@ -35,16 +35,11 @@ Given("the following checkouts exist:") do |table|
   end
 end
 
-Given("I am signed in as an admin {string}") do |string|
-  user  =  Admin.where(name: string).first
-  puts user.email
-  headers = {}
-  Rack::Utils.set_cookie_header!(headers, :email_address, user.email)
-  cookie_string = headers['Set-Cookie']
-  Capybara.current_session.driver.browser.set_cookie(cookie_string)
-  visit schools_path
-  save_and_open_page
-  puts page.html
+Given("I am signed in as admin {string}") do |string|
+  puts "The string is : #{string}"
+  user = Admin.where(email: string).first
+  allow_any_instance_of(LoginsController).to receive(:authenticate_with_google).and_return(user)
+  visit create_login_path
 end
 
 Given("I am on the {string} page and I pass {string} as school and {string} date") do |string, string2, string3|

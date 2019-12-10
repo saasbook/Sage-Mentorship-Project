@@ -49,7 +49,7 @@ Feature: display_summaries
       | mentor_id | school_id                   | checkin_time         |checkin_lat| checkin_lon | isValid |
       | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869 | -122.270348 | true    |
 
-    And I am signed in as an admin "Darain"
+    And I am signed in as admin "darain@sagementorship.org"
 
 
     Scenario: the mentor checkined with invalid geolocation
