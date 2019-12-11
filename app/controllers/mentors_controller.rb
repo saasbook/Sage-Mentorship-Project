@@ -100,7 +100,7 @@ class MentorsController < ApplicationController
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
-        redirect_to mentor_checkin_url
+        redirect_to mentor_path
     else
       redirect_to mentor_path
       flash[:notice] = 'something wrong, please try again'
@@ -109,18 +109,23 @@ class MentorsController < ApplicationController
 
 
   def checkout_loc
+    if Checkin.find_by(mentor_id: @mentor.id, date: Date.today).nil?
+      flash[:notice] = 'No checkin exists to checkout'
+      redirect_to mentor_path
+    else
     @time = Time.current
     @lat = params[:la]
     @lon = params[:lo]
     @isValid = true
     logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
-    if @chk_out.save
-        flash[:notice] = 'Checkout succesful'
-        redirect_to mentor_checkout_url
-    else
-      redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again'
+      if @chk_out.save
+          flash[:notice] = 'Checkout succesful'
+          redirect_to mentor_path
+      else
+        redirect_to mentor_path
+        flash[:notice] = 'something wrong, please try again'
+      end
     end
   end
 

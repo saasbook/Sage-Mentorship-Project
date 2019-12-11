@@ -108,5 +108,4 @@ class Mentor < ApplicationRecord
     end
     return acc_hours
   end
-
 end

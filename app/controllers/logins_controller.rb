@@ -6,9 +6,14 @@ class LoginsController < ApplicationController
 
   def create
     if user = authenticate_with_google
+     
       cookies.signed[:user_id] = user.id
       session[:email_address] = user.email
       session[:id] = user.id
+       puts "---------======HERE++++++====="
+      puts "Cookies: #{cookies.signed}"
+      puts "User: #{user.email}" 
+      puts "Sessoon: #{session[:id]}"
       redirect_to user
     else
       session[:email_address] = nil if session[:user_id]
