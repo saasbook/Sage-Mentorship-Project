@@ -12,6 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2019_12_02_032443) do
 
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.float "lat"
+    t.float "lon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+  
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -57,15 +66,6 @@ ActiveRecord::Schema.define(version: 2019_12_02_032443) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_mentors_on_school_id"
-  end
-
-  create_table "schools", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.float "lat"
-    t.float "lon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "supers", force: :cascade do |t|
