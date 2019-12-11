@@ -58,7 +58,6 @@ Background: mentors and schools have been added to database, signed in as a admi
 
 
 
-
 Scenario: 1) the mentor checkined with invalid geolocation
 
   Given I am on the "school_activity, Berkeley Arts Magnet School, 12/02/2019" page
