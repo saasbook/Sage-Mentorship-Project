@@ -5,10 +5,13 @@
       %ul
         - @checkin.errors.full_messages.each do |message|
           %li= message
-  
+
   .field
     = f.label :checkin_time
     = f.datetime_select :checkin_time
+  .field
+    = f.label :school_id
+    = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
   .field
     = f.label :isValid
     = f.select :isValid, [['True', true], ['False', false]]

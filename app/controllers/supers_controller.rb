@@ -7,15 +7,10 @@ class SupersController < ApplicationController
   end
 
   def show
-    if session[:id].to_i == params[:id].to_i
       @schools = School.all
       @mentors = Mentor.all
       @admins = Admin.all
       @supers = Super.all
-    else
-      flash[:notice] = "You don't have access to that page!"
-      redirect_to super_path(session[:id])
-    end
   end
 
   def new
@@ -29,7 +24,7 @@ class SupersController < ApplicationController
   #GET /supers/cleanup
   #Careful with this route, it deletes all data from the db
   def cleandb
-  Checkin.delete_all    
+  Checkin.delete_all
   Checkout.delete_all
   redirect_to super_path
 

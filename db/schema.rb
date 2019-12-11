@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 2019_12_02_032443) do
     t.datetime "checkin_time"
     t.string "checkin_lat"
     t.string "checkin_lon"
-    t.string "date"
     t.integer "mentor_id"
     t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "date"
     t.boolean "isValid"
     t.index ["mentor_id"], name: "index_checkins_on_mentor_id"
     t.index ["school_id"], name: "index_checkins_on_school_id"
@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 2019_12_02_032443) do
     t.string "checkout_lat"
     t.string "checkout_lon"
     t.integer "mentor_id"
-    t.string "date"
     t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ischeckout"
+    t.string "date"
     t.boolean "isValid"
     t.index ["mentor_id"], name: "index_checkouts_on_mentor_id"
     t.index ["school_id"], name: "index_checkouts_on_school_id"

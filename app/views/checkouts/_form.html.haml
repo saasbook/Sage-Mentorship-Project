@@ -10,6 +10,9 @@
     = f.label :checkout_time
     = f.datetime_select :checkout_time
   .field
+    = f.label :school_id
+    = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
+  .field
     = f.label :isValid
     = f.select :isValid, [['True', true], ['False', false]]
   = f.hidden_field :mentor_id, value: @mentor_id

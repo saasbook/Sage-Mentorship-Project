@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.7'
+ruby '>=2.4.7'
 gem 'haml'
 gem 'haml-rails'
 gem 'google_sign_in'
