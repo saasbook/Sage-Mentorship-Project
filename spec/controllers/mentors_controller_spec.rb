@@ -24,27 +24,31 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe MentorsController, type: :controller do
-
+  before(:all) do
+    @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
+    @admin1 =  Admin.find_by(email: 'adminrspec@superspec.berkeley.edu') || create(:admin)
+    @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu')
+  end
   # This should return the minimal set of attributes required to create a valid
   # Mentor. As you add validations to Mentor, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name:'Mentor Test', email:'fmentortest@berkeley.edu', school: @school1}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {name:'Me', email:'fmentortest@berkeley.edu', school: 'Berkeley Arts Magnet School'}
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # MentorsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {:email_address => @super1.email} }
 
-  describe "GET #index" do
+  describe "GET #_index" do
     it "returns a success response" do
       Mentor.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :_index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -76,13 +80,13 @@ RSpec.describe MentorsController, type: :controller do
     context "with valid params" do
       it "creates a new Mentor" do
         expect {
-          post :create, params: {mentor: valid_attributes}, session: valid_session
+          post :create, params: {mentor: {name:'Mentor Test B', email:'fmentortestB@berkeley.edu', school_id: @school1.id}}, session: valid_session
         }.to change(Mentor, :count).by(1)
       end
 
-      it "redirects to the created mentor" do
+      it "redirects to the creator" do
         post :create, params: {mentor: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Mentor.last)
+        expect(response).to be_successful
       end
     end
 
@@ -97,20 +101,20 @@ RSpec.describe MentorsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name:'Mentor Test Updated', email:'fmentortest@berkeley.edu', school: 'Berkeley Arts Magnet School'}
       }
 
       it "updates the requested mentor" do
         mentor = Mentor.create! valid_attributes
         put :update, params: {id: mentor.to_param, mentor: new_attributes}, session: valid_session
         mentor.reload
-        skip("Add assertions for updated state")
+        expect(mentor.name).to eq(new_attributes[:name])
       end
 
-      it "redirects to the mentor" do
+      it "redirects to the creator" do
         mentor = Mentor.create! valid_attributes
         put :update, params: {id: mentor.to_param, mentor: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(mentor)
+        expect(response).to redirect_to(@super1)
       end
     end
 
@@ -134,7 +138,7 @@ RSpec.describe MentorsController, type: :controller do
     it "redirects to the mentors list" do
       mentor = Mentor.create! valid_attributes
       delete :destroy, params: {id: mentor.to_param}, session: valid_session
-      expect(response).to redirect_to(mentors_url)
+      expect(response).to redirect_to(@super1)
     end
   end
 

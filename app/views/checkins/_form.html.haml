@@ -14,7 +14,7 @@
     = f.collection_select :school_id, School.all, :id, :name, prompt: "Select School"
   .field
     = f.label :isValid
-    = f.check_box :isValid
+    = f.select :isValid, [['True', true], ['False', false]]
   = f.hidden_field :mentor_id, value: @mentor_id
   .actions
     = f.submit 'Save'

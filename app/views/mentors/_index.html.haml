@@ -28,4 +28,4 @@
 = link_to 'Download all checkin data', mentors_path(format: :xlsx)
 %br
 %br
-= link_to 'Delete all checkin data', cleandb_path, data: {confirm: 'Are you sure?' }
+= link_to 'Delete all checkin data', cleandb_path(@current_user), data: {confirm: 'Are you sure?' }

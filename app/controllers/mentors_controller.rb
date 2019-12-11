@@ -21,8 +21,6 @@ class MentorsController < ApplicationController
     Rails.logger.debug params.keys
   end
 
-
-
   # GET /mentors/1/details
   # show the weeks summary of the mentor
   def show
@@ -31,14 +29,8 @@ class MentorsController < ApplicationController
   # GET /mentors/1/attendances
   # show the detailed attendances list of the mentor at a specific week
   def attendances
-    if params[:week_date].nil?
-      @week_date = Time.current
-    else
-      @week_date = Time.strptime(params[:week_date], "%m/%d/%Y")
-    end
-    @week_date = @week_date.beginning_of_week
+    @week_date = params[:week_date].nil? ? Time.current.beginning_of_week : Time.strptime(params[:week_date], "%m/%d/%Y").beginning_of_week
   end
-
 
   # GET /mentors/new
   def new
@@ -89,41 +81,38 @@ class MentorsController < ApplicationController
   end
 
   def checkin_loc
-    @time = Time.current
-    @lat = params[:la]
-    @lon = params[:lo]
-    @isValid = true
-    @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
-    if @chk_in.save
-        flash[:notice] = 'Checkin succesful'
-        redirect_to mentor_path
-    else
-      redirect_to mentor_path
-      flash[:notice] = 'something wrong, please try again'
-    end
+  @chk_in = Checkin.new(:mentor_id => @mentor.id,
+                        :school_id =>@mentor.school_id,
+                        :checkin_time=> Time.current,
+                        :checkin_lat => params[:la],
+                        :checkin_lon => params[:lo],
+                        :isValid => my_school.in_range?([@lat, @lon]),
+                        :date => Date.today
+                        )
+  flash[:notice] = @chk_in.save ? 'Checkin succesful' : 'Something went wrong. Please try again.'
+  redirect_to mentor_path
   end
 
-
-  def checkout_loc
+def checkout_loc
     #Checks if the mentor is not signed it already. If not then won't let mentors to checkout
-    if Checkin.find_by(mentor_id: @mentor.id, date: Date.today).nil?
-      flash[:notice] = 'No checkin exists to checkout'
-      redirect_to mentor_path
-    else
-    @time = Time.current
-    @lat = params[:la]
-    @lon = params[:lo]
-    @isValid = true
-    @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
-      if @chk_out.save
-          flash[:notice] = 'Checkout succesful'
-          redirect_to mentor_path
-      else
-        redirect_to mentor_path
-        flash[:notice] = 'something wrong, please try again'
-      end
+  if Checkin.find_by(mentor_id: @mentor.id, date: Date.today).nil?
+    flash[:notice] = 'No checkin exists to checkout'
+    redirect_to mentor_path
+  else
+   @chk_out = Checkout.new(:mentor_id => @mentor.id,
+                          :school_id => @mentor.school_id,
+                          :checkout_time=> Time.current,
+                          :checkout_lat => params[:la],
+                          :checkout_lon => params[:lo],
+                          :ischeckout => true,
+                          :isValid => my_school.in_range?([@lat, @lon]),
+                          :date => Date.today
+                          )
+    flash[:notice] = @chk_out.save ? 'Checkout succesful' : 'Something went wrong. Please try again.'
+    redirect_to mentor_path
     end
   end
+
   
   def appointment
   end
@@ -140,16 +129,12 @@ class MentorsController < ApplicationController
 
 	# Authorize only if the @current_user is this mentor or the admin of this mentor or a super
 	def authorize_specific_mentor_admin_or_higher
-        return if @current_user.is_a?(Super)
-        return if is_admin_of_this_mentor?
-        return if is_this_mentor?
-        fail_authentication_redirect
-    end
+    fail_authentication_redirect unless (@current_user.is_a?(Super) || is_admin_of_this_mentor? || is_this_mentor?)
+  end
 
     # Authorize only if the @current_user is this mentor
 	def authorize_specific_mentor
-	    return if is_this_mentor?
-        fail_authentication_redirect
+    fail_authentication_redirect unless is_this_mentor?
 	end
 
     def is_this_mentor?
@@ -172,5 +157,7 @@ class MentorsController < ApplicationController
       params.require(:mentor).permit(:name, :email, :school_id)
     end
 
-
+  def my_school
+    @school = School.find(@mentor.school_id)
+  end
 end

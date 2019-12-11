@@ -68,7 +68,7 @@ class Mentor < ApplicationRecord
     anyInvalid = false
     self.attendances(week_date).each do |attend|
         school_name = attend[:school_name]
-        num_hours += attend[:duration]
+        num_hours += attend[:duration] if attend[:isValid]
         forgot_checkout = true if attend[:forgot_checkout]
         anyInvalid = true unless attend[:isValid]
     end

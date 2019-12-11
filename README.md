@@ -31,7 +31,7 @@ Things you may want to cover:
   Implementation is done in mentor views _index.xlsx.axlsx file that gets called when the 
   request asks to render xlsx format.
 
-*  For future students: For some reason the active record join method didn't work while joining 
+* For future students: For some reason the active record join method didn't work while joining 
   Checkin and Checkout table so we had to make raw sql query to join those two tables to generate 
   the reports.
 
