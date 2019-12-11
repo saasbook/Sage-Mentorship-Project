@@ -2,8 +2,9 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the (RottenPotatoes )?home\s?page$/ then '/movies'
-    when /^the school_activity(Berkeley Arts Magnet School, 2019-12-2) page$/ then '/school_activity'
+    when /"school activit(y)?(ies)?" page for "([^"]*)"$/i then school_path(School.find_by(:name => $3))
+
+
     else
       begin
         page_name =~ /^the (.*) page$/

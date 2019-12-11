@@ -35,17 +35,19 @@ Given("the following checkouts exist:") do |table|
   end
 end
 
-Given("I am signed in as admin {string}") do |string|
-  puts "The string is : #{string}"
-  user = Admin.where(email: string).first
+Given("I am signed in as admin {string}") do |admin_email|
+  user = Admin.where(email: admin_email).first
   allow_any_instance_of(LoginsController).to receive(:authenticate_with_google).and_return(user)
   visit create_login_path
 end
 
-Given("I am on the {string} page and I pass {string} as school and {string} date") do |string, string2, string3|
-  school = School.where(name: string2).first
-  visit school_path(school, :week_date => string3)
-  #save_and_open_page
+When /^(?:|I )am on the (.+)$/ do |page_name|
+  visit path_to(page_name)
+end
+
+When("I enter {string} as date and I press {string}") do |date, select|
+  fill_in 'week_date', :with => date
+  click_button(select)
 end
 
 Then("I should see the the following table row :") do |table|

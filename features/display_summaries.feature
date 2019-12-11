@@ -53,11 +53,12 @@ Feature: display_summaries
 
 
     Scenario: the mentor checkined with invalid geolocation
-      Given I am on the "schools" page and I pass "Berkeley Arts Magnet School" as school and "2019/12/2" date
+      Given I am on the "school activities" page for "Berkeley Arts Magnet School"
+      When I enter "12/02/2019" as date and I press "Select"
       Then I should see the the following table row :
         | Mentor | Week Hours | Any Missed Checkout? | Any Invalid Geoloc? | Accumulated Hours |
-        | Joseph | 1          | -                    | Yes                 | 1                 |
-      Given I am on the "weeks_summary" page and pass "Joseph" as mentor
+        | Joseph | 2.0        | -                    | Yes                 | 2.0               |
+      Given I am on the "weeks_summary" page for mentor "Joseph"
       Then I should see the the following table row :
         | Week of   | School                       | Total Hours | Any Missed Checkout? | Any Invalid Geoloc? |
         | 2019/12/2 | Berkeley Arts Magnet School  | 1           | -                    | Yes                 |
