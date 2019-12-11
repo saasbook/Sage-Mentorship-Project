@@ -104,3 +104,4 @@ Scenario: 3) the mentor did not check-in this week
     |Date      |Hours|School                     |Checkin Time|Checkin Location        |Checkin Invalid Geoloc|Checkout Time|Checkout Location       |Checkout Invalid Geoloc|
     |11/18/2019|1.5  |Berkeley Arts Magnet School|13:00:00    |(37.876869, -122.270348)|-                     |14:30:00     |(37.876869, -122.270348)|-                      |
 
+

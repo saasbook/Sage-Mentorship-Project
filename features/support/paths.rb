@@ -90,7 +90,6 @@ module NavigationHelpers
             time = Time.strptime(time, "%Y-%m-%d %H:%M:%S")
             checkin = Checkin.where(mentor_id: mentor_id, checkin_time: time).first
             return checkin_path(checkin)
-
     end
   end
 end
@@ -129,4 +128,3 @@ World(NavigationHelpers)
 #  Given I am on the "attendances_list, Kyler, 11/18/2019" page
 #  Given I am on the "mentor_geoloc_appointment, Joseph" page
 #  Given I am on the "show_checkin, Emma, 2019-12-2 13:00:00" page
-
