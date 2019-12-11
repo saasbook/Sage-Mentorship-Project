@@ -51,17 +51,15 @@ Feature: account management
     When I press the "New Mentor" link
     Then I should be redirected to the "new_mentor" page
     And I type in "testMentor" in the input box labeled "Name"
-    And I type in "testMentor@berkeley.edu" in the input box labeled "Email"
-    And I choose "Berkeley Arts Magnet School" in the select box labeled "Select School"
+    And I type in "testmentor@berkeley.edu" in the input box labeled "Email"
+    And I choose "Berkeley Arts Magnet School" in the select box labeled "School"
     And I press the "Save" button
     Then I should have this "mentor" record:
-      | name       | email                   | school_id                   |
-      | testMentor | testMentor@berkeley.edu | Berkeley Arts Magnet School |
-
+      | name        | email                   | school_id                   |
+      | testMentor  | testmentor@berkeley.edu | Berkeley Arts Magnet School |
 
   Scenario: 3) edit mentor info
-    When I press the "Edit" link on the record row of "Emma"
-    Then I should be redirected to the "edit_mentor, Emma" page
+    Given I am on the "edit_mentor, Emma" page
     And I type in "Emily" in the input box labeled "Name"
     And I press the "Save" button
     Then I should have this "mentor" record:
@@ -70,9 +68,9 @@ Feature: account management
 
 
   Scenario: 4) destroy a mentor account and all related checkins and checkouts should also be deleted
-    When I press the "Destroy" link on the record row of "Emma"
-    And a "Are you sure ..." confirmation message poped up
-    And I press "OK" in pop up
+    Given I delete this "mentor" record:
+      | name      | email           | school_id                    |
+      | Emma      | es@berkeley.edu | Berkeley Arts Magnet School  |
     Then I should no longer have this "mentor" record:
       | name      | email           | school_id                    |
       | Emma      | es@berkeley.edu | Berkeley Arts Magnet School  |

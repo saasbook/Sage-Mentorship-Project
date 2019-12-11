@@ -26,41 +26,47 @@ Feature: access_control
 
   Scenario: 1) sign in as a super_user, should be able to access super page
     Given I am signed in as an "super", "Jasamine"
-    Then I should be redirected to the "super_account_management, Jasamine" page
+    When I try to access the "super_account_management, Jasamine" page
     Then I should be on the "super_account_management, Jasamine" page
 
 
   Scenario: 2) sign in as an admin, should be able to access summaries page of my school
     Given I am signed in as an "admin", "Darain"
-    Then I should be redirected to the "school_activity, Berkeley Arts Magnet School" page
+    When I try to access the "school_activity, Berkeley Arts Magnet School" page
     Then I should be on the "school_activity, Berkeley Arts Magnet School" page
 
 
   Scenario: 3) sign in as an admin, should not be able to access summaries page of school other than mine
     Given I am signed in as an "admin", "Darain"
     When I try to access the "school_activity, Jefferson Elementary School" page
-    Then I should be redirected to the "home" page with a "You don't have access to that page!" notice message
+    Then I should be redirected to the "home" page
+    And I should see the message "You don't have access to that page!"
 
 
   Scenario: 4) sign in as a mentor, should be able to access my appointment page for geolocation checkin and checkout
     Given I am signed in as an "mentor", "Emma"
-    Then I should be redirected to the "mentor_geoloc_appointment, Emma" page
+    When I try to access the "mentor_geoloc_appointment, Emma" page
+    Then I should be on the "mentor_geoloc_appointment, Emma" page
 
 
   Scenario: 5) sign in as a mentor, should not be able to access appointment page for other mentor
     Given I am signed in as an "mentor", "Emma"
     When I try to access the "mentor_geoloc_appointment, Kyler" page
-    Then I should be redirected to the "home" page with a "You don't have access to that page!" notice message
+    Then I should be redirected to the "home" page
+    And I should see the message "You don't have access to that page!"
 
 
   Scenario: 6) sign in as an invalid user
-    Given I am signed in as an "invalid user", "invalid_user@berkeley.edu"
-    Then I should be redirected to the "home" page with a "User does not exist." notice message
+    Given I am signed in as an "invalid user", "invalid_user"
+    When I try to access the "super_account_management, Jasamine" page
+    Then I should be redirected to the "home" page
 
 
   Scenario: 7) sign out
     Given I am signed in as an "super", "Jasamine"
     Then I sign out
-    Then I should be redirected to the "home" page with a "Logged out!" notice message
-    When I tried to access the "super_account_management, Jasamine" page
     Then I should be redirected to the "home" page
+    And I should see the message "Logged out!"
+    When I try to access the "super_account_management, Jasamine" page
+    Then I should be redirected to the "home" page
+

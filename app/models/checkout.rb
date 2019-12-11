@@ -1,5 +1,6 @@
 class Checkout < ApplicationRecord
 	belongs_to :mentor
+	belongs_to :school
 
 	def school
 			School.find(self.school_id)
