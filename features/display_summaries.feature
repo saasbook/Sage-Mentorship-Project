@@ -11,6 +11,10 @@ Background: mentors and schools have been added to database, signed in as a admi
       | name                            | address                               | lat        | lon           |
       | Berkeley Arts Magnet School     | 2015 Virginia St, Berkeley, CA 94709  | 37.876869  | -122.270348   |
 
+    And the following supers exist:
+      | name       | email                       |
+      | Jasamine   | jasamine@sagementorship.org |
+
     And the following admins exist:
       | name       | email                      | school_id                    |
       | Darain     | darain@sagementorship.org  | Berkeley Arts Magnet School  |
@@ -50,18 +54,19 @@ Background: mentors and schools have been added to database, signed in as a admi
       | mentor_id | school_id                   | checkout_time        |checkout_lat| checkout_lon | isValid |
       | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869  | -122.270348  | true    |
 
-    And I am signed in as an admin "Darain"
+    And I am signed in as an "admin" "Darain"
+
 
 
 
 Scenario: 1) the mentor checkined with invalid geolocation
 
-  Given I am on the "schools" page and I pass "Berkeley Arts Magnet School" as school and "12/02/2019" date
+  Given I am on the "school_activity, Berkeley Arts Magnet School, 12/02/2019" page
   Then I should see the the following table row :
     | Mentor | Week Hours | Any Missed Checkout? | Any Invalid Geoloc? | Accumulated Hours |
     | Joseph | 1          | -                    | Yes                 | 1                 |
 
-  Given I am on the "weeks_summary" page and pass "Joseph" as mentor
+  Given I am on the "weeks_summary, Joseph" page
   Then I should see the the following table row :
     | Week of    | School                       | Total Hours | Any Missed Checkout? | Any Invalid Geoloc? |
     | 12/02/2019 | Berkeley Arts Magnet School  | 1           | -                    | Yes                 |
@@ -70,12 +75,12 @@ Scenario: 1) the mentor checkined with invalid geolocation
 
 Scenario: 2) the mentor forgot to checkout in one of the attendances this week
 
-  Given I am on the "schools" page and I pass "Berkeley Arts Magnet School" as school and "12/02/2019" date
+  Given I am on the "school_activity, Berkeley Arts Magnet School, 12/02/2019" page
   Then I should see the the following table row :
     | Mentor | Week Hours | Any Missed Checkout? | Any Invalid Geoloc? | Accumulated Hours |
     | Emma   | 2          | Yes                  | -                   | 2                 |
 
-  Given I am on the "weeks_summary" page and pass "Emma" as mentor
+  Given I am on the "weeks_summary, Emma" page
   Then I should see the the following table row :
     | Week of    | School                       | Total Hours | Any Missed Checkout? | Any Invalid Geoloc? |
     | 12/02/2019 | Berkeley Arts Magnet School  | 2           | Yes                  | -                   |
@@ -84,18 +89,18 @@ Scenario: 2) the mentor forgot to checkout in one of the attendances this week
 
 Scenario: 3) the mentor did not check-in this week
 
-  Given I am on the "schools" page and I pass "Berkeley Arts Magnet School" as school and "12/02/2019" date
+  Given I am on the "school_activity, Berkeley Arts Magnet School, 12/02/2019" page
   Then I should see the the following table row :
     | Mentor | Week Hours | Any Missed Checkout? | Any Invalid Geoloc? | Accumulated Hours |
     | Kyler  | 0          | -                    | -                   | 1.5               |
 
-  Given I am on the "weeks_summary" page and pass "Kyler" as mentor
+  Given I am on the "weeks_summary, Kyler" page
   Then I should see the the following table row :
     | Week of    | School                       | Total Hours | Any Missed Checkout? | Any Invalid Geoloc? |
     | 12/02/2019 |                              | 0           | -                    | -                   |
     | 11/18/2019 | Berkeley Arts Magnet School  | 1.5         | -                    | -                   |
 
-  Given I am on the "attendances" page and pass "Kyler" as mentor and "11/18/2019" as date
+  Given I am on the "attendances_list, Kyler, 11/18/2019" page
   Then I should see the the following table row :
     |Date      |Hours|School                     |Checkin Time|Checkin Location        |Checkin Invalid Geoloc|Checkout Time|Checkout Location       |Checkout Invalid Geoloc|
     |11/18/2019|1.5  |Berkeley Arts Magnet School|13:00:00    |(37.876869, -122.270348)|-                     |14:30:00     |(37.876869, -122.270348)|-                      |
