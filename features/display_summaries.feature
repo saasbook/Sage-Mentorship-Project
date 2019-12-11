@@ -54,7 +54,7 @@ Background: mentors and schools have been added to database, signed in as a admi
       | mentor_id | school_id                   | checkout_time        |checkout_lat| checkout_lon | isValid |
       | Kyler     | Berkeley Arts Magnet School | 2019-11-18 14:30:00  | 37.876869  | -122.270348  | true    |
 
-    And I am signed in as an "admin" "Darain"
+    And I am signed in as an "admin", "Darain"
 
 
 

@@ -42,7 +42,7 @@ Given(/^the following checkouts exist:$/) do |table|
   end
 end
 
-Given(/^I am signed in as an "(.*)" "(.*)"$/) do |user_type, user_name|
+Given(/^I am signed in as an "(.*)", "(.*)"$/) do |user_type, user_name|
   user = Super.find_by_name(user_name) if user_type == "super"
   user = Admin.find_by_name(user_name) if user_type == "admin"
   user = Mentor.find_by_name(user_name) if user_type == "mentor"
