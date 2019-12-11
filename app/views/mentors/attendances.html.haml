@@ -24,18 +24,15 @@
 
   %thead
     %tr
-      %th{:rowspan => 2} Date
-      %th{:rowspan => 2} Hours
-      %th{:rowspan => 2} School
-      %th{:colspan => 3} ~ Check In ~
-      %th{:colspan => 3} ~ Check Out ~
-    %tr
-      %th Time
-      %th Location
-      %th Invalid Geoloc
-      %th Time
-      %th Location
-      %th Invalid Geoloc
+      %th Date
+      %th Hours
+      %th School
+      %th Checkin Time
+      %th Checkin Location
+      %th Checkin Invalid Geoloc
+      %th Checkout Time
+      %th Checkout Location
+      %th Checkout Invalid Geoloc
 
   %tbody
     - @mentor.attendances(@week_date).each do |check|
