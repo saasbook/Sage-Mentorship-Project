@@ -54,12 +54,17 @@ Things you may want to cover:
 
 # Database Relations
 	There are 7 tables total. All the relations are indexed at ID. More information about tables are in schema file.
+	
 	Schools : School has hasmany relation with checkin, checkout, mentors and the relation is dependent destroy. 
 	School has one to one relation with admins.
+
 	Mentors : Mentors has hasmany relation with checkin, chekout and the relation is dependent destroy. 
 	Mentor belogs to School. 
+
 	Admins : Belongs to school. Used to store credentials of admins.
+
 	Checkins, Checkouts: The two tables belongs to Mentors.
+
 	Super: It is used to store credentials of super user. Super user are the user that has all the controls to the app 
 	including deleting, adding, editing schools, admins, mentors, checkins and checkouts.
 
