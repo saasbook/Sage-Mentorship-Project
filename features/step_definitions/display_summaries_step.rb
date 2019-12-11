@@ -1,45 +1,16 @@
 require 'cucumber/rspec/doubles'
 
-Given(/^the following schools exist:$/) do |table|
-  table.hashes.each do |school|
-    School.create school
-  end
-end
-
-Given(/^the following supers exist:$/) do |table|
-  table.hashes.each do |super_user|
-    Super.create super_user
-  end
-end
-
-Given(/^the following admins exist:$/) do |table|
-  table.hashes.each do |admin|
-    admin["school_id"] = School.find_by_name(admin["school_id"]).id
-    Admin.create admin
-  end
-end
-
-Given(/^the following mentors exist:$/) do |table|
-  table.hashes.each do |mentor|
-    mentor["school_id"] = School.find_by_name(mentor["school_id"]).id
-    Mentor.create mentor
-  end
-end
-
-Given(/^the following checkins exist:$/) do |table|
-  table.hashes.each do |checkin|
-    checkin["mentor_id"] = Mentor.find_by_name(checkin["mentor_id"]).id
-    checkin["school_id"] = School.find_by_name(checkin["school_id"]).id
-    Checkin.create checkin
-  end
-end
-
-Given(/^the following checkouts exist:$/) do |table|
-  table.hashes.each do |checkout|
-    checkout["mentor_id"] = Mentor.find_by_name(checkout["mentor_id"]).id
-    checkout["school_id"] = School.find_by_name(checkout["school_id"]).id
-    Checkout.create checkout
-  end
+Given(/^the following (.*) exist:$/) do |table_name, table|
+    table.hashes.each do |row|
+        row["school_id"] = School.find_by_name(row["school_id"]).id if !row["school_id"].nil?
+        row["mentor_id"] = Mentor.find_by_name(row["mentor_id"]).id if !row["mentor_id"].nil?
+        School.create row if table_name == "schools"
+        Super.create row if table_name == "supers"
+        Admin.create row if table_name == "admins"
+        Mentor.create row if table_name == "mentors"
+        Checkin.create row if table_name == "checkins"
+        Checkout.create row if table_name == "checkouts"
+    end
 end
 
 Given(/^I am signed in as an "(.*)", "(.*)"$/) do |user_type, user_name|

@@ -3,7 +3,7 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-        when /^homepage$/ then root_path
+        when /^home$/ then root_path
 
         when /^new_school$/ then new_school_path
         when /^new_super$/ then new_super_path
