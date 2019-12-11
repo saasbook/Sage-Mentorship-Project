@@ -26,14 +26,14 @@ Things you may want to cover:
 
 
 # Export to xml file
-	Gem that was used to export the records from the database to xml file is 'axlsx_rails'.
-	Link to documentation: https://github.com/caxlsx/axlsx_rails.
-	Implementation is done in mentor views _index.xlsx.axlsx file that gets called when the 
-	request asks to render xlsx format.
-
-	For future students: For some reason the active record join method didn't work while joining 
-	Checkin and Checkout table so we had to make raw sql query to join those two tables to generate 
-	the reports.
+* Gem that was used to export the records from the database to xml file is 'axlsx_rails'.
+  Link to documentation: https://github.com/caxlsx/axlsx_rails.
+  Implementation is done in mentor views _index.xlsx.axlsx file that gets called when the 
+  request asks to render xlsx format.
+  
+  For future students: For some reason the active record join method didn't work while joining 
+  Checkin and Checkout table so we had to make raw sql query to join those two tables to generate 
+  the reports.
 
 # Geolocation
 	Right now the application gets the geolocation using javascript that gets called when user clicks 
@@ -54,7 +54,7 @@ Things you may want to cover:
 
 # Database Relations
 	There are 7 tables total. All the relations are indexed at ID. More information about tables are in schema file.
-	
+
 	Schools : School has hasmany relation with checkin, checkout, mentors and the relation is dependent destroy. 
 	School has one to one relation with admins.
 
