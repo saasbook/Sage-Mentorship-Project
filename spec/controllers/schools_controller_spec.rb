@@ -24,27 +24,37 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe SchoolsController, type: :controller do
+  before(:all) do
+    @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu') # Super.create(name: 'super rspec', email: 'superspec@superspec.berkeley.edu')
+      #@super2 =  Super.find_by(email: 'superspec2@superspec.berkeley.edu') || create(:super, :name => 'rspec2', :email => 'superspec2@superspec.berkeley.edu') # Super.create(name: 'super rspec', email: 'superspec@superspec.berkeley.edu')
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # School. As you add validations to School, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) {{
+    name:'Berkeley Arts Magnet School',
+    address:'2015 Virginia St, Berkeley, CA 94709',
+    lat: 37.876869,
+    lon:-122.270348
+  }}
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) {{
+    name:'Be',
+    address:'2015 Virginia St, Berkeley, CA 94709-+@!',
+    lat: 37.876869,
+    lon:-122.270348
+  }}
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SchoolsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {:email_address => @super1.email} }
 
-  describe "GET #index" do
+  describe "GET #_index" do
     it "returns a success response" do
       School.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :_index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -80,9 +90,9 @@ RSpec.describe SchoolsController, type: :controller do
         }.to change(School, :count).by(1)
       end
 
-      it "redirects to the created school" do
+      it "redirects back to the super user" do
         post :create, params: {school: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(School.last)
+        expect(response).to redirect_to(@super1)
       end
     end
 
@@ -96,21 +106,24 @@ RSpec.describe SchoolsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) {{
+        name: 'The Updated Berkeley Arts Magnet School',
+        address:'2015 Virginia St, Berkeley, CA 94709',
+        lat: 37.876869,
+        lon:-122.270348
+      }}
 
       it "updates the requested school" do
         school = School.create! valid_attributes
         put :update, params: {id: school.to_param, school: new_attributes}, session: valid_session
         school.reload
-        skip("Add assertions for updated state")
+        expect(school.name).to eq(new_attributes[:name])
       end
 
       it "redirects to the school" do
         school = School.create! valid_attributes
         put :update, params: {id: school.to_param, school: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(school)
+        expect(response).to redirect_to(@super1)
       end
     end
 
@@ -134,7 +147,7 @@ RSpec.describe SchoolsController, type: :controller do
     it "redirects to the schools list" do
       school = School.create! valid_attributes
       delete :destroy, params: {id: school.to_param}, session: valid_session
-      expect(response).to redirect_to(schools_url)
+      expect(response).to redirect_to(@super1)
     end
   end
 
