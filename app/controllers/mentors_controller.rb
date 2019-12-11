@@ -10,8 +10,6 @@ class MentorsController < ApplicationController
   # GET /mentors.json
   def _index
     @mentors = Mentor.all
-    sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
-    @records_array = ActiveRecord::Base.connection.execute(sql)
     respond_to do |format|
     format.xlsx {
       response.headers[
@@ -92,11 +90,9 @@ class MentorsController < ApplicationController
 
   def checkin_loc
     @time = Time.current
-    puts @mentor.name
     @lat = params[:la]
     @lon = params[:lo]
     @isValid = true
-    logger.debug "mentor succesfully checkin: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
     @chk_in = Checkin.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkin_time=> Time.current, :checkin_lat => @lat, :checkin_lon => @lon, :isValid => @isValid,:date => Date.today)
     if @chk_in.save
         flash[:notice] = 'Checkin succesful'
@@ -109,6 +105,7 @@ class MentorsController < ApplicationController
 
 
   def checkout_loc
+    #Checks if the mentor is not signed it already. If not then won't let mentors to checkout
     if Checkin.find_by(mentor_id: @mentor.id, date: Date.today).nil?
       flash[:notice] = 'No checkin exists to checkout'
       redirect_to mentor_path
@@ -117,7 +114,6 @@ class MentorsController < ApplicationController
     @lat = params[:la]
     @lon = params[:lo]
     @isValid = true
-    logger.debug "mentor succesfully checkout: #{@mentor.id}, lat: #{@lat}, lon: #{@lon}, time: #{Time.current}"
     @chk_out = Checkout.new(:mentor_id => @mentor.id, :school_id =>@mentor.school_id, :checkout_time=> Time.current, :checkout_lat => @lat, :checkout_lon => @lon, :ischeckout => true, :isValid => @isValid, :date => Date.today)
       if @chk_out.save
           flash[:notice] = 'Checkout succesful'
@@ -128,16 +124,7 @@ class MentorsController < ApplicationController
       end
     end
   end
-
-  def checkin
-    @join = Checkin.joins("INNER JOIN checkouts ON checkins.mentor_id = checkouts.mentor_id AND checkins.mentor_date")
-    @time = Time.current
-  end
-
-  def checkout
-    @time = Time.current
-  end
-
+  
   def appointment
   end
 

@@ -1,5 +1,6 @@
 wb = xlsx_package.workbook
-
+sql = 'SELECT * FROM checkouts INNER JOIN checkins ON checkouts.mentor_id = checkins.mentor_id AND checkins.date = checkouts.date;'
+@records_array = ActiveRecord::Base.connection.execute(sql)
 wb.add_worksheet(name: "mentor_reports") do |sheet|
   # Create the header row
   sheet.add_row ["mentor_name", "school_name","checkin_time","checkout_time","checkin_lat","checkin_lon","checkout_lat","checkout_lon","checked_out"]
