@@ -24,27 +24,30 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe AdminsController, type: :controller do
-
+  before(:all) do
+    @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
+    @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu')
+  end
   # This should return the minimal set of attributes required to create a valid
   # Admin. As you add validations to Admin, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name:'Admin Test', email:'fadmintest@berkeley.edu', school: @school1}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {name:'At', email:'fadmintest@berkeley.edu', school: @school1}
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AdminsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {:email_address => @super1.email} }
 
-  describe "GET #index" do
+  describe "GET #_index" do
     it "returns a success response" do
       Admin.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :_index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -53,7 +56,7 @@ RSpec.describe AdminsController, type: :controller do
     it "returns a success response" do
       admin = Admin.create! valid_attributes
       get :show, params: {id: admin.to_param}, session: valid_session
-      expect(response).to be_successful
+      expect(response).to redirect_to(@school1)
     end
   end
 
@@ -73,16 +76,20 @@ RSpec.describe AdminsController, type: :controller do
   end
 
   describe "POST #create" do
+    let(:create_valid_attributes) {
+      {name:'Admin Test', email:'fadmintest@berkeley.edu', school_id: @school1}
+    }
+
     context "with valid params" do
       it "creates a new Admin" do
         expect {
-          post :create, params: {admin: valid_attributes}, session: valid_session
+          post :create, params: {admin: create_valid_attributes}, session: valid_session
         }.to change(Admin, :count).by(1)
       end
 
-      it "redirects to the created admin" do
-        post :create, params: {admin: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Admin.last)
+      it "redirects to the creator" do
+        post :create, params: {admin: create_valid_attributes}, session: valid_session
+        expect(response).to redirect_to(@super1)
       end
     end
 
@@ -97,20 +104,20 @@ RSpec.describe AdminsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name:'Admin Test Updated', email:'fadmintest@berkeley.edu', school: @school1}
       }
 
       it "updates the requested admin" do
         admin = Admin.create! valid_attributes
         put :update, params: {id: admin.to_param, admin: new_attributes}, session: valid_session
         admin.reload
-        skip("Add assertions for updated state")
+        expect(admin.name).to eq(new_attributes[:name])
       end
 
-      it "redirects to the admin" do
+      it "redirects to the creator" do
         admin = Admin.create! valid_attributes
         put :update, params: {id: admin.to_param, admin: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(admin)
+        expect(response).to redirect_to(@super1)
       end
     end
 
@@ -131,10 +138,10 @@ RSpec.describe AdminsController, type: :controller do
       }.to change(Admin, :count).by(-1)
     end
 
-    it "redirects to the admins list" do
+    it "redirects to the creator" do
       admin = Admin.create! valid_attributes
       delete :destroy, params: {id: admin.to_param}, session: valid_session
-      expect(response).to redirect_to(admins_url)
+      expect(response).to redirect_to(@super1)
     end
   end
 

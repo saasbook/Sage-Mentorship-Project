@@ -24,30 +24,24 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe CheckinsController, type: :controller do
-
+  before(:all) do
+    @mentor1 =  Mentor.find_by(email: 'mentorspec1@superspec.berkeley.edu') || create(:mentor, :name => 'mentorspec1', :email => 'mentorspec1@superspec.berkeley.edu')
+    @admin1 =  Admin.find_by(email: 'adminspec1@superspec.berkeley.edu') || create(:admin, :name => 'adminspec1', :email => 'adminspec1@superspec.berkeley.edu')
+  end
   # This should return the minimal set of attributes required to create a valid
   # Checkin. As you add validations to Checkin, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {checkin_time: Time.now, checkin_lat: 37.876869, checkin_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CheckinsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {:email_address => @admin1.email} }
 
-  describe "GET #index" do
-    it "returns a success response" do
-      Checkin.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
+
 
   describe "GET #show" do
     it "returns a success response" do
@@ -85,40 +79,25 @@ RSpec.describe CheckinsController, type: :controller do
         expect(response).to redirect_to(Checkin.last)
       end
     end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {checkin: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
-      end
-    end
   end
 
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {checkin_time: Time.now, checkin_lat: 36.876869, checkin_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
       }
 
       it "updates the requested checkin" do
         checkin = Checkin.create! valid_attributes
         put :update, params: {id: checkin.to_param, checkin: new_attributes}, session: valid_session
         checkin.reload
-        skip("Add assertions for updated state")
+        expect(checkin.checkin_lat).to eq(new_attributes[:checkin_lat].to_s)
       end
 
       it "redirects to the checkin" do
         checkin = Checkin.create! valid_attributes
         put :update, params: {id: checkin.to_param, checkin: valid_attributes}, session: valid_session
         expect(response).to redirect_to(checkin)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        checkin = Checkin.create! valid_attributes
-        put :update, params: {id: checkin.to_param, checkin: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
       end
     end
   end
