@@ -70,9 +70,9 @@ Things you may want to cover:
 
 
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/667781a06cb35e287489/maintainability)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c74672e4ce0deb8f6fbf/maintainability)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/maintainability)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/667781a06cb35e287489/test_coverage)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c74672e4ce0deb8f6fbf/test_coverage)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/test_coverage)
 
 [![Build Status](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project.svg?branch=master)](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project)
 
