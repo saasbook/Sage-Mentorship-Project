@@ -30,6 +30,9 @@ RSpec.describe SchoolsController, type: :controller do
     @school1.destroy
   end
 
+  after(:each) do
+    Checkin.delete_all;Checkout.delete_all;Mentor.delete_all;Super.delete_all;Admin.delete_all;School.delete_all
+  end
   # This should return the minimal set of attributes required to create a valid
   # School. As you add validations to School, be sure to
   # adjust the attributes here as well.

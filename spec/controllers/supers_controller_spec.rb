@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe SupersController, type: :controller do
 
-  before(:all) do
+  before(:each) do
     @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu') # Super.create(name: 'super rspec', email: 'superspec@superspec.berkeley.edu')
     @super2 =  Super.find_by(email: 'superspec2@superspec.berkeley.edu') || create(:super, :name => 'rspec2', :email => 'superspec2@superspec.berkeley.edu') # Super.create(name: 'super rspec', email: 'superspec@superspec.berkeley.edu')
+  end
+  after(:each) do
+    Checkin.delete_all;Checkout.delete_all;Mentor.delete_all;Super.delete_all;Admin.delete_all;School.delete_all
   end
 
   describe "GET #_index" do

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe AdminsController, type: :routing do
   describe "routing" do
     it "routes to #index" do
-      expect(:get => "/admins").to route_to("admins#index")
+      expect(:get => "/admins").to route_to("admins#_index")
     end
 
     it "routes to #new" do

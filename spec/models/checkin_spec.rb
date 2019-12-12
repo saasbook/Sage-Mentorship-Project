@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Checkin, type: :model do
   before(:all) do
-    @mentor1 =  Mentor.find_by(email: 'mentorspec1@superspec.berkeley.edu') || create(:mentor, :name => 'mentorspec1', :email => 'mentorspec1@superspec.berkeley.edu')
     @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
+    @mentor1 =  Mentor.find_by(email: 'mentorspec1@superspec.berkeley.edu') || create(:mentor, :name => 'mentorspec1', :email => 'mentorspec1@superspec.berkeley.edu', :school => @school1)
   end
-
+  after(:each) do
+    Checkin.delete_all;Checkout.delete_all;Mentor.delete_all;Super.delete_all;Admin.delete_all;School.delete_all
+  end
   let(:checkout1_attributes) {
     {checkout_time: Time.now+30.seconds, checkout_lat: 37.876869, checkout_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
   }

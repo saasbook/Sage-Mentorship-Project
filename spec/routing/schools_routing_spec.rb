@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe SchoolsController, type: :routing do
   describe "routing" do
-    it "routes to #index" do
-      expect(:get => "/schools").to route_to("schools#index")
+    it "routes to #_index" do
+      expect(:get => "/schools").to route_to("schools#_index")
     end
 
     it "routes to #new" do

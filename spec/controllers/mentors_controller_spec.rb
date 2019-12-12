@@ -24,10 +24,14 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe MentorsController, type: :controller do
-  before(:all) do
+  before(:each) do
     @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
-    @admin1 =  Admin.find_by(email: 'adminrspec@superspec.berkeley.edu') || create(:admin)
+    @admin1 =  Admin.find_by(email: 'adminrspec@superspec.berkeley.edu') || create(:admin, :school => @school1)
     @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu')
+  end
+
+  after(:each) do
+    Checkin.delete_all;Checkout.delete_all;Mentor.delete_all;Super.delete_all;Admin.delete_all;School.delete_all
   end
   # This should return the minimal set of attributes required to create a valid
   # Mentor. As you add validations to Mentor, be sure to

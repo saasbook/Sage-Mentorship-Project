@@ -24,9 +24,15 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe AdminsController, type: :controller do
-  before(:all) do
+  before(:each) do
     @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
     @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu')
+  end
+
+  after(:each) do
+    School.delete_all
+    Super.delete_all
+    Admin.delete_all
   end
   # This should return the minimal set of attributes required to create a valid
   # Admin. As you add validations to Admin, be sure to

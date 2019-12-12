@@ -24,9 +24,14 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe CheckinsController, type: :controller do
-  before(:all) do
-    @mentor1 =  Mentor.find_by(email: 'mentorspec1@superspec.berkeley.edu') || create(:mentor, :name => 'mentorspec1', :email => 'mentorspec1@superspec.berkeley.edu')
-    @admin1 =  Admin.find_by(email: 'adminspec1@superspec.berkeley.edu') || create(:admin, :name => 'adminspec1', :email => 'adminspec1@superspec.berkeley.edu')
+  before(:each) do
+    @school1 = School.find_by(name: 'Berkeley Arts Magnet School') || create(:school)
+    @mentor1 =  Mentor.find_by(email: 'mentorspec1@superspec.berkeley.edu') || create(:mentor, :name => 'mentorspec1', :email => 'mentorspec1@superspec.berkeley.edu', :school => @school1)
+    @admin1 =  Admin.find_by(email: 'adminspec1@superspec.berkeley.edu') || create(:admin, :name => 'adminspec1', :email => 'adminspec1@superspec.berkeley.edu', :school => @school1)
+  end
+
+  after(:each) do
+    Checkin.delete_all;Checkout.delete_all;Mentor.delete_all;Super.delete_all;Admin.delete_all;School.delete_all
   end
   # This should return the minimal set of attributes required to create a valid
   # Checkin. As you add validations to Checkin, be sure to
