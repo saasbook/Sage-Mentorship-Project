@@ -72,7 +72,7 @@ group :test do
   # Below are added as required in bcourses setup instructions
   gem 'simplecov', :require => false
   gem 'cucumber-rails-training-wheels' #basic imperative step defs
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require:false
   gem 'metric_fu'
 end
 

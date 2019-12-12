@@ -6,6 +6,7 @@
 
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
+require 'factory_girl_rails'
 
 # frozen_string_literal: true
 

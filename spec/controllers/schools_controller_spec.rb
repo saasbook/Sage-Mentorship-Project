@@ -24,8 +24,10 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe SchoolsController, type: :controller do
-  before(:all) do
+  before(:each) do
     @super1 =  Super.find_by(email: 'superspec1@superspec.berkeley.edu') || create(:super, :name => 'rspec1', :email => 'superspec1@superspec.berkeley.edu')
+    @school1= School.find_by(address: '2015 Virginia St, Berkeley, CA 94709') || create(:school)
+    @school1.destroy
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -52,7 +54,7 @@ RSpec.describe SchoolsController, type: :controller do
 
   describe "GET #_index" do
     it "returns a success response" do
-      School.create! valid_attributes
+      school = create(:school)
       get :_index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -60,7 +62,7 @@ RSpec.describe SchoolsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      school = School.create! valid_attributes
+      school = create(:school)
       get :show, params: {id: school.to_param}, session: valid_session
       expect(response).to be_successful
     end

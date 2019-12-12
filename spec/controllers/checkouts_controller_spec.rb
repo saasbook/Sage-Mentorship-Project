@@ -32,29 +32,16 @@ RSpec.describe CheckoutsController, type: :controller do
   # Checkout. As you add validations to Checkout, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {la: 37.876869, lo: -122.270348, mentor_id: @mentor1.id}
+    {checkout_time: Time.now+30.seconds, checkout_lat: 37.876869, checkout_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
+  }
+  let(:checkin_attributes) {
+    {checkin_time: Time.now, checkin_lat: 37.876869, checkin_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CheckoutsController. Be sure to keep this updated too.
   let(:valid_session) { {:email_address => @admin1.email} }
-
-  describe "GET #index" do
-    it "returns a success response" do
-      Checkout.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET #show" do
-    it "returns a success response" do
-      checkout = Checkout.create! valid_attributes
-      get :show, params: {id: checkout.to_param}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
 
   describe "GET #new" do
     it "returns a success response" do
@@ -74,21 +61,16 @@ RSpec.describe CheckoutsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Checkout" do
+        @checkin = Checkin.create! checkin_attributes
         expect {
           post :create, params: {checkout: valid_attributes}, session: valid_session
         }.to change(Checkout, :count).by(1)
       end
 
       it "redirects to the created checkout" do
+        @checkin = Checkin.create! checkin_attributes
         post :create, params: {checkout: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Checkout.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {checkout: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to redirect_to(@checkin)
       end
     end
   end
@@ -96,28 +78,23 @@ RSpec.describe CheckoutsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {checkout_time: Time.now+35.seconds, checkout_lat: 38.876869, checkout_lon: -122.270348, mentor_id: @mentor1.id, school_id: @mentor1.school_id}
       }
 
       it "updates the requested checkout" do
+        @checkin = Checkin.create! checkin_attributes
         checkout = Checkout.create! valid_attributes
         put :update, params: {id: checkout.to_param, checkout: new_attributes}, session: valid_session
         checkout.reload
-        skip("Add assertions for updated state")
+        expect(checkout.checkout_lat).to eq(new_attributes[:checkout_lat].to_s)
       end
 
       it "redirects to the checkout" do
+        @checkin = Checkin.create! checkin_attributes
         checkout = Checkout.create! valid_attributes
-        put :update, params: {id: checkout.to_param, checkout: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(checkout)
-      end
-    end
 
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        checkout = Checkout.create! valid_attributes
-        put :update, params: {id: checkout.to_param, checkout: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        put :update, params: {id: checkout.id, checkout: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(@checkin)
       end
     end
   end
