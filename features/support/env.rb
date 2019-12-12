@@ -7,6 +7,8 @@
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 require 'factory_girl_rails'
+require 'simplecov'
+SimpleCov.start
 
 # frozen_string_literal: true
 
