@@ -1,14 +1,13 @@
 # Sage-Mentorship-Project
 
-## Scaffolding
-
+# Scaffolding
 
 First step is to ger a ruby version manager package:
 ```
 $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
 $ \curl -sSL https://get.rvm.io | bash -s stable
 ```
-### Setting Up Ruby
+# Setting Up Ruby
 Required Ruby version: ruby '>=2.4.7' for example you can use ruby 2.5.1 as follows.
 ```
 $ rvm install 2.5.1
@@ -19,106 +18,18 @@ You can also set up the default version of ruby:
 ```
 $ rvm --default use 2.5.1
 ```
-##### Create an RVM gemset
-To keep your gems together, you can create gemsets. You can use use one gemset per project. Here’s how you do that.
+
+# Seed the databse
+* In order to run it locally first run the command to seed the database and set up the tables
 ```
-$ rvm gemset create my_cool_app
-ruby-2.5.1 - #gemset created /Users/cezar/.rvm/gems/ruby-2.5.1@my_cool_app
-ruby-2.5.1 - #generating my_cool_app wrappers........
+  $ bundle exec rake db:setup
 ```
-And to use that gemset you use this.
-```
-$ rvm 2.5.1@my_cool_app
-Using /Users/cezar/.rvm/gems/ruby-2.5.1 with gemset my_cool_app
-```
-
-#### Install Rails:
-```
-$ cd ~/Work
-$ rvm use 2.5.1@my_cool_app --create
-$ gem install rails
-```
-
-### Create new project
-
-Follow thre order of the commands:
-```
-$ rails new my_cool_app --skip-test --skip-bundle --database=postgresql
-```
-
-Copy the database config file
-```
-$ cp config/database.yml config/database.yml.example
-```
-Don’t forget to add config/database.yml to your .gitignore file.
-
-Install the gems:
-```
-$ bundle install
-```
-Migrate the database
-You’ll want to run rails ```db:migrate``` at this point so it creates your development and test databases.
-
-### Install RSpec
-First thing is to add RSpec. Add the gem to the development and test environments like so.
-```
-group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 3.7'
-end
-```
-Then, run the ```bundle``` command.
-```
-$ bundle
-$ rails g rspec:install
-```
-
-### Adding Cucumber
-Go to your Gemfile and add these two lines to the test group. Then run the bundle command again.
-
-```
-group :test do
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-end
-```
-
-You also need to setup Cucumber by generating it’s config files.
-```
-rails g cucumber:install
-```
-
-And to install Cucumber into our project do:
-```
-$ bundle install
-$ rails generate cucumber:install
-```
-
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+# Run the server
+* Once you have all the gem installed and db setup run the command
+  ```
+  $ rails serve
+  ```
+  to run the server locally
 
 # Export to xml file
 * Gem that was used to export the records from the database to xml file is 'axlsx_rails'.
@@ -163,12 +74,24 @@ Things you may want to cover:
 * Super: It is used to store credentials of super user. Super user are the user that has all the controls to the app 
   including deleting, adding, editing schools, admins, mentors, checkins and checkouts.
 
+# Encryption
+* You will need encryption key inorder to decrypt the key config/application.yml.asc file that has google api key and other
+  credential to run this app. GSI or course staff will have this key. Please refer to them.
 
+* Once you have that key, you can run the command below to decrypt the key, be sure to add the decrypted file in your gitignore.
+```
+ $export KEY=your-secret-key-value 
+ $gpg --passphrase "$KEY" --decrypt \
+ $--output config/application.yml config/application.yml.asc
+```
+
+# Note
+* Currently the app is deployed in heroku and the link to app is https://rocky-tundra-90969.herokuapp.com/, though in future 
+  i believe it will be deployed to somewhere else. By default rails uses sqlite as db but heroku doesn't support sqlite, so we have
+  set up the postgress sql for heroku according to it's standard. The documentation can be found in heroku website.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/c74672e4ce0deb8f6fbf/maintainability)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/maintainability)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c74672e4ce0deb8f6fbf/test_coverage)](https://codeclimate.com/github/Sage-Foundation-Mentorship/Sage-Mentorship-Project/test_coverage)
 
 [![Build Status](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project.svg?branch=master)](https://travis-ci.com/Sage-Foundation-Mentorship/Sage-Mentorship-Project)
-
-
