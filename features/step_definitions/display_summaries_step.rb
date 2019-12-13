@@ -1,19 +1,26 @@
 require 'cucumber/rspec/doubles'
 
-Given(/^the following (.*) exist:$/) do |table_name, table|
+And(/^the following (.*) exist:$/) do |table_name, table|
     table.hashes.each do |row|
         row["school_id"] = School.find_by_name(row["school_id"]).id if !row["school_id"].nil?
         row["mentor_id"] = Mentor.find_by_name(row["mentor_id"]).id if !row["mentor_id"].nil?
+
         School.create row if table_name == "schools"
+        puts "the new school #{School.find_by(name: row["name"])} " if table_name == "schools"
         Super.create row if table_name == "supers"
+        puts "the new super #{Super.find_by(name: row["name"])} " if table_name == "supers"
         Admin.create row if table_name == "admins"
+        puts "the new admin #{Admin.find_by(name: row["name"])} " if table_name == "admins"
         Mentor.create row if table_name == "mentors"
+        puts "#{row}\nthe new mentor #{Mentor.find_by(name: row["name"])} " if table_name == "mentors"
         Checkin.create row if table_name == "checkins"
+        puts "the new checkin #{Checkin.find_by(mentor_id: row["name"])} " if table_name == "checkins"
         Checkout.create row if table_name == "checkouts"
+        puts "the new checkin #{Checkout.find_by(mentor_id: row["name"])} " if table_name == "checkouts"
     end
 end
 
-Given(/^I am signed in as an "(.*)", "(.*)"$/) do |user_type, user_name|
+And(/^I am signed in as an "(.*)", "(.*)"$/) do |user_type, user_name|
   user = Super.find_by_name(user_name) if user_type == "super"
   user = Admin.find_by_name(user_name) if user_type == "admin"
   user = Mentor.find_by_name(user_name) if user_type == "mentor"

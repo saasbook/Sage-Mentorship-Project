@@ -22,18 +22,18 @@ Feature: account management
 
     And the following mentors exist:
       | name      | email             | school_id                    |
-      | Emma      | es@berkeley.edu | Berkeley Arts Magnet School  |
+      | Emma AZ    | esAZ@berkeley.edu | Berkeley Arts Magnet School  |
       | Kyler     | ko@berkeley.edu | Jefferson Elementary School  |
       | Joseph    | jg@berkeley.edu | Jefferson Elementary School  |
 
 
     And the following checkins exist:
       | mentor_id | school_id                   | checkin_time       | checkin_lat| checkin_lon  | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-1 13:00:00 | 37.876869  | -122.270348  | true    |
+      | Kyler    | Jefferson Elementary School | 2019-12-1 13:00:00 | 37.876869  | -122.270348  | true    |
 
     And the following checkouts exist:
       | mentor_id | school_id                   | checkout_time      |checkout_lat|checkout_lon  | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-1 14:00:00 |37.876869   | -122.270348  | true    |
+      | Kyler    | Jefferson Elementary School | 2019-12-1 14:00:00 |37.876869   | -122.270348  | true    |
 
     Given I am signed in as an "super", "Jasamine"
     And I am on the "mentors_index" page
@@ -42,9 +42,9 @@ Feature: account management
   Scenario: 1) view the list of all mentors
     Then I should see the the following table row :
       | Name    | Email           | School                      |
-      | Emma    | es@berkeley.edu | Berkeley Arts Magnet School |
-      | Kyler   | ko@berkeley.edu | Jefferson Elementary School |
-      | Joseph  | jg@berkeley.edu | Jefferson Elementary School |
+      | Emma AZ    | esaz@berkeley.edu | Berkeley Arts Magnet School  |
+      | Kyler     | ko@berkeley.edu | Jefferson Elementary School  |
+      | Joseph    | jg@berkeley.edu | Jefferson Elementary School  |
 
 
   Scenario: 2) create a new mentor
@@ -59,25 +59,25 @@ Feature: account management
       | testMentor  | testmentor@berkeley.edu | Berkeley Arts Magnet School |
 
   Scenario: 3) edit mentor info
-    Given I am on the "edit_mentor, Emma" page
+    Given I am on the "edit_mentor, Emma AZ" page
     And I type in "Emily" in the input box labeled "Name"
     And I press the "Save" button
     Then I should have this "mentor" record:
       | name   | email           | school_id                   |
-      | Emily  | es@berkeley.edu | Berkeley Arts Magnet School |
+      | Emily  | esAZ@berkeley.edu | Berkeley Arts Magnet School |
 
 
   Scenario: 4) destroy a mentor account and all related checkins and checkouts should also be deleted
     Given I delete this "mentor" record:
       | name      | email           | school_id                    |
-      | Emma      | es@berkeley.edu | Berkeley Arts Magnet School  |
+      | Kyler   | ko@berkeley.edu | Jefferson Elementary School  |
     Then I should no longer have this "mentor" record:
       | name      | email           | school_id                    |
-      | Emma      | es@berkeley.edu | Berkeley Arts Magnet School  |
+      | Kyler   | ko@berkeley.edu | Jefferson Elementary School  |
     Then I should no longer have this "checkin" record:
       | mentor_id | school_id                   | checkin_time        | checkin_lat| checkin_lon  | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-1 13:00:00  | 37.876869  | -122.270348  | true    |
+      | Kyler    | Jefferson Elementary School | 2019-12-1 13:00:00 | 37.876869  | -122.270348  | true    |
     Then I should no longer have this "checkout" record:
       | mentor_id | school_id                   | checkout_time       |checkout_lat|checkout_lon  | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-1 14:00:00  | 37.876869  | -122.270348  | true    |
+      | Kyler    | Jefferson Elementary School | 2019-12-1 14:00:00 |37.876869   | -122.270348  | true    |
 

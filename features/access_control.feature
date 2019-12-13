@@ -21,7 +21,7 @@ Feature: access_control
 
     And the following mentors exist:
       | name      | email             | school_id                    |
-      | Emma      | emma@berkeley.edu | Berkeley Arts Magnet School  |
+      | Emma X    | emmax@berkeley.edu | Berkeley Arts Magnet School  |
       | Kyler     | ko@berkeley.edu   | Berkeley Arts Magnet School  |
 
   Scenario: 1) sign in as a super_user, should be able to access super page
@@ -44,13 +44,13 @@ Feature: access_control
 
 
   Scenario: 4) sign in as a mentor, should be able to access my appointment page for geolocation checkin and checkout
-    Given I am signed in as an "mentor", "Emma"
-    When I try to access the "mentor_geoloc_appointment, Emma" page
-    Then I should be on the "mentor_geoloc_appointment, Emma" page
+    Given I am signed in as an "mentor", "Emma X"
+    When I try to access the "mentor_geoloc_appointment, Emma X" page
+    Then I should be on the "mentor_geoloc_appointment, Emma X" page
 
 
   Scenario: 5) sign in as a mentor, should not be able to access appointment page for other mentor
-    Given I am signed in as an "mentor", "Emma"
+    Given I am signed in as an "mentor", "Emma X"
     When I try to access the "mentor_geoloc_appointment, Kyler" page
     Then I should be redirected to the "home" page
     And I should see the message "You don't have access to that page!"

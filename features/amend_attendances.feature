@@ -17,44 +17,44 @@ Feature: amend_attendances
 
     And the following mentors exist:
       | name      | email             | school_id                    |
-      | Emma      | emma@berkeley.edu | Berkeley Arts Magnet School  |
+      | Emma B    | emmab@berkeley.edu | Berkeley Arts Magnet School  |
 
     And the following checkins exist:
       | mentor_id | school_id                   | checkin_time       |checkin_lat| checkin_lon | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 37.876869 | -122.270348 | false    |
+      | Emma B   | Berkeley Arts Magnet School | 2019-12-2 13:00:00 | 37.876869 | -122.270348 | false    |
 
     And I am signed in as an "admin", "Darain"
 
 
   Scenario: 1) validate an invalid checkin/out record
-    Given I am on the "show_checkin, Emma, 2019-12-2 13:00:00" page
+    Given I am on the "show_checkin, Emma B, 2019-12-2 13:00:00" page
     And I press the "Edit Check In" link
-    Then I should be redirected to the "edit_checkin, Emma, 2019-12-2 13:00:00" page
+    Then I should be redirected to the "edit_checkin, Emma B, 2019-12-2 13:00:00" page
     And I choose "True" in the select box labeled "Isvalid"
     And I press the "Save" button
     Then I should have this "checkin" record:
       | mentor_id | school_id                   | checkin_time        |checkin_lat| checkin_lon | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-2 13:00:00  | 37.876869 | -122.270348 | true    |
+      | Emma B    | Berkeley Arts Magnet School | 2019-12-2 13:00:00  | 37.876869 | -122.270348 | true    |
 
 
   Scenario: 2) create a new corresponding checkout for a checkin that's missing a checkout
-    Given I am on the "show_checkin, Emma, 2019-12-2 13:00:00" page
+    Given I am on the "show_checkin, Emma B, 2019-12-2 13:00:00" page
     And I press the "Create New Checkout" link
     Then I should be redirected to the "new_checkout" page
     And I pick "2019-12-2 14:00" in the datetime_select box labeled "Checkout time"
     And I press the "Save" button
     Then I should have this "checkout" record:
       | mentor_id | school_id                   | checkout_time        |checkout_lat| checkout_lon | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-2 14:00:00   | 37.876869  | -122.270348  | true    |
+      | Emma B    | Berkeley Arts Magnet School | 2019-12-2 14:00:00   | 37.876869  | -122.270348  | true    |
 
 
   Scenario: 3) create a new checkin
-    Given I am on the "weeks_summary, Emma" page
+    Given I am on the "weeks_summary, Emma B" page
     And I press the "Create new checkin" link
     Then I should be redirected to the "new_checkin" page
     And I pick "2019-12-5 07:00" in the datetime_select box labeled "Checkin time"
     And I press the "Save" button
     Then I should have this "checkin" record:
       | mentor_id | school_id                   | checkin_time        |checkin_lat| checkin_lon | isValid |
-      | Emma      | Berkeley Arts Magnet School | 2019-12-5 7:00:00   | 37.876869 | -122.270348 | true    |
+      | Emma B    | Berkeley Arts Magnet School | 2019-12-5 7:00:00   | 37.876869 | -122.270348 | true    |
 

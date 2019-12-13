@@ -42,7 +42,8 @@ Then(/^I should have this "(.*)" record:$/) do |table_name, table|
         record = School.where(row).first if table_name == "school"
         record = Super.where(row).first if table_name == "super"
         record = Admin.where(row).first if table_name == "admin"
-        record = Mentor.where(row).first if table_name == "mentor"
+        record = Mentor.where(name: row["name"]).first if table_name == "mentor"
+
         record = Checkin.where(row).first if table_name == "checkin"
         record = Checkout.where(row).first if table_name == "checkout"
         expect(record).not_to be_nil
