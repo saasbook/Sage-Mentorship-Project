@@ -4,7 +4,7 @@
   %head
     %link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous")
     %title Sage Mentorship Check-in Application
-    %meta{:name => "google-signin-client_id", :content  => "874482834971-lqadmntua28ak3td8hkktbgphjheitnu.apps.googleusercontent.com"}
+    %meta{:name => "google-signin-client_id", :content  => Figaro.env.google_sign_in_client_id}
     = stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
