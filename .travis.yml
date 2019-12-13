@@ -9,7 +9,7 @@ bundler_args: --without production
 env:
  global:
   # in TravisCI settings, set CCKEY to your CodeClimate Test Reporter ID:
-  - CC_TEST_REPORTER_ID= $CCKEY
+  - CC_TEST_REPORTER_ID=$CCKEY
   - CCTR=./cc-test-reporter
   # set to whatever timezone your app assumes from this list:
   # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
