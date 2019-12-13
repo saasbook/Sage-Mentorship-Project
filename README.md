@@ -33,11 +33,11 @@ You can also set up the default version of ruby:
   $ bundle exec rake db:setup
   ```
 ## Run the server
-* Once you have all the gem installed and db setup run the command
+* Once you have all the gem installed and db setup use the command to run the server locally
   ```
   $ rails serveer
   ```
-  to run the server locally
+  
 
 ## Export to xml file
 * Gem that was used to export the records from the database to xml file is 'axlsx_rails'.
