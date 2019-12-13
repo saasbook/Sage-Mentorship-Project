@@ -1,7 +1,6 @@
-# Sage-Mentorship-Project
+### Sage-Mentorship-Project
 
 # Scaffolding
-
 First step is to ger a ruby version manager package:
 ```
 $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
@@ -18,16 +17,24 @@ You can also set up the default version of ruby:
 ```
 $ rvm --default use 2.5.1
 ```
-
+# Once you have all the environment set up correctly you can run
+* Clone the repository
+* Run the command below to install the dependencies 
+```
+$ bundle install --without production
+```
 # Seed the databse
 * In order to run it locally first run the command to seed the database and set up the tables
+* If you want the app to behave as super or admin  or mentor, you can go to db/seeds.rb and add 
+  your credentials on the list that's there, this will create a db entry once you run the command below
+  and will give you access to certain user type that you added your credentials on the file.
 ```
-  $ bundle exec rake db:setup
+$ bundle exec rake db:setup
 ```
 # Run the server
 * Once you have all the gem installed and db setup run the command
   ```
-  $ rails serve
+$ rails serveer
   ```
   to run the server locally
 
@@ -59,7 +66,7 @@ $ rvm --default use 2.5.1
   be nice to replace the redirect calls in JS using path helper rails path helper. 
 
 # Database Relations
-* There are 7 tables total. All the relations are indexed at ID. More information about tables are in schema file.
+* There are 6 tables total. All the relations are indexed at ID. More information about tables are in schema file.
 
 * Schools : School has hasmany relation with checkin, checkout, mentors and the relation is dependent destroy. 
   School has one to one relation with admins.
