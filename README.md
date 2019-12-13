@@ -1,12 +1,12 @@
-### Sage-Mentorship-Project
+# Sage-Mentorship-Project
 
-# Scaffolding
+## Scaffolding
 First step is to ger a ruby version manager package:
   ```
   $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
   $ \curl -sSL https://get.rvm.io | bash -s stable
   ```
-# Setting Up Ruby
+## Setting Up Ruby
 Required Ruby version: ruby '>=2.4.7' for example you can use ruby 2.5.1 as follows.
   ```
   $ rvm install 2.5.1
@@ -17,13 +17,13 @@ You can also set up the default version of ruby:
   ```
   $ rvm --default use 2.5.1
   ```
-# Once you have all the environment set up correctly you can run
+## Once you have all the environment set up correctly you can run
 * Clone the repository
 * Run the command below to install the dependencies 
   ```
   $ bundle install --without production
   ```
-# Seed the databse
+## Seed the databse
 * In order to run it locally first run the command to seed the database and set up the tables
 * If you want the app to behave as super or admin  or mentor, you can go to db/seeds.rb and add 
   your credentials on the list that's there, this will create a db entry once you run the command below
@@ -31,14 +31,14 @@ You can also set up the default version of ruby:
   ```
   $ bundle exec rake db:setup
   ```
-# Run the server
+## Run the server
 * Once you have all the gem installed and db setup run the command
   ```
   $ rails serveer
   ```
   to run the server locally
 
-# Export to xml file
+## Export to xml file
 * Gem that was used to export the records from the database to xml file is 'axlsx_rails'.
   Link to documentation: https://github.com/caxlsx/axlsx_rails.
   Implementation is done in mentor views _index.xlsx.axlsx file that gets called when the 
@@ -48,7 +48,7 @@ You can also set up the default version of ruby:
   Checkin and Checkout table so we had to make raw sql query to join those two tables to generate 
   the reports.
 
-# Geolocation
+## Geolocation
 * Right now the application gets the geolocation using javascript that gets called when user clicks 
   checkin or checkout button. Once the user clicks any of those two buttons, javascript get's the 
   location from user browser which was accurate than any other gems that we tried because it's being 
@@ -65,7 +65,7 @@ You can also set up the default version of ruby:
   in mentor controller and there is an issue of this app generating # at the end of url sometimes. It would 
   be nice to replace the redirect calls in JS using path helper rails path helper. 
 
-# Database Relations
+## Database Relations
 * There are 6 tables total. All the relations are indexed at ID. More information about tables are in schema file.
 
 * Schools : School has hasmany relation with checkin, checkout, mentors and the relation is dependent destroy. 
