@@ -70,7 +70,9 @@ You can also set up the default version of ruby:
 * gem 'google_sign_in' is used to simplify the process of implementing google sign in feature, which also 
   includes calnet authentication since calnet is through gmail.
 * documentation for 'google_sign_in' gem can be found at: https://github.com/basecamp/google_sign_in
-* A google developer api key is required for this and will be controlled through Sage Mentorship personnel.
+* A google developer api key is required for this and will be controlled through Sage Mentorship personnel. 
+  - See "configure a project"   link here: https://developers.google.com/identity/sign-in/web/sign-in
+  - Upon configuring a project, you must also link the intended website homepage domain and callback url.
 
 ## Database Relations
 * There are 6 tables total. All the relations are indexed at ID. More information about tables are in schema file.
