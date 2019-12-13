@@ -1,15 +1,18 @@
 # Sage-Mentorship-Project
 
 ## Scaffolding
+
+
 First step is to ger a ruby version manager package:
 ```
 $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
 $ \curl -sSL https://get.rvm.io | bash -s stable
 ```
 ### Setting Up Ruby
+Required Ruby version: ruby '>=2.4.7' for example you can use ruby 2.5.1 as follows.
 ```
 $ rvm install 2.5.1
-$ rvm use 2.1.1
+$ rvm use 2.5.1
 $ ruby -v
 ```
 You can also set up the default version of ruby:
