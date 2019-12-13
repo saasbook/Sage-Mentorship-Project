@@ -1,7 +1,7 @@
 ### Sage-Mentorship-Project
 
 # Scaffolding
-First step is to ger a ruby version manager package:
+First step is to get a ruby version manager package:
   ```
   $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
   $ \curl -sSL https://get.rvm.io | bash -s stable
@@ -65,6 +65,12 @@ You can also set up the default version of ruby:
   in mentor controller and there is an issue of this app generating # at the end of url sometimes. It would 
   be nice to replace the redirect calls in JS using path helper rails path helper. 
 
+# Google sign in
+* gem 'google_sign_in' is used to simplify the process of implementing google sign in feature, which also 
+  includes calnet authentication since calnet is through gmail.
+* documentation for 'google_sign_in' gem can be found at: https://github.com/basecamp/google_sign_in
+* A google developer api key is required for this and will be controlled through Sage Mentorship personnel.
+
 # Database Relations
 * There are 6 tables total. All the relations are indexed at ID. More information about tables are in schema file.
 
@@ -92,6 +98,25 @@ You can also set up the default version of ruby:
  $--output config/application.yml config/application.yml.asc
 ```
 
+* 'Figaro' gem is used along with this encrypted application file in order to use the keys throughout the application.
+
+# User access rights
+* Super: 
+  - see all mentor data
+  - see all school data
+  - see all admin data
+  - see all super user data
+  - create, edit, destroy all of the above user types
+  - export checkin data to csv file and reset checkin/checkout tables
+* Admin: 
+  - see all mentor checkins for their school only
+  - able to created, edit, delete mentors
+  - able to create, edit, delete check in for particular mentor
+  - able to create, edit, delete check out for particular mentor
+  - able to mark checkin and checkout geolocation as valid/invalid. Default range for 'valid' status is 0.25mi from a school.
+* Mentor:
+  - able to check out and check in to their mentorship assignment
+  
 # Note
 * Currently the app is deployed in heroku and the link to app is https://rocky-tundra-90969.herokuapp.com/, though in future 
   i believe it will be deployed to somewhere else. By default rails uses sqlite as db but heroku doesn't support sqlite, so we have
