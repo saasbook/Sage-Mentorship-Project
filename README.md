@@ -1,7 +1,6 @@
 # Sage-Mentorship-Project
 
 ## Scaffolding
-First step is to ger a ruby version manager package:
 First step is to get a ruby version manager package:
   ```
   $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
