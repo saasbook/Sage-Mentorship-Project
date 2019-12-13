@@ -1,6 +1,5 @@
 # Sage-Mentorship-Project
 
-<<<<<<< HEAD
 ## Scaffolding
 First step is to ger a ruby version manager package:
 First step is to get a ruby version manager package:
