@@ -73,7 +73,6 @@ You can also set up the default version of ruby:
 * A google developer api key is required for this and will be controlled through Sage Mentorship personnel.
 
 ## Database Relations
->>>>>>> 8853675930905aa08ed84b5424c4cd41548eae9c
 * There are 6 tables total. All the relations are indexed at ID. More information about tables are in schema file.
 
 * Schools : School has hasmany relation with checkin, checkout, mentors and the relation is dependent destroy. 
