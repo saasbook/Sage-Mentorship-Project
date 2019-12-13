@@ -2,39 +2,39 @@
 
 # Scaffolding
 First step is to ger a ruby version manager package:
-```
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
-$ \curl -sSL https://get.rvm.io | bash -s stable
-```
+  ```
+  $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E37D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  $ \curl -sSL https://get.rvm.io | bash -s stable
+  ```
 # Setting Up Ruby
 Required Ruby version: ruby '>=2.4.7' for example you can use ruby 2.5.1 as follows.
-```
-$ rvm install 2.5.1
-$ rvm use 2.5.1
-$ ruby -v
-```
+  ```
+  $ rvm install 2.5.1
+  $ rvm use 2.5.1
+  $ ruby -v
+  ```
 You can also set up the default version of ruby:
-```
-$ rvm --default use 2.5.1
-```
+  ```
+  $ rvm --default use 2.5.1
+  ```
 # Once you have all the environment set up correctly you can run
 * Clone the repository
 * Run the command below to install the dependencies 
-```
-$ bundle install --without production
-```
+  ```
+  $ bundle install --without production
+  ```
 # Seed the databse
 * In order to run it locally first run the command to seed the database and set up the tables
 * If you want the app to behave as super or admin  or mentor, you can go to db/seeds.rb and add 
   your credentials on the list that's there, this will create a db entry once you run the command below
   and will give you access to certain user type that you added your credentials on the file.
-```
-$ bundle exec rake db:setup
-```
+  ```
+  $ bundle exec rake db:setup
+  ```
 # Run the server
 * Once you have all the gem installed and db setup run the command
   ```
-$ rails serveer
+  $ rails serveer
   ```
   to run the server locally
 
