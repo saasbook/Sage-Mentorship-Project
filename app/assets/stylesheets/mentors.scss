@@ -1,0 +1,26 @@
+// Place all the styles related to the Mentors controller here.
+
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  margin: 0; width: 100%;
+}
+
+.block {
+  display: block;
+  width: 98%;
+  border: none;
+  background-color: #f4f7f9;
+  color: #8c8c8c;
+  line-height: 150px;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.block:hover {
+  background-color: #9faebb;
+  color: white;
+}

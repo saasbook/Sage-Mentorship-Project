@@ -1,0 +1,49 @@
+-#
+!!! 5
+%html
+  %head
+    %link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous")
+    %title Sage Mentorship Check-in Application
+    %meta{:name => "google-signin-client_id", :content  => Figaro.env.google_sign_in_client_id}
+    = stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+    %body
+      %ul
+        %li
+          = link_to image_tag('/sage_logo_2.jpg'), root_path
+
+        - if @current_user.is_a? Mentor
+          %li
+            = link_to "Weeks Summary", mentor_details_path(@current_user)
+            = link_to "Check in & Check out", @current_user
+
+        - elsif @current_user.is_a? Admin
+          %li
+            = link_to "School Activities", @current_user
+
+        - elsif @current_user.is_a? Super
+          %li
+            = link_to "Manage Accounts", @current_user
+
+        %li.dropdown_right
+          %a.dropbtn
+          %a.dropbtn
+            = "Sign in" if @current_user.nil?
+            = @current_user.name + " (Mentor)" if @current_user.is_a? Mentor
+            = @current_user.name + " (Admin)" if @current_user.is_a? Admin
+            = @current_user.name + " (Super)" if @current_user.is_a? Super
+          .dropdown-content
+            = google_sign_in_button 'Sign in with Google', proceed_to: create_login_path, prompt: 'select_account'
+            = link_to("Sign Out", logout_url, :method => :delete)
+
+      .main
+        - if flash[:notice]
+          %div.alert.alert-danger
+            #notice.message= flash[:notice]
+        - elsif flash[:warning]
+          %div.alert.alert-danger
+            #warning.message= flash[:warning]
+        %div.yielded_area
+          %div{:class => "container", :style => "text-align: left", :id => "main"}=yield

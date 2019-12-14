@@ -1,0 +1,58 @@
+// Place all the styles related to the Admins controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* colors */
+$row_background: #ebf1f4;
+$row_outline: #e0e6e6;
+$row_hover: #f4f7f9;
+$table_font: black;
+
+table {
+  width: 100%;
+  font-size: 18px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  #border-collapse: collapse;
+  border: 1px solid $row_outline;
+  background-color: $row_background;
+  color: $table_font;
+}
+
+caption {
+  caption-side: top;
+  background-color: #3c536a;
+  color: #e6e6e6;
+  text-align: center;
+  border-bottom: 5px solid white;
+}
+
+th {
+  font-size: 18px;
+  #background-color: #354b60;
+
+  padding: 10px 10px;
+  justify-content: center;
+}
+
+tr {
+  border-bottom: 1px solid $row_outline;
+}
+
+tr td {
+  padding: 10px 10px;
+  justify-content: center;
+  font-size: 18px;
+}
+
+tbody tr:hover {
+  background-color: $row_hover;
+}
+
+
+
+
+
+
+

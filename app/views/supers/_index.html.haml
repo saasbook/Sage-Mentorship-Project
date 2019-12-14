@@ -1,0 +1,19 @@
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th
+
+  %tbody
+    - @supers.each do |super_user|
+      %tr
+        %td= super_user.name
+        %td= super_user.email
+        %td= link_to 'Edit', edit_super_path(super_user)
+        %td= link_to 'Destroy', super_user, method: :delete, data: { confirm: "Are you sure you want to remove Super User #{super_user.name} from the database?" }
+
+%br
+
+= link_to 'New Super User', new_super_path

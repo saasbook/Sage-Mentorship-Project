@@ -1,0 +1,23 @@
+%table
+  %thead
+    %tr
+      %th Name
+      %th Address
+      %th Latitude
+      %th Longitude
+      %th
+      %th
+
+  %tbody
+    - @schools.each do |school|
+      %tr
+        %td= link_to school.name, school
+        %td= school.address
+        %td= school.lat
+        %td= school.lon
+        %td= link_to 'Edit', edit_school_path(school)
+        %td= link_to 'Destroy', school, method: :delete, data: { confirm: "Are you sure you want to remove School #{school.name} from the database? All related admin, mentor, checkin, checkout records will also be deleted" }
+
+%br
+
+= link_to 'New School', new_school_path
