@@ -96,8 +96,8 @@ You can also set up the default version of ruby:
 * Once you have that key, you can run the command below to decrypt the key, be sure to add the decrypted file in your gitignore.
 ```
  $export KEY=your-secret-key-value 
- $gpg --passphrase "$KEY" --decrypt \
- $--output config/application.yml config/application.yml.asc
+gpg --passphrase "$KEY" --decrypt \
+--output config/application.yml config/application.yml.asc
 ```
 
 * 'Figaro' gem is used along with this encrypted application file in order to use the keys throughout the application.
